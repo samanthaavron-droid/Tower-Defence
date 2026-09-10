@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class BuildingBase : MonoBehaviour //this code runs when the building is created
@@ -5,26 +6,32 @@ public class BuildingBase : MonoBehaviour //this code runs when the building is 
     BuildingBase user;
     public BuildingStatsTemplate buildingStatsTemplate;
     public BuildingStatsRuntime buildingStats;
-    public BuildingWeapon weapon;
+    public BuildingWeapon weapon = null;
     public WeaponType weaponType;
     public GameObject debreePrefab;
-    private void OnValidate()
-    {
-        SetWeapon();
-    }
+    public GameObject projectilePrefab;
     void Start()
     {
         buildingStats = new(buildingStatsTemplate);
         user = this;
+        StartCoroutine(StartBuilding());
     }
     void Update()
     {
-        WeaponCooldownUpdate();
+        if (weapon != null)
+        {
+            WeaponCooldownUpdate();
+            Attack();
+        }
+    }
+    private IEnumerator StartBuilding()
+    {
+        yield return new WaitForSeconds(buildingStats.buildingSpeed);
+
+        SetWeapon();
     }
     private void WeaponCooldownUpdate()
     {
-        if (weapon == null) return;
-
         if (weapon.buildingStats.cooldown > 0)
         {
             weapon.buildingStats.cooldown -= Time.deltaTime;
@@ -47,10 +54,7 @@ public class BuildingBase : MonoBehaviour //this code runs when the building is 
     }
     public void Attack()
     {
-        if (weapon != null)
-        {
-            weapon.Use(user);
-        }
+        weapon.Use(user);
     }
     public void TakeDamage(float damage)
     {
@@ -62,8 +66,15 @@ public class BuildingBase : MonoBehaviour //this code runs when the building is 
     }
     private void Death()
     {
-        GameObject debree = Instantiate(debreePrefab, transform.position, Quaternion.identity);
-        debree.GetComponent<Debree>().buildingStats = buildingStats;
+        if (buildingStats.priority == false)
+        {
+            GameObject debree = Instantiate(debreePrefab, transform.position, Quaternion.identity);
+            debree.GetComponent<Debree>().buildingStats = buildingStats;
+            Destroy(gameObject);
+        } else
+        {
+            //gameover
+        }
     }
 }
 public enum WeaponType

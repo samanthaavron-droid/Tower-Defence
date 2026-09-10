@@ -10,4 +10,5 @@ public class EnemyStatsTemplate : ScriptableObject
     public float rechargeTime; //between shots
     public float damage;
     public float speed;
+    public float projectileHealth;
 }

@@ -13,7 +13,7 @@ public class BuildingStatsRuntime
     public float buildingCost { get; set; }
     public bool priority { get; set; }
     public float cooldown { get; set; }
-    public float currentLeveled { get; set; } = 1;
+    public float currentLevel { get; set; } = 1;
 
     public BuildingStatsRuntime(BuildingStatsTemplate s)
     {

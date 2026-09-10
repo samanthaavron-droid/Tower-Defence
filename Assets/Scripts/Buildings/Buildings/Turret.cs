@@ -10,7 +10,17 @@ public class Turret : BuildingWeapon
     {
         if (buildingStats.cooldown > 0 || user == null) return;
 
-        buildingStats.cooldown = buildingStats.rechargeTime;
+        Collider2D hit = Physics2D.OverlapCircle(user.transform.position, buildingStats.attackRange, LayerMask.GetMask("Enemy"));
+        if (hit != null)
+        {
+            GameObject projectile = GameObject.Instantiate(user.projectilePrefab, user.transform.position, Quaternion.identity);
+            BasicTowerProjectile projectileInfo = projectile.GetComponent<BasicTowerProjectile>();
+            projectileInfo.buildingStats = buildingStats;
+
+            projectileInfo.futurePos = (Interception.GetInterceptionPoint(user.transform.position, hit.transform.position, hit.GetComponent<Rigidbody2D>().linearVelocity, buildingStats.projectileSpeed) - user.transform.position).normalized;
+
+            buildingStats.cooldown = buildingStats.rechargeTime;
+        }
     }
     public override void LevelUp()
     {

@@ -10,6 +10,12 @@ public class Fighter : EnemyLogic
     {
         if (enemyStats.cooldown > 0 || user == null) return;
 
-        enemyStats.cooldown = enemyStats.rechargeTime;
+        RaycastHit2D hit = Physics2D.Raycast(user.transform.position, Vector2.left, enemyStats.attackRange, LayerMask.GetMask("Building"));
+        if (hit.collider == true)
+        {
+            GameObject projectile = GameObject.Instantiate(user.projectilePrefab, user.transform.position, Quaternion.identity);
+            projectile.GetComponent<BasicEnemyProjectile>().enemyStats = enemyStats;
+            enemyStats.cooldown = enemyStats.rechargeTime;
+        }
     }
 }

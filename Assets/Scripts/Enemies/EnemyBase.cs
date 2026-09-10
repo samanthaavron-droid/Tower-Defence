@@ -7,25 +7,29 @@ public class EnemyBase : MonoBehaviour //this code runs when the enemy is create
     public EnemyStatsRuntinme enemyStats;
     public EnemyLogic enemyLogic;
     public EnemyType enemyType;
+    public GameObject projectilePrefab;
     private void OnValidate()
     {
-        SetType();
+        
     }
     void Start()
     {
+        SetType();
         enemyStats = new(enemyStatsTemplate);
         user = this;
     }
 
     void Update()
     {
-        WeaponCooldownUpdate();
+        if (enemyLogic != null)
+        {
+            WeaponCooldownUpdate();
+            Attack();
+        }
         Move();
     }
     private void WeaponCooldownUpdate()
     {
-        if (enemyLogic == null) return;
-
         if (enemyLogic.enemyStats.cooldown > 0)
         {
             enemyLogic.enemyStats.cooldown -= Time.deltaTime;
@@ -52,10 +56,7 @@ public class EnemyBase : MonoBehaviour //this code runs when the enemy is create
     }
     public void Attack()
     {
-        if (enemyLogic != null)
-        {
-            enemyLogic.Attack(user);
-        }
+        enemyLogic.Attack(user);
     }
     public void TakeDamage(float damage)
     {
@@ -67,7 +68,7 @@ public class EnemyBase : MonoBehaviour //this code runs when the enemy is create
     }
     private void Death()
     {
-
+        EnemyManager.instance.EnemyDied(this);
     }
 }
 public enum EnemyType

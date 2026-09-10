@@ -4,7 +4,7 @@ using UnityEngine.Tilemaps;
 
 public class Builder : MonoBehaviour
 {
-    [SerializeField] private Tilemap _tilemap;
+    public Tilemap tilemap;
     [SerializeField] private Camera _mainCamera;
     public GameObject currentPrefab = null;
     private Vector3Int _currentCellPosition;
@@ -31,17 +31,18 @@ public class Builder : MonoBehaviour
         {
             if (currentPrefab == null)
             {
-                Collider2D hit = Physics2D.OverlapPoint(_tilemap.GetCellCenterWorld(_currentCellPosition));
+                Collider2D hit = Physics2D.OverlapPoint(tilemap.GetCellCenterWorld(_currentCellPosition));
 
                 if (hit != null)
                 {
                     if (hit.GetComponent<Grabber>() != null)
                     {
-                        if (currentResource - hit.gameObject.GetComponent<Grabber>().resourceCost >= 0)
+                        Grabber grabber = hit.GetComponent<Grabber>();
+                        if (currentResource - grabber.buildingCost >= 0)
                         {
-                            currentPrefab = Instantiate(hit.gameObject.GetComponent<Grabber>().prefabIU, hit.gameObject.transform.position, Quaternion.identity);
+                            currentPrefab = Instantiate(grabber.prefabIU, hit.gameObject.transform.position, Quaternion.identity);
                             _buildingOnMouse = true;
-                            currentResource -= currentPrefab.GetComponent<Grabber>().resourceCost;
+                            currentResource -= grabber.buildingCost;
 
                             Debug.Log("Building Placed! Remaining Resources: " + currentResource);
                         }
@@ -64,7 +65,7 @@ public class Builder : MonoBehaviour
         Vector3 mouseWorldPosition = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
         mouseWorldPosition.z = 0;
 
-        _currentCellPosition = _tilemap.WorldToCell(mouseWorldPosition);
+        _currentCellPosition = tilemap.WorldToCell(mouseWorldPosition);
     }
     private void PlaceNewBuilding()
     {
@@ -74,10 +75,14 @@ public class Builder : MonoBehaviour
             if (currentPrefab.GetComponent<Debree>() == null) return;
 
             RemoveDebree();
-        } else
+        } else if (currentPrefab.GetComponent<Debree>() != null) //if the cell is not occupied and you have remover, it does nothing
+        {
+            BuilderReset();
+        }
+        else
         {
             GameObject building = Instantiate(currentPrefab);
-            building.transform.position = _tilemap.GetCellCenterWorld(_currentCellPosition);
+            building.transform.position = tilemap.GetCellCenterWorld(_currentCellPosition);
             occupiedCells.Add(_currentCellPosition);
 
             BuilderReset();
@@ -103,11 +108,11 @@ public class Builder : MonoBehaviour
     private void RemoveDebree() //starts the debree removal process and resets the builder
     {
         BuilderReset();
-        Collider2D hit = Physics2D.OverlapPoint(_tilemap.GetCellCenterWorld(_currentCellPosition));
+        Collider2D hit = Physics2D.OverlapPoint(tilemap.GetCellCenterWorld(_currentCellPosition));
 
         if (hit.gameObject.GetComponent<Debree>() != null)
         {
-            hit.gameObject.GetComponent<Debree>().StartRemoval();
+            hit.gameObject.GetComponent<Debree>().StartRemoval(this);
         }
     }
 }
