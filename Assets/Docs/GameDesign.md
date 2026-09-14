@@ -28,20 +28,20 @@
 
 ##### PIO:
 
-Problem 1: 
-        Turret is unable to shoot down an aircraft before being destroyed.
-        Impact: You loose a turret.
-        Solution: Have an adjasent turret that can help you shoot down the aircraft in time.
+- Problem 1: 
+Turret is unable to shoot down an aircraft before being destroyed.
+Impact: You loose a turret.
+Solution: Have an adjasent turret that can help you shoot down the aircraft in time.
 
-Problem 2: 
-        You are overwhelmed by enemy forces.
-        Impact: You will probably loose.
-        Solution: Use a limited special ability to protect your city while you rebuild your turrets.
+- Problem 2: 
+You are overwhelmed by enemy forces.
+Impact: You will probably loose.
+Solution: Use a limited special ability to protect your city while you rebuild your turrets.
 
-Problem 3:
-        You lost a round.
-        Impact: You have lost all your earnings from that round.
-        Solution: Watch an add to regain hp.
+- Problem 3:
+You lost a round.
+Impact: You have lost all your earnings from that round.
+Solution: Watch an add to regain hp.
 
 ##### Planning:
 - Sprint 1:
