@@ -1,26 +1,20 @@
-Titel: Peveo Belgorod
+##### Titel: Peveo Belgorod
+- Build your air defence system to protect your city against aircrafts. They're angry.
 
-Build your air defence system to protect your city against aircrafts. They're angry.
+##### What makes it unique?
+- This tower defence has multiple lines of defence, and your towers can be destroyed.
 
-What makes it unique?
-    This tower defence has multiple lines of defence, and your towers can be destroyed.
-
-Towers:
+##### Towers:
 - Turret - low range, small damage, doesn't leave debree, quick to build.
+- Rocket Launcher - high range, high damage, slow, medium build duration.
+- Civilian houses (to defend)
+- Debree (from destroyed buildings)
 
-Rocket Launcher - high range, high damage, slow, medium build duration.
+##### Enemies:
+- Fighter - medium speed, low health, shoots forward when close;
+- Bomber - low speed, high health, deals damage from above;
 
-Civilian houses (to defend)
-
-Debree (from destroyed buildings)
-
-Enemies:
-
-Fighter - medium speed, low health, shoots forward when close;
-
-Bomber - low speed, high health, deals damage from above;
-
-Gameplay loop:
+##### Gameplay loop:
 
 1. You spend your budget to place turrets (takes time to build).
 2. Enemy aircrafts try to get past your defence, destroying some of your turrets in the process.
@@ -28,9 +22,9 @@ Gameplay loop:
 4. More strong enemy aircraft waves attack you.
 5. Survive all the waves.
 
-Progression:
+##### Progression:
 
-Bigger budget allows you to upgrade current turrets, buy new turrets or special abilities. Later levels include more and bigger waves, stronger enemies, additional defence points.
+- Bigger budget allows you to upgrade current turrets, buy new turrets or special abilities. Later levels include more and bigger waves, stronger enemies, additional defence points.
 
 PIO:
 
