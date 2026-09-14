@@ -26,7 +26,7 @@
 
 - Bigger budget allows you to upgrade current turrets, buy new turrets or special abilities. Later levels include more and bigger waves, stronger enemies, additional defence points.
 
-PIO:
+##### PIO:
 
 Problem 1: 
         Turret is unable to shoot down an aircraft before being destroyed.
@@ -43,12 +43,12 @@ Problem 3:
         Impact: You have lost all your earnings from that round.
         Solution: Watch an add to regain hp.
 
-Planning:
-    Sprint 1:
-    Sprint 2:
-    Sprint 3: 
-    Sprint 4: 
-    Sprint 5: 
+##### Planning:
+- Sprint 1:
+- Sprint 2:
+- Sprint 3: 
+- Sprint 4: 
+- Sprint 5: 
 
-Inspiration:
-    Plants vs Zombies
+##### Inspiration:
+- Plants vs Zombies
