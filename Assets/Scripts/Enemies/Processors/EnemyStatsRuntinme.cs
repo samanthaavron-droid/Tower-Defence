@@ -11,6 +11,7 @@ public class EnemyStatsRuntinme
     public float speed { get; set; }
     public float cooldown { get; set; }
     public float projectileHealth { get; set; }
+    public float worth {  get; set; }
     public EnemyStatsRuntinme(EnemyStatsTemplate s)
     {
         //this is for when the enemy is created
@@ -21,5 +22,6 @@ public class EnemyStatsRuntinme
         rechargeTime = s.rechargeTime;
         speed = s.speed;
         projectileHealth = s.projectileHealth;
+        worth = s.worth;
     }
 }

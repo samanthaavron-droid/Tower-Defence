@@ -3,9 +3,10 @@ using UnityEngine;
 public class BasicEnemyProjectile : MonoBehaviour
 {
     [HideInInspector] public EnemyStatsRuntinme enemyStats;
+    [HideInInspector] public Vector3 futurePos;
     private void Update()
     {
-        Move();
+        MoveToFuturePoint();
     }
     public void TakeDamage(float damage)
     {
@@ -24,8 +25,8 @@ public class BasicEnemyProjectile : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    private void Move()
+    private void MoveToFuturePoint()
     {
-        transform.position += Vector3.left * enemyStats.projectileSpeed * Time.deltaTime;
+        transform.position += futurePos * enemyStats.projectileSpeed * Time.deltaTime;
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BuildingBase : MonoBehaviour //this code runs when the building is created
 {
@@ -10,11 +11,18 @@ public class BuildingBase : MonoBehaviour //this code runs when the building is 
     public WeaponType weaponType;
     public GameObject debreePrefab;
     public GameObject projectilePrefab;
+    private SpriteRenderer _spriteRenderer;
+    public Image healthBar;
+    private float maxHealth;
     void Start()
     {
-        buildingStats = new(buildingStatsTemplate);
-        user = this;
-        StartCoroutine(StartBuilding());
+        if (buildingStats == null)
+        {
+            buildingStats = new(buildingStatsTemplate);
+            user = this;
+            maxHealth = buildingStats.health;
+        }
+        healthBar.fillAmount = 1f;
     }
     void Update()
     {
@@ -24,8 +32,19 @@ public class BuildingBase : MonoBehaviour //this code runs when the building is 
             Attack();
         }
     }
-    private IEnumerator StartBuilding()
+    public IEnumerator StartBuilding()
     {
+        buildingStats = new(buildingStatsTemplate);
+        user = this;
+        maxHealth = buildingStats.health;
+
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+
+        Color color = _spriteRenderer.color;
+        color.a = 0f;
+        _spriteRenderer.color = color;
+
+        StartCoroutine(FadeIn());
         yield return new WaitForSeconds(buildingStats.buildingSpeed);
 
         SetWeapon();
@@ -50,6 +69,9 @@ public class BuildingBase : MonoBehaviour //this code runs when the building is 
             case WeaponType.Rocket:
                 //weapon = new Rocket(buildingStatsTemplate);
                 break;
+            case WeaponType.Minigun:
+                weapon = new Minigun(buildingStatsTemplate);
+                break;
         }
     }
     public void Attack()
@@ -63,6 +85,9 @@ public class BuildingBase : MonoBehaviour //this code runs when the building is 
         {
             Death();
         }
+        Debug.Log(gameObject + " has " + buildingStats.health + " health left");
+
+        healthBar.fillAmount = buildingStats.health / maxHealth;
     }
     private void Death()
     {
@@ -73,13 +98,34 @@ public class BuildingBase : MonoBehaviour //this code runs when the building is 
             Destroy(gameObject);
         } else
         {
-            //gameover
+#if UNITY_EDITOR
+            // stops Play Mode inside the Unity Editor
+            UnityEditor.EditorApplication.isPlaying = false;
+#endif
         }
+    }
+    private IEnumerator FadeIn()
+    {
+        float timeElapse = 0;
+        float timeToElapse = buildingStats.buildingSpeed;
+        Color c = _spriteRenderer.color;
+
+        while (timeElapse < timeToElapse)
+        {
+            timeElapse += Time.deltaTime;
+            c.a = Mathf.Lerp(0, 1, timeElapse / timeToElapse);
+            _spriteRenderer.color = c;
+
+            yield return null;
+        }
+        c.a = 1f;
+        _spriteRenderer.color = c;
     }
 }
 public enum WeaponType
 {
     None,
     Turret,
-    Rocket
+    Rocket,
+    Minigun,
 }

@@ -14,13 +14,13 @@
       <string>C:\Users\Samantha\Documents\MediaCollegeGitHub\Gamedev\Tower Defence\Assets\Scripts\Enemies\Processors\EnemyStatsRuntinme.cs</string>
     </ArrayOfString>
     <ArrayOfString>
-      <string>C:\Users\Samantha\Documents\MediaCollegeGitHub\Gamedev\Tower Defence\Assets\Scripts\Buildings\Builder.cs</string>
-    </ArrayOfString>
-    <ArrayOfString>
       <string>C:\Users\Samantha\Documents\MediaCollegeGitHub\Gamedev\Tower Defence\Assets\Scripts\Enemies\Projectiles\Basic Enemy Projectile.cs</string>
     </ArrayOfString>
     <ArrayOfString>
       <string>C:\Users\Samantha\Documents\MediaCollegeGitHub\Gamedev\Tower Defence\Assets\Scripts\Buildings\Buildings\Turret.cs</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>C:\Users\Samantha\Documents\MediaCollegeGitHub\Gamedev\Tower Defence\Assets\Scripts\Enemies\Processors\EnemyStatsTemplate.cs</string>
     </ArrayOfString>
   </ArrayOfArrayOfString>
   <ArrayOfArrayOfString>
@@ -41,6 +41,15 @@
     </ArrayOfString>
     <ArrayOfString>
       <string>C:\Users\Samantha\Documents\MediaCollegeGitHub\Gamedev\Tower Defence\Assets\Scripts\Buildings\Buildings\CityEdge (killzone).cs</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>C:\Users\Samantha\Documents\MediaCollegeGitHub\Gamedev\Tower Defence\Assets\Scripts\Buildings\Builder.cs</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>C:\Users\Samantha\Documents\MediaCollegeGitHub\Gamedev\Tower Defence\Assets\Scripts\Buildings\Buildings\Minigun.cs</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>C:\Users\Samantha\Documents\MediaCollegeGitHub\Gamedev\Tower Defence\Assets\Scripts\Enemies\Enemies\Bomber.cs</string>
     </ArrayOfString>
   </ArrayOfArrayOfString>
 </ArrayOfArrayOfArrayOfString>

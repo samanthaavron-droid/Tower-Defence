@@ -11,4 +11,5 @@ public class EnemyStatsTemplate : ScriptableObject
     public float damage;
     public float speed;
     public float projectileHealth;
+    public float worth;
 }

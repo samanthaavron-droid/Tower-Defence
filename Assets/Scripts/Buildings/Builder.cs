@@ -4,6 +4,7 @@ using UnityEngine.Tilemaps;
 
 public class Builder : MonoBehaviour
 {
+    public static Builder instance;
     public Tilemap tilemap;
     [SerializeField] private Camera _mainCamera;
     public GameObject currentPrefab = null;
@@ -11,9 +12,11 @@ public class Builder : MonoBehaviour
     public List<Vector3Int> occupiedCells = new();
     private bool _buildingOnMouse = false;
     public float currentResource;
+    [SerializeField] private BuildingBase city;
     void Start()
     {
-        
+        currentResource = city.buildingStatsTemplate.buildingCost; //initial resources of the level
+        instance = this;
     }
 
     void Update()
@@ -38,19 +41,8 @@ public class Builder : MonoBehaviour
                     if (hit.GetComponent<Grabber>() != null)
                     {
                         Grabber grabber = hit.GetComponent<Grabber>();
-                        if (currentResource - grabber.buildingCost >= 0)
-                        {
-                            currentPrefab = Instantiate(grabber.prefabIU, hit.gameObject.transform.position, Quaternion.identity);
-                            _buildingOnMouse = true;
-                            currentResource -= grabber.buildingCost;
-
-                            Debug.Log("Building Placed! Remaining Resources: " + currentResource);
-                        }
-                        else
-                        {
-                            Debug.Log("Not enough resources to build this!"); 
-                            //run effect to show not enough resources
-                        }
+                        currentPrefab = Instantiate(grabber.prefabIU, hit.gameObject.transform.position, Quaternion.identity);
+                        _buildingOnMouse = true;
                     }
                 }
             }
@@ -69,6 +61,12 @@ public class Builder : MonoBehaviour
     }
     private void PlaceNewBuilding()
     {
+        if (tilemap.HasTile(_currentCellPosition) == false)
+        {
+            BuilderReset(); 
+            return;
+        }
+            
         if (IsCellOccupied(_currentCellPosition) == true)
         {
             //if the cell is occupied and you have remover, it runs remover
@@ -81,9 +79,23 @@ public class Builder : MonoBehaviour
         }
         else
         {
-            GameObject building = Instantiate(currentPrefab);
-            building.transform.position = tilemap.GetCellCenterWorld(_currentCellPosition);
-            occupiedCells.Add(_currentCellPosition);
+            if (currentResource - currentPrefab.GetComponent<BuildingBase>().buildingStatsTemplate.buildingCost >= 0)
+            {
+                GameObject building = Instantiate(currentPrefab);
+                BuildingBase currentTower = building.GetComponent<BuildingBase>();
+
+                building.transform.position = tilemap.GetCellCenterWorld(_currentCellPosition);
+                occupiedCells.Add(_currentCellPosition);
+
+                currentTower.StartCoroutine(currentTower.StartBuilding());
+                currentResource -= currentTower.buildingStats.buildingCost;
+
+                Debug.Log("Building Placed! Remaining Resources: " + currentResource);
+            }
+            else
+            {
+                Debug.Log("Not enough resources, current: " + currentResource);
+            }
 
             BuilderReset();
         }
@@ -110,9 +122,16 @@ public class Builder : MonoBehaviour
         BuilderReset();
         Collider2D hit = Physics2D.OverlapPoint(tilemap.GetCellCenterWorld(_currentCellPosition));
 
-        if (hit.gameObject.GetComponent<Debree>() != null)
+        Debree debree = hit.gameObject.GetComponent<Debree>();
+        if (debree != null)
         {
-            hit.gameObject.GetComponent<Debree>().StartRemoval(this);
+            debree.StartRemoval(this);
+            currentResource -= debree.buildingStats.debreeSize;
         }
+    }
+    public void AddResource(float amount)
+    {
+        currentResource += amount;
+        Debug.Log("Enemy killed, current resource: " + currentResource);
     }
 }

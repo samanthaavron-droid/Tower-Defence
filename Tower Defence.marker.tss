@@ -2,6 +2,18 @@
 <ArrayOfTabHighlightState xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <TabHighlightState>
     <extensions>
+      <string>Assets\Scripts\Buildings\Buildings\Turret.cs</string>
+    </extensions>
+    <highlightIndex>2</highlightIndex>
+  </TabHighlightState>
+  <TabHighlightState>
+    <extensions>
+      <string>Assets\Scripts\Enemies\Projectiles\Basic Enemy Projectile.cs</string>
+    </extensions>
+    <highlightIndex>1</highlightIndex>
+  </TabHighlightState>
+  <TabHighlightState>
+    <extensions>
       <string>Assets\Scripts\Enemies\Processors\EnemyStatsRuntinme.cs</string>
     </extensions>
     <highlightIndex>1</highlightIndex>
@@ -26,13 +38,13 @@
   </TabHighlightState>
   <TabHighlightState>
     <extensions>
-      <string>Assets\Scripts\Buildings\Builder.cs</string>
+      <string>Assets\Scripts\Buildings\Building Base.cs</string>
     </extensions>
     <highlightIndex>2</highlightIndex>
   </TabHighlightState>
   <TabHighlightState>
     <extensions>
-      <string>Assets\Scripts\Enemies\Projectiles\Basic Enemy Projectile.cs</string>
+      <string>Assets\Scripts\Enemies\EnemyBase.cs</string>
     </extensions>
     <highlightIndex>1</highlightIndex>
   </TabHighlightState>
@@ -50,20 +62,32 @@
   </TabHighlightState>
   <TabHighlightState>
     <extensions>
-      <string>Assets\Scripts\Buildings\Buildings\Turret.cs</string>
+      <string>Assets\Scripts\Buildings\Builder.cs</string>
     </extensions>
     <highlightIndex>2</highlightIndex>
   </TabHighlightState>
   <TabHighlightState>
     <extensions>
-      <string>Assets\Scripts\Enemies\EnemyBase.cs</string>
+      <string>Assets\Scripts\Buildings\Buildings\CityEdge (killzone).cs</string>
+    </extensions>
+    <highlightIndex>2</highlightIndex>
+  </TabHighlightState>
+  <TabHighlightState>
+    <extensions>
+      <string>Assets\Scripts\Buildings\Buildings\Minigun.cs</string>
+    </extensions>
+    <highlightIndex>2</highlightIndex>
+  </TabHighlightState>
+  <TabHighlightState>
+    <extensions>
+      <string>Assets\Scripts\Interception.cs</string>
+    </extensions>
+    <highlightIndex>5</highlightIndex>
+  </TabHighlightState>
+  <TabHighlightState>
+    <extensions>
+      <string>Assets\Scripts\Enemies\Enemies\Bomber.cs</string>
     </extensions>
     <highlightIndex>1</highlightIndex>
-  </TabHighlightState>
-  <TabHighlightState>
-    <extensions>
-      <string>Assets\Scripts\Buildings\Building Base.cs</string>
-    </extensions>
-    <highlightIndex>2</highlightIndex>
   </TabHighlightState>
 </ArrayOfTabHighlightState>

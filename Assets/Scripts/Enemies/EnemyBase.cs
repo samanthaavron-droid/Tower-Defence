@@ -46,7 +46,7 @@ public class EnemyBase : MonoBehaviour //this code runs when the enemy is create
                 enemyLogic = new Fighter(enemyStatsTemplate);
                 break;
             case EnemyType.Bomber:
-                //enemyLogic = new Bomber(enemyStatsTemplate);
+                enemyLogic = new Bomber(enemyStatsTemplate);
                 break;
         }
     }

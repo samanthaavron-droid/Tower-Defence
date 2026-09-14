@@ -1,8 +1,11 @@
 using UnityEngine;
+using System.Collections.Generic;
 
-public class Fighter : EnemyLogic
+
+public class Bomber : EnemyLogic
 {
-    public Fighter(EnemyStatsTemplate stats)
+    private List<GameObject> alreadyBombed = new();
+    public Bomber(EnemyStatsTemplate stats)
     {
         base.enemyStats= new(stats);
     }
@@ -10,15 +13,19 @@ public class Fighter : EnemyLogic
     {
         if (enemyStats.cooldown > 0 || user == null) return;
 
-        RaycastHit2D hit = Physics2D.Raycast(user.transform.position, Vector2.left, enemyStats.attackRange, LayerMask.GetMask("Building"));
-        if (hit.collider == true)
+        Collider2D hit = Physics2D.OverlapPoint(user.transform.position, LayerMask.GetMask("Building"));
+        if (hit != null)
         {
+            if (alreadyBombed.Contains(hit.gameObject) == true) return; //making sure the building isn't bombed twice
+
             GameObject projectile = GameObject.Instantiate(user.projectilePrefab, user.transform.position, Quaternion.identity);
             BasicEnemyProjectile projectileInfo = projectile.GetComponent<BasicEnemyProjectile>();
 
             projectileInfo.enemyStats = enemyStats;
-            projectileInfo.futurePos = (hit.transform.position - user.transform.position).normalized;           
+            projectileInfo.futurePos = user.transform.position;
 
+            alreadyBombed.Add(hit.gameObject);
+            //explosion effect
             enemyStats.cooldown = enemyStats.rechargeTime;
         }
     }
