@@ -44,9 +44,9 @@ Impact: You have lost all your earnings from that round.
 Solution: Watch an add to regain hp.
 
 ##### Planning:
-- Sprint 1:
-- Sprint 2:
-- Sprint 3: 
+- Sprint 1: Tower Mechanics, Resource management, Enemy Mechanics
+- Sprint 2: Tower/Enemy types
+- Sprint 3: Visuals
 - Sprint 4: 
 - Sprint 5: 
 
