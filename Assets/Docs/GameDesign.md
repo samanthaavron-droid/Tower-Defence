@@ -6,7 +6,6 @@ What makes it unique?
     This tower defence has multiple lines of defence, and your towers can be destroyed.
 
 Towers:
-
 - Turret - low range, small damage, doesn't leave debree, quick to build.
 
 Rocket Launcher - high range, high damage, slow, medium build duration.
