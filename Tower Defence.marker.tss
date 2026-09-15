@@ -32,37 +32,13 @@
   </TabHighlightState>
   <TabHighlightState>
     <extensions>
-      <string>Assets\Scripts\Enemies\Enemy Manager.cs</string>
+      <string>Assets\Scripts\Enemies\Enemies\Bomber.cs</string>
     </extensions>
     <highlightIndex>1</highlightIndex>
   </TabHighlightState>
   <TabHighlightState>
     <extensions>
-      <string>Assets\Scripts\Buildings\Building Base.cs</string>
-    </extensions>
-    <highlightIndex>2</highlightIndex>
-  </TabHighlightState>
-  <TabHighlightState>
-    <extensions>
-      <string>Assets\Scripts\Enemies\EnemyBase.cs</string>
-    </extensions>
-    <highlightIndex>1</highlightIndex>
-  </TabHighlightState>
-  <TabHighlightState>
-    <extensions>
-      <string>Assets\Scripts\Buildings\Projectiles\Basic Tower Projectile.cs</string>
-    </extensions>
-    <highlightIndex>2</highlightIndex>
-  </TabHighlightState>
-  <TabHighlightState>
-    <extensions>
-      <string>Assets\Scripts\Buildings\Buildings\Debree.cs</string>
-    </extensions>
-    <highlightIndex>2</highlightIndex>
-  </TabHighlightState>
-  <TabHighlightState>
-    <extensions>
-      <string>Assets\Scripts\Buildings\Builder.cs</string>
+      <string>Assets\Scripts\Buildings\Buildings\Minigun.cs</string>
     </extensions>
     <highlightIndex>2</highlightIndex>
   </TabHighlightState>
@@ -74,19 +50,55 @@
   </TabHighlightState>
   <TabHighlightState>
     <extensions>
-      <string>Assets\Scripts\Buildings\Buildings\Minigun.cs</string>
-    </extensions>
-    <highlightIndex>2</highlightIndex>
-  </TabHighlightState>
-  <TabHighlightState>
-    <extensions>
       <string>Assets\Scripts\Interception.cs</string>
     </extensions>
     <highlightIndex>5</highlightIndex>
   </TabHighlightState>
   <TabHighlightState>
     <extensions>
-      <string>Assets\Scripts\Enemies\Enemies\Bomber.cs</string>
+      <string>Assets\Scripts\Buildings\Buildings\Debree.cs</string>
+    </extensions>
+    <highlightIndex>2</highlightIndex>
+  </TabHighlightState>
+  <TabHighlightState>
+    <extensions>
+      <string>Assets\Scripts\Buildings\Projectiles\Basic Tower Projectile.cs</string>
+    </extensions>
+    <highlightIndex>2</highlightIndex>
+  </TabHighlightState>
+  <TabHighlightState>
+    <extensions>
+      <string>Assets\Scripts\Buildings\Buildings\Cannon.cs</string>
+    </extensions>
+    <highlightIndex>2</highlightIndex>
+  </TabHighlightState>
+  <TabHighlightState>
+    <extensions>
+      <string>Assets\Scripts\Buildings\Processors\BuildingWeapon.cs</string>
+    </extensions>
+    <highlightIndex>2</highlightIndex>
+  </TabHighlightState>
+  <TabHighlightState>
+    <extensions>
+      <string>Assets\Scripts\Enemies\All\EnemyBase.cs</string>
+    </extensions>
+    <highlightIndex>1</highlightIndex>
+  </TabHighlightState>
+  <TabHighlightState>
+    <extensions>
+      <string>Assets\Scripts\Enemies\Enemies\Helicopter.cs</string>
+    </extensions>
+    <highlightIndex>1</highlightIndex>
+  </TabHighlightState>
+  <TabHighlightState>
+    <extensions>
+      <string>Assets\Scripts\Enemies\Enemies\Rocket.cs</string>
+    </extensions>
+    <highlightIndex>1</highlightIndex>
+  </TabHighlightState>
+  <TabHighlightState>
+    <extensions>
+      <string>Assets\Scripts\Enemies\Projectiles\Targeted Enemy Projectile.cs</string>
     </extensions>
     <highlightIndex>1</highlightIndex>
   </TabHighlightState>

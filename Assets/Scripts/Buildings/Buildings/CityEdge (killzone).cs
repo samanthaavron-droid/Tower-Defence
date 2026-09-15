@@ -6,7 +6,10 @@ public class CityEdge : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            collision.gameObject.GetComponent<EnemyBase>().TakeDamage(10000);
+            EnemyBase enemy = collision.gameObject.GetComponent<EnemyBase>();
+
+            //enemy.enemyStats.worth = 0f;
+            enemy.TakeDamage(10000);
         }
     }
 }

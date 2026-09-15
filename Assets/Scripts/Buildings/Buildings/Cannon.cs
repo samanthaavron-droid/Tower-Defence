@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class Turret : BuildingWeapon
+public class Cannon : BuildingWeapon
 {
-    public Turret(BuildingStatsTemplate stats)
+    public Cannon(BuildingStatsTemplate stats)
     {
         base.buildingStats = new(stats);
     }
@@ -10,14 +10,14 @@ public class Turret : BuildingWeapon
     {
         if (buildingStats.cooldown > 0 || user == null) return;
 
-        Collider2D hit = Physics2D.OverlapCircle(user.transform.position, buildingStats.attackRange, LayerMask.GetMask("Enemy"));
-        if (hit != null)
+        RaycastHit2D hit = Physics2D.Raycast(user.transform.position, Vector2.right, buildingStats.attackRange, LayerMask.GetMask("Enemy"));
+        if (hit == true)
         {
             GameObject projectile = GameObject.Instantiate(user.projectilePrefab, user.transform.position, Quaternion.identity);
             BasicTowerProjectile projectileInfo = projectile.GetComponent<BasicTowerProjectile>();
 
             projectileInfo.buildingStats = buildingStats;
-            projectileInfo.futurePos = (Interception.GetInterceptionPoint(user.transform.position, hit.transform.position, hit.GetComponent<Rigidbody2D>().linearVelocity, buildingStats.projectileSpeed) - user.transform.position).normalized;
+            projectileInfo.futurePos = Vector2.right;
 
             buildingStats.cooldown = buildingStats.rechargeTime;
         }

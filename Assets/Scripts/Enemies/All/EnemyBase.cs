@@ -48,6 +48,12 @@ public class EnemyBase : MonoBehaviour //this code runs when the enemy is create
             case EnemyType.Bomber:
                 enemyLogic = new Bomber(enemyStatsTemplate);
                 break;
+            case EnemyType.Helicopter:
+                enemyLogic = new Helicopter(enemyStatsTemplate);
+                break;
+            case EnemyType.Rocket:
+                enemyLogic = new Rocket(enemyStatsTemplate);
+                break;
         }
     }
     private void Move()
@@ -76,5 +82,6 @@ public enum EnemyType
     None,
     Figher,
     Bomber,
-    Test
+    Helicopter,
+    Rocket,
 }

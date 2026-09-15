@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Tilemaps;
+using System;
 
 public class Builder : MonoBehaviour
 {
@@ -13,6 +15,8 @@ public class Builder : MonoBehaviour
     private bool _buildingOnMouse = false;
     public float currentResource;
     [SerializeField] private BuildingBase city;
+    [SerializeField] private Image resources;
+    [SerializeField] private float resourcePerCell;
     void Start()
     {
         currentResource = city.buildingStatsTemplate.buildingCost; //initial resources of the level
@@ -25,6 +29,8 @@ public class Builder : MonoBehaviour
 
         if (_buildingOnMouse)
             BuildingOnMouse();
+
+        UpdateResources();
     }
     private void MouseControls()
     {
@@ -109,7 +115,8 @@ public class Builder : MonoBehaviour
         Vector3 mouseWorldPosition = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
         mouseWorldPosition.z = 0;
 
-        currentPrefab.transform.position = mouseWorldPosition;
+        if (currentPrefab != null)
+            currentPrefab.transform.position = mouseWorldPosition;
     }
     private void BuilderReset() //removes the object from the mouse and resets the builder
     {
@@ -133,5 +140,11 @@ public class Builder : MonoBehaviour
     {
         currentResource += amount;
         Debug.Log("Enemy killed, current resource: " + currentResource);
+    }
+    private void UpdateResources()
+    {
+        if (resources == null) return;
+        
+        resources.fillAmount = currentResource / 60;
     }
 }

@@ -22,7 +22,9 @@ public class BuildingBase : MonoBehaviour //this code runs when the building is 
             user = this;
             maxHealth = buildingStats.health;
         }
-        healthBar.fillAmount = 1f;
+        
+        if (healthBar != null)
+            healthBar.fillAmount = 1f;
     }
     void Update()
     {
@@ -72,6 +74,9 @@ public class BuildingBase : MonoBehaviour //this code runs when the building is 
             case WeaponType.Minigun:
                 weapon = new Minigun(buildingStatsTemplate);
                 break;
+            case WeaponType.Cannon:
+                weapon = new Cannon(buildingStatsTemplate);
+                break;
         }
     }
     public void Attack()
@@ -87,7 +92,9 @@ public class BuildingBase : MonoBehaviour //this code runs when the building is 
         }
         Debug.Log(gameObject + " has " + buildingStats.health + " health left");
 
-        healthBar.fillAmount = buildingStats.health / maxHealth;
+
+        if (healthBar != null)
+            healthBar.fillAmount = buildingStats.health / maxHealth;
     }
     private void Death()
     {
@@ -128,4 +135,5 @@ public enum WeaponType
     Turret,
     Rocket,
     Minigun,
+    Cannon,
 }

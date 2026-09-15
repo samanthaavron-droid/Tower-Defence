@@ -17,7 +17,7 @@ MonoBehaviour:
   projectileSpeed: 6
   damage: 3
   rechargeTime: 2
-  debreeSize: 1
+  debreeSize: 2
   buildingSpeed: 3
-  buildingCost: 2
+  buildingCost: 4
   priority: 0
