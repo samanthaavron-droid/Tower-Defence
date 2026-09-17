@@ -5,18 +5,14 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
-    public static EnemyManager instance;
     [SerializeField] private EnemyWave[] enemyWaves;
     private int enemyWaveIndex = 0;
     private List<GameObject> activeEnemies = new();
     [SerializeField] private float spawnDelay;
-    void Awake()
-    {
-        instance = this;
-    }
     void Start()
     {
         StartCoroutine(SpawnWave());
+        EnemyBase.enemyDeath += EnemyDied;
     }
 
     void Update()

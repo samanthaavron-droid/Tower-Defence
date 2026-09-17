@@ -28,6 +28,12 @@
     <ArrayOfString>
       <string>C:\Users\Samantha\Documents\MediaCollegeGitHub\Gamedev\Tower Defence\Assets\Scripts\Enemies\Projectiles\Targeted Enemy Projectile.cs</string>
     </ArrayOfString>
+    <ArrayOfString>
+      <string>C:\Users\Samantha\Documents\MediaCollegeGitHub\Gamedev\Tower Defence\Assets\Scripts\Enemies\All\Enemy Manager.cs</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>C:\Users\Samantha\Documents\MediaCollegeGitHub\Gamedev\Tower Defence\Assets\Scripts\Buildings\All\Building Base.cs</string>
+    </ArrayOfString>
   </ArrayOfArrayOfString>
   <ArrayOfArrayOfString>
     <ArrayOfString>
@@ -56,6 +62,15 @@
     </ArrayOfString>
     <ArrayOfString>
       <string>C:\Users\Samantha\Documents\MediaCollegeGitHub\Gamedev\Tower Defence\Assets\Scripts\Enemies\Enemies\Rocket.cs</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>C:\Users\Samantha\Documents\MediaCollegeGitHub\Gamedev\Tower Defence\Assets\Scripts\Buildings\All\Builder.cs</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>C:\Users\Samantha\Documents\MediaCollegeGitHub\Gamedev\Tower Defence\Assets\Scripts\Buildings\Buildings\Rocket Launcher.cs</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>C:\Users\Samantha\Documents\MediaCollegeGitHub\Gamedev\Tower Defence\Assets\Scripts\Buildings\Projectiles\Targeted Tower Projectile.cs</string>
     </ArrayOfString>
   </ArrayOfArrayOfString>
 </ArrayOfArrayOfArrayOfString>

@@ -19,11 +19,14 @@ public class Rocket : EnemyLogic
 
             if (hit != null)
             {
-                TargetedEnemyProjectile projectileInfo = user.GetComponent<TargetedEnemyProjectile>();
+                GameObject projectile = GameObject.Instantiate(user.projectilePrefab, user.transform.position, Quaternion.identity);
+                TargetedEnemyProjectile projectileInfo = projectile.GetComponent<TargetedEnemyProjectile>();
 
                 projectileInfo.enemyStats = enemyStats;
                 projectileInfo.futurePos = (hit.transform.position - user.transform.position).normalized;
                 projectileInfo.target = hit.gameObject;
+                projectileInfo.user = user;
+                projectile.transform.up = (hit.transform.position - user.transform.position).normalized;
                 //user.transform.rotation = (hit.transform.position - user.transform.position);
 
                 enemyStats.cooldown = enemyStats.rechargeTime;

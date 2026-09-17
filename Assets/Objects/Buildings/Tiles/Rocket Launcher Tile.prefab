@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -8000966115811634117}
   - component: {fileID: 4640759814285969105}
   m_Layer: 6
-  m_Name: Intercepting Turret
+  m_Name: Rocket Launcher Tile
   m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -84,7 +84,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 0.5921569, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.9411765, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -151,6 +151,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89bce7e20a70da84c8cb1c3c7e1616ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Grabber
-  prefabIU: {fileID: 575357962288876674, guid: e002eb489725c484bab43e43069cd427, type: 3}
+  prefabIU: {fileID: 575357962288876674, guid: d0b77a91ad2133c4aad927fa805cccf1, type: 3}
   buildingStatsTemplate: {fileID: 0}
   buildingCost: 0

@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c70a0e737b218b14c95f80702e2b3c5d, type: 3}
-  m_Name: City (1)
+  m_Name: Civilian
   m_EditorClassIdentifier: Assembly-CSharp::BuildingStatsTemplate
-  health: 20
+  health: 3
   attackRange: 0
   projectileSpeed: 0
   damage: 0
   rechargeTime: 0
   debreeSize: 0
   buildingSpeed: 0
-  buildingCost: 10
+  buildingCost: 0
   priority: 1

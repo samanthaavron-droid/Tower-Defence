@@ -17,7 +17,8 @@ public class Helicopter : EnemyLogic
             BasicEnemyProjectile projectileInfo = projectile.GetComponent<BasicEnemyProjectile>();
 
             projectileInfo.enemyStats = enemyStats;
-            projectileInfo.futurePos = (hit.transform.position - user.transform.position).normalized;           
+            projectileInfo.futurePos = (hit.transform.position - user.transform.position).normalized;
+            projectile.transform.up = (hit.transform.position - user.transform.position).normalized;
 
             enemyStats.cooldown = enemyStats.rechargeTime;
         }

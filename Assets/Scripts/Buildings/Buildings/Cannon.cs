@@ -18,6 +18,7 @@ public class Cannon : BuildingWeapon
 
             projectileInfo.buildingStats = buildingStats;
             projectileInfo.futurePos = Vector2.right;
+            projectile.transform.up =   (hit.transform.position - user.transform.position).normalized;
 
             buildingStats.cooldown = buildingStats.rechargeTime;
         }

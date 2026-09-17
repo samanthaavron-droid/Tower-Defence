@@ -1,5 +1,5 @@
+using System;
 using UnityEngine;
-
 public class EnemyBase : MonoBehaviour //this code runs when the enemy is created
 {
     EnemyBase user;
@@ -8,6 +8,8 @@ public class EnemyBase : MonoBehaviour //this code runs when the enemy is create
     public EnemyLogic enemyLogic;
     public EnemyType enemyType;
     public GameObject projectilePrefab;
+    public Vector3 direction;
+    public static event Action<EnemyBase> enemyDeath;
     private void OnValidate()
     {
         
@@ -17,6 +19,7 @@ public class EnemyBase : MonoBehaviour //this code runs when the enemy is create
         SetType();
         enemyStats = new(enemyStatsTemplate);
         user = this;
+        direction = Vector3.left;
     }
 
     void Update()
@@ -58,7 +61,7 @@ public class EnemyBase : MonoBehaviour //this code runs when the enemy is create
     }
     private void Move()
     {
-        transform.position += Vector3.left * enemyStats.speed * Time.deltaTime;
+        transform.position += direction * enemyStats.speed * Time.deltaTime;
     }
     public void Attack()
     {
@@ -69,12 +72,8 @@ public class EnemyBase : MonoBehaviour //this code runs when the enemy is create
         enemyStats.health -= damage;
         if (enemyStats.health <= 0)
         {
-            Death();
+            enemyDeath?.Invoke(this);
         }
-    }
-    private void Death()
-    {
-        EnemyManager.instance.EnemyDied(this);
     }
 }
 public enum EnemyType

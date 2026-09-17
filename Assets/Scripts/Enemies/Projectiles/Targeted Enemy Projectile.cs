@@ -4,12 +4,20 @@ public class TargetedEnemyProjectile : MonoBehaviour
 {
     [HideInInspector] public EnemyStatsRuntinme enemyStats;
     [HideInInspector] public Vector3 futurePos;
-    [HideInInspector] public GameObject target = null;
+    [HideInInspector] public GameObject target;
+    [HideInInspector] public EnemyBase user;
     private void Update()
     {
-        if (target == null) return;
-
         MoveToFuturePoint();
+    }
+    public void TakeDamage(float damage)
+    {
+        enemyStats.projectileHealth -= damage;
+        if (enemyStats.projectileHealth <= 0)
+        {
+            user.TakeDamage(1000);
+            Destroy(gameObject);
+        }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -17,8 +25,8 @@ public class TargetedEnemyProjectile : MonoBehaviour
         {
             BuildingBase building = collision.gameObject.GetComponent<BuildingBase>();
             building.TakeDamage(enemyStats.damage);
-            Debug.Log("ROCKET");
-            GetComponent<EnemyBase>().TakeDamage(1000);
+            user.TakeDamage(1000);
+            Destroy(gameObject);
         }
     }
     private void MoveToFuturePoint()

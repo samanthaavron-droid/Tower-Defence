@@ -48,6 +48,7 @@ public class Builder : MonoBehaviour
                     {
                         Grabber grabber = hit.GetComponent<Grabber>();
                         currentPrefab = Instantiate(grabber.prefabIU, hit.gameObject.transform.position, Quaternion.identity);
+                        currentPrefab.layer = 0;
                         _buildingOnMouse = true;
                     }
                 }
@@ -90,13 +91,12 @@ public class Builder : MonoBehaviour
                 GameObject building = Instantiate(currentPrefab);
                 BuildingBase currentTower = building.GetComponent<BuildingBase>();
 
+                building.layer = 6; //Building layer
                 building.transform.position = tilemap.GetCellCenterWorld(_currentCellPosition);
                 occupiedCells.Add(_currentCellPosition);
 
                 currentTower.StartCoroutine(currentTower.StartBuilding());
                 currentResource -= currentTower.buildingStats.buildingCost;
-
-                Debug.Log("Building Placed! Remaining Resources: " + currentResource);
             }
             else
             {

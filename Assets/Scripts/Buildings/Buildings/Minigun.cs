@@ -18,6 +18,7 @@ public class Minigun : BuildingWeapon
 
             projectileInfo.buildingStats = buildingStats;
             projectileInfo.futurePos = (hit.transform.position - user.transform.position).normalized;
+            projectile.transform.up = (hit.transform.position - user.transform.position).normalized;
 
             buildingStats.cooldown = buildingStats.rechargeTime;
         }

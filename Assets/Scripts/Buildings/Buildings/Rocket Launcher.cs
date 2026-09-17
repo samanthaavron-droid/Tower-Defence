@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class Turret : BuildingWeapon
+public class RocketLauncher : BuildingWeapon
 {
-    public Turret(BuildingStatsTemplate stats)
+    public RocketLauncher(BuildingStatsTemplate stats)
     {
         base.buildingStats = new(stats);
     }
@@ -14,9 +14,10 @@ public class Turret : BuildingWeapon
         if (hit != null)
         {
             GameObject projectile = GameObject.Instantiate(user.projectilePrefab, user.transform.position, Quaternion.identity);
-            BasicTowerProjectile projectileInfo = projectile.GetComponent<BasicTowerProjectile>();
+            TargetedTowerProjectile projectileInfo = projectile.GetComponent<TargetedTowerProjectile>();
 
             projectileInfo.buildingStats = buildingStats;
+            projectileInfo.target = hit.gameObject;
             projectileInfo.futurePos = (Interception.GetInterceptionPoint(user.transform.position, hit.transform.position, hit.GetComponent<Rigidbody2D>().linearVelocity, buildingStats.projectileSpeed) - user.transform.position).normalized;
             projectile.transform.up = (projectileInfo.futurePos - user.transform.position).normalized;
 

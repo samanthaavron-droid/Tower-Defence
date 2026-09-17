@@ -16,13 +16,6 @@ public class BuildingBase : MonoBehaviour //this code runs when the building is 
     private float maxHealth;
     void Start()
     {
-        if (buildingStats == null)
-        {
-            buildingStats = new(buildingStatsTemplate);
-            user = this;
-            maxHealth = buildingStats.health;
-        }
-        
         if (healthBar != null)
             healthBar.fillAmount = 1f;
     }
@@ -36,9 +29,12 @@ public class BuildingBase : MonoBehaviour //this code runs when the building is 
     }
     public IEnumerator StartBuilding()
     {
-        buildingStats = new(buildingStatsTemplate);
-        user = this;
-        maxHealth = buildingStats.health;
+        if (buildingStats == null)
+        {
+            buildingStats = new(buildingStatsTemplate);
+            user = this;
+            maxHealth = buildingStats.health;
+        }
 
         _spriteRenderer = GetComponent<SpriteRenderer>();
 
@@ -69,7 +65,7 @@ public class BuildingBase : MonoBehaviour //this code runs when the building is 
                 weapon = new Turret(buildingStatsTemplate);
                 break;
             case WeaponType.Rocket:
-                //weapon = new Rocket(buildingStatsTemplate);
+                weapon = new RocketLauncher(buildingStatsTemplate);
                 break;
             case WeaponType.Minigun:
                 weapon = new Minigun(buildingStatsTemplate);
@@ -85,6 +81,13 @@ public class BuildingBase : MonoBehaviour //this code runs when the building is 
     }
     public void TakeDamage(float damage)
     {
+        if (buildingStats == null)
+        {
+            buildingStats = new(buildingStatsTemplate);
+            user = this;
+            maxHealth = buildingStats.health;
+        }
+
         buildingStats.health -= damage;
         if (buildingStats.health <= 0)
         {

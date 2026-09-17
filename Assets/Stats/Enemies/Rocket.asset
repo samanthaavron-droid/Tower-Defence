@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d58482f98f94e941b4d8e60b90be45f, type: 3}
   m_Name: Rocket
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStatsTemplate
-  health: 1
+  health: 0.5
   attackRange: 50
   projectileSpeed: 8
-  rechargeTime: 1
+  rechargeTime: 100
   damage: 3
-  speed: 8
-  projectileHealth: 1
+  speed: 0
+  projectileHealth: 0.5
   worth: 2
