@@ -1,0 +1,231 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Builder" Collapsed="true">
+    <Position X="16" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQwAAAggCAGAGQBAgAACCAAgADAAAQQAAAAAIQAAAA=</HashCode>
+      <FileName>Assets\Scripts\Buildings\All\Builder.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuildingBase" Collapsed="true">
+    <Position X="9.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAoACGAAAAAAABAAAAACJAAAAAgAAgAgAIYCSA=</HashCode>
+      <FileName>Assets\Scripts\Buildings\All\Building Base.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="weapon" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Cannon" Collapsed="true">
+    <Position X="10" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAABAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Buildings\Buildings\Cannon.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuildingWeapon" Collapsed="true">
+    <Position X="6.5" Y="8" Width="1.5" />
+    <AssociationLine Name="buildingStatsTemplate" Type="BuildingStatsTemplate">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.068" Y="0.102" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAAAAAAAAAAABABAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Buildings\Processors\BuildingWeapon.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="buildingStatsTemplate" />
+      <Field Name="buildingStats" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Minigun" Collapsed="true">
+    <Position X="3.25" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAABAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Buildings\Buildings\Minigun.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RocketLauncher" Collapsed="true">
+    <Position X="5.5" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAABAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Buildings\Buildings\Rocket Launcher.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Turret" Collapsed="true">
+    <Position X="7.75" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAABAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Buildings\Buildings\Turret.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BasicTowerProjectile" Collapsed="true">
+    <Position X="14.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAgAAAAAABAAAAAAAAAAAAFAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Buildings\Projectiles\Basic Tower Projectile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grabber" Collapsed="true">
+    <Position X="6.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\Buildings\All\Grabber.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="buildingStatsTemplate" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="TargetedTowerProjectile" Collapsed="true">
+    <Position X="3.25" Y="5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAQAAgAAAAAABAAAIAAAAAAAAFAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Buildings\Projectiles\Targeted Tower Projectile.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="buildingStats" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="CityEdge" Collapsed="true">
+    <Position X="12.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Buildings\Buildings\CityEdge (killzone).cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Debree" Collapsed="true">
+    <Position X="9.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAEAAAAAAAABAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>Assets\Scripts\Buildings\Buildings\Debree.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="buildingStats" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="BuildingStatsRuntime" Collapsed="true">
+    <Position X="6.5" Y="6" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAQChBAABAAAQAAAACAAAAAABAAAAAAAAAg=</HashCode>
+      <FileName>Assets\Scripts\Buildings\Processors\BuildingStatsRuntime.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuildingStatsTemplate" Collapsed="true">
+    <Position X="6.5" Y="4" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAQChBAABAAAQAAAAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Assets\Scripts\Buildings\Processors\BuildingStatsTemplate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EnemyManager" Collapsed="true">
+    <Position X="14.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAgAAQAAAAAAAAAACAgEAAAAIAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Enemies\All\Enemy Manager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EnemyBase" Collapsed="true">
+    <Position X="6.5" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAKAAKABAAAFAAAAAAIAABAAQAAAAgAIIgQA=</HashCode>
+      <FileName>Assets\Scripts\Enemies\All\EnemyBase.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="enemyLogic" />
+      <Field Name="enemyStats" />
+      <Field Name="enemyStatsTemplate" />
+      <Field Name="enemyType" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Bomber" Collapsed="true">
+    <Position X="3.25" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAIIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Enemies\Enemies\Bomber.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Fighter" Collapsed="true">
+    <Position X="5.5" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Enemies\Enemies\Fighter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Helicopter" Collapsed="true">
+    <Position X="7.75" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Enemies\Enemies\Helicopter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Rocket" Collapsed="true">
+    <Position X="10" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAEAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Enemies\Enemies\Rocket.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EnemyLogic" Collapsed="true">
+    <Position X="6.5" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAAAAAAAAAAAIAAAAAAAAAAAAAAgAA=</HashCode>
+      <FileName>Assets\Scripts\Enemies\Processors\EnemyLogic.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EnemyStatsRuntinme" Collapsed="true">
+    <Position X="4" Y="17" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgBAABAAAQAAAACAAAQAAAAAAQAAAAQg=</HashCode>
+      <FileName>Assets\Scripts\Enemies\Processors\EnemyStatsRuntinme.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EnemyStatsTemplate" Collapsed="true">
+    <Position X="6.5" Y="16" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgBAABAAAQAAAAAAAAQAAAAAAQAAAAQg=</HashCode>
+      <FileName>Assets\Scripts\Enemies\Processors\EnemyStatsTemplate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BasicEnemyProjectile" Collapsed="true">
+    <Position X="12.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAgAAAAAABAAAAAAAAAAAAEAAAAAAAAAAgAAAgAA=</HashCode>
+      <FileName>Assets\Scripts\Enemies\Projectiles\Basic Enemy Projectile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TargetedEnemyProjectile" Collapsed="true">
+    <Position X="3.25" Y="14" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAQAAgAAAAAABAAAIAAAAAAAAEAAAAAAAAAAgAAAgQA=</HashCode>
+      <FileName>Assets\Scripts\Enemies\Projectiles\Targeted Enemy Projectile.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="enemyStats" />
+      <Field Name="user" />
+    </ShowAsAssociation>
+  </Class>
+  <Struct Name="EnemyWave" Collapsed="true">
+    <Position X="12.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAIAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Enemies\All\Enemy Manager.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Enum Name="WeaponType" Collapsed="true">
+    <Position X="12.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAQAAAAAAAAAAIAAAAAAAACAAAAAAAEAAAA=</HashCode>
+      <FileName>Assets\Scripts\Buildings\All\Building Base.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="EnemyType" Collapsed="true">
+    <Position X="9.5" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABAIAAAAAAAQAAAAAAAgEAAAA=</HashCode>
+      <FileName>Assets\Scripts\Enemies\All\EnemyBase.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

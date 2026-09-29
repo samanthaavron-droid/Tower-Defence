@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class BuildingBase : MonoBehaviour //this code runs when the building is created
@@ -7,15 +9,23 @@ public class BuildingBase : MonoBehaviour //this code runs when the building is 
     BuildingBase user;
     public BuildingStatsTemplate buildingStatsTemplate;
     public BuildingStatsRuntime buildingStats;
-    public BuildingWeapon weapon = null;
+    public WeaponLogic weapon = null;
     public WeaponType weaponType;
     public GameObject debreePrefab;
     public GameObject projectilePrefab;
     private SpriteRenderer _spriteRenderer;
     public Image healthBar;
     private float maxHealth;
+    public bool alreadyPlaced = true;
     void Start()
     {
+        if (alreadyPlaced == true)
+        {
+            Vector3Int currentCell = Builder.instance.tilemap.WorldToCell(transform.position);
+            Builder.instance.occupiedCells.Add(currentCell);
+            transform.position = Builder.instance.tilemap.GetCellCenterWorld(currentCell);
+        }
+
         if (healthBar != null)
             healthBar.fillAmount = 1f;
     }
@@ -77,7 +87,7 @@ public class BuildingBase : MonoBehaviour //this code runs when the building is 
     }
     public void Attack()
     {
-        weapon.Use(user);
+        weapon.Attack(user);
     }
     public void TakeDamage(float damage)
     {
@@ -108,10 +118,7 @@ public class BuildingBase : MonoBehaviour //this code runs when the building is 
             Destroy(gameObject);
         } else
         {
-#if UNITY_EDITOR
-            // stops Play Mode inside the Unity Editor
-            UnityEditor.EditorApplication.isPlaying = false;
-#endif
+            PauseMenu.instance.EndGame();
         }
     }
     private IEnumerator FadeIn()

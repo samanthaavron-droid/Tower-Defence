@@ -136,7 +136,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5511200396173975279}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6c6c7ab25f97154b9ee001aa0bf6115, type: 3}
+  m_Script: {fileID: 11500000, guid: 574d885433e2c7b4782bbe4011bd3953, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TargetedEnemyProjectile
   futurePos: {x: 0, y: 0, z: 0}

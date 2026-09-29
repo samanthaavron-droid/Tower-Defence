@@ -1,7 +1,7 @@
 using UnityEngine;
 using static UnityEngine.RuleTile.TilingRuleOutput;
 
-public class Rocket : EnemyLogic
+public class Rocket : WeaponLogic
 {
     public Rocket(EnemyStatsTemplate stats)
     {
@@ -11,31 +11,15 @@ public class Rocket : EnemyLogic
     {
         if (enemyStats.cooldown > 0 || user == null) return;
 
-        Collider2D[] hits = Physics2D.OverlapCircleAll(user.transform.position, enemyStats.attackRange, LayerMask.GetMask("Building"));
+        Collider2D hit = OverlapCircleAllCheck(user, enemyStats, LayerMask.GetMask("Building"));
 
-        if (hits.Length > 0)
+        if (hit != null)
         {
-            Collider2D hit = FindTarget(hits);
+            GameObject projectile = GameObject.Instantiate(user.projectilePrefab, user.transform.position, Quaternion.identity);
 
-            if (hit != null)
-            {
-                GameObject projectile = GameObject.Instantiate(user.projectilePrefab, user.transform.position, Quaternion.identity);
-                TargetedEnemyProjectile projectileInfo = projectile.GetComponent<TargetedEnemyProjectile>();
+            ProjectileData(projectile, enemyStats, (hit.transform.position - user.transform.position).normalized, user, hit.gameObject);
 
-                projectileInfo.enemyStats = enemyStats;
-                projectileInfo.futurePos = (hit.transform.position - user.transform.position).normalized;
-                projectileInfo.target = hit.gameObject;
-                projectileInfo.user = user;
-                projectile.transform.up = (hit.transform.position - user.transform.position).normalized;
-                //user.transform.rotation = (hit.transform.position - user.transform.position);
-
-                enemyStats.cooldown = enemyStats.rechargeTime;
-            }
+            enemyStats.cooldown = enemyStats.rechargeTime;
         }
-    }
-    private Collider2D FindTarget(Collider2D[] hits)
-    {
-        int randomTarget = Random.Range(0, hits.Length);
-        return hits[randomTarget];
     }
 }

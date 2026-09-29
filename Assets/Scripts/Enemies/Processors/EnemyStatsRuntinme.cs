@@ -17,10 +17,10 @@ public class EnemyStatsRuntinme
         //this is for when the enemy is created
         health = s.health;
         attackRange = s.attackRange;
-        projectileSpeed = s.projectileSpeed;
+        projectileSpeed = s.projectileSpeed * GlobalSettings.modifier;
         damage = s.damage;
-        rechargeTime = s.rechargeTime;
-        speed = s.speed;
+        rechargeTime = s.rechargeTime / GlobalSettings.modifier;
+        speed = s.speed * GlobalSettings.modifier;
         projectileHealth = s.projectileHealth;
         worth = s.worth;
     }

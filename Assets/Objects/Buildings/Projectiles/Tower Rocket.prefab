@@ -136,11 +136,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 5511200396173975279}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3766d87d8cfe506449bf932d77e8ddda, type: 3}
+  m_Script: {fileID: 11500000, guid: 574d885433e2c7b4782bbe4011bd3953, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TargetedTowerProjectile
   futurePos: {x: 0, y: 0, z: 0}
   target: {fileID: 0}
+  user: {fileID: 0}
 --- !u!50 &-7305231757550103518
 Rigidbody2D:
   serializedVersion: 5

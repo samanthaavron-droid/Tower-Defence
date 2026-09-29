@@ -16,11 +16,19 @@ public class Builder : MonoBehaviour
     public float currentResource;
     [SerializeField] private BuildingBase city;
     [SerializeField] private Image resources;
-    [SerializeField] private float resourcePerCell;
+    void Awake()
+    {
+        instance = this;
+    }
     void Start()
     {
-        currentResource = city.buildingStatsTemplate.buildingCost; //initial resources of the level
-        instance = this;
+        if (GlobalSettings.difficulty > 1)
+        {
+            currentResource = city.buildingStatsTemplate.buildingCost * (1f/2f * GlobalSettings.difficulty);
+        } else
+        {
+            currentResource = city.buildingStatsTemplate.buildingCost;
+        }
     }
 
     void Update()
@@ -41,6 +49,7 @@ public class Builder : MonoBehaviour
             if (currentPrefab == null)
             {
                 Collider2D hit = Physics2D.OverlapPoint(tilemap.GetCellCenterWorld(_currentCellPosition));
+                Debug.Log(_currentCellPosition);
 
                 if (hit != null)
                 {
@@ -91,6 +100,7 @@ public class Builder : MonoBehaviour
                 GameObject building = Instantiate(currentPrefab);
                 BuildingBase currentTower = building.GetComponent<BuildingBase>();
 
+                currentTower.alreadyPlaced = false;
                 building.layer = 6; //Building layer
                 building.transform.position = tilemap.GetCellCenterWorld(_currentCellPosition);
                 occupiedCells.Add(_currentCellPosition);

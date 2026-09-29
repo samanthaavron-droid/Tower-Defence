@@ -8,6 +8,7 @@ public class BuildingStatsTemplate : ScriptableObject
     public float attackRange;
     public float projectileSpeed;
     public float damage;
+    public float projectileHealth;
     public float rechargeTime;
     public float debreeSize;
     public float buildingSpeed;

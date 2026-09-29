@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 
 
-public class Bomber : EnemyLogic
+public class Bomber : WeaponLogic
 {
     private List<GameObject> alreadyBombed = new();
     public Bomber(EnemyStatsTemplate stats)
@@ -13,16 +13,14 @@ public class Bomber : EnemyLogic
     {
         if (enemyStats.cooldown > 0 || user == null) return;
 
-        Collider2D hit = Physics2D.OverlapPoint(user.transform.position, LayerMask.GetMask("Building"));
+        Collider2D hit = OverlapPointCheck(user, LayerMask.GetMask("Building"));
         if (hit != null)
         {
             if (alreadyBombed.Contains(hit.gameObject) == true) return; //making sure the building isn't bombed twice
 
             GameObject projectile = GameObject.Instantiate(user.projectilePrefab, user.transform.position, Quaternion.identity);
-            BasicEnemyProjectile projectileInfo = projectile.GetComponent<BasicEnemyProjectile>();
 
-            projectileInfo.enemyStats = enemyStats;
-            projectileInfo.futurePos = user.transform.position;
+            ProjectileData(projectile, enemyStats, user.transform.position);
 
             alreadyBombed.Add(hit.gameObject);
             //explosion effect

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 9114299203278021010}
   m_Layer: 8
   m_Name: Basic Bullet
-  m_TagString: Building
+  m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -138,7 +138,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 3864649161113358923}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6be15e9c46c45844cb77e2aa65f80d2e, type: 3}
+  m_Script: {fileID: 11500000, guid: 574d885433e2c7b4782bbe4011bd3953, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BasicProjectile
   futurePos: {x: 0, y: 0, z: 0}
+  target: {fileID: 0}
+  user: {fileID: 0}

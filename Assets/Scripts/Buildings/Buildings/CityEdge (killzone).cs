@@ -8,7 +8,7 @@ public class CityEdge : MonoBehaviour
         {
             EnemyBase enemy = collision.gameObject.GetComponent<EnemyBase>();
 
-            //enemy.enemyStats.worth = 0f;
+            enemy.enemyStats.worth = 0f;
             enemy.TakeDamage(10000);
         }
     }

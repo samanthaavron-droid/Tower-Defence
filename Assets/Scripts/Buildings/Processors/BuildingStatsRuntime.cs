@@ -7,6 +7,7 @@ public class BuildingStatsRuntime
     public float attackRange { get; set; }
     public float projectileSpeed { get; set; }
     public float damage { get; set; }
+    public float projectileHealth { get; set; }
     public float rechargeTime { get; set; }
     public float debreeSize { get; set; }
     public float buildingSpeed { get; set; }
@@ -20,11 +21,12 @@ public class BuildingStatsRuntime
         //this is for when the building is created
         health = s.health;
         attackRange = s.attackRange;
-        projectileSpeed = s.projectileSpeed;
+        projectileSpeed = s.projectileSpeed * GlobalSettings.modifier;
         damage = s.damage;
-        rechargeTime = s.rechargeTime;
+        projectileHealth = s.projectileHealth;
+        rechargeTime = s.rechargeTime / GlobalSettings.modifier;
         debreeSize = s.debreeSize;
-        buildingSpeed = s.buildingSpeed;
+        buildingSpeed = s.buildingSpeed / GlobalSettings.modifier;
         buildingCost = s.buildingCost;
         priority = s.priority;
     }

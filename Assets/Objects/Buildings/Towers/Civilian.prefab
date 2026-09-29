@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8834623263502575515}
@@ -112,6 +112,7 @@ MonoBehaviour:
   debreePrefab: {fileID: 1760658000159505199, guid: e7421faad72d8c64ba6d6de16fd1256c, type: 3}
   projectilePrefab: {fileID: 5511200396173975279, guid: ec8b6c31751de954b997b8d24f9a1cdf, type: 3}
   healthBar: {fileID: 1920274655112947137}
+  alreadyPlaced: 1
 --- !u!61 &7775184687515652697
 BoxCollider2D:
   m_ObjectHideFlags: 0

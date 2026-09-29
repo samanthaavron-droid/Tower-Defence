@@ -5,7 +5,7 @@ public class EnemyBase : MonoBehaviour //this code runs when the enemy is create
     EnemyBase user;
     public EnemyStatsTemplate enemyStatsTemplate;
     public EnemyStatsRuntinme enemyStats;
-    public EnemyLogic enemyLogic;
+    public WeaponLogic enemyLogic;
     public EnemyType enemyType;
     public GameObject projectilePrefab;
     public Vector3 direction;
