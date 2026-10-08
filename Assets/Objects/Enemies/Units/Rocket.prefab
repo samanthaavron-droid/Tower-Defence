@@ -47,9 +47,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 083187958c1879a4b9088746702cd8c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyBase
-  enemyStatsTemplate: {fileID: 11400000, guid: 2b7bf3f39467f95469caf5ee08e2b2ec, type: 2}
+  statsTemplate: {fileID: 11400000, guid: 2b7bf3f39467f95469caf5ee08e2b2ec, type: 2}
+  weaponType: 0
   enemyType: 4
+  debreePrefab: {fileID: 0}
   projectilePrefab: {fileID: 5511200396173975279, guid: cb752b36d83ba6947af3ce2e14c6b5da, type: 3}
+  spriteRenderer: {fileID: 0}
+  healthBar: {fileID: 0}
+  maxHealth: 0
+  alreadyPlaced: 0
   direction: {x: 0, y: 0, z: 0}
 --- !u!50 &-7305231757550103518
 Rigidbody2D:

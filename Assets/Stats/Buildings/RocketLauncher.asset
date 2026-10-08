@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: RocketLauncher
   m_EditorClassIdentifier: Assembly-CSharp::BuildingStatsTemplate
   health: 3
-  attackRange: 8
+  attackRange: 12
   projectileSpeed: 12
   damage: 5
+  projectileHealth: 0
   rechargeTime: 5
   debreeSize: 3
   buildingSpeed: 5
-  buildingCost: 8
   priority: 0
+  speed: 0
+  worth: 8

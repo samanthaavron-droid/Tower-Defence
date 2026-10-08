@@ -5,13 +5,13 @@ using System.Collections.Generic;
 public class Bomber : WeaponLogic
 {
     private List<GameObject> alreadyBombed = new();
-    public Bomber(EnemyStatsTemplate stats)
+    public Bomber(StatsTemplate stats)
     {
-        base.enemyStats= new(stats);
+        base.statsRuntime= new(stats);
     }
-    public override void Attack(EnemyBase user)
+    public override void Attack(Unit user)
     {
-        if (enemyStats.cooldown > 0 || user == null) return;
+        if (statsRuntime.cooldown > 0 || user == null) return;
 
         Collider2D hit = OverlapPointCheck(user, LayerMask.GetMask("Building"));
         if (hit != null)
@@ -20,11 +20,11 @@ public class Bomber : WeaponLogic
 
             GameObject projectile = GameObject.Instantiate(user.projectilePrefab, user.transform.position, Quaternion.identity);
 
-            ProjectileData(projectile, enemyStats, user.transform.position);
+            ProjectileData(projectile, statsRuntime, user.transform.position, TagHandle.GetExistingTag("Building"), user);
 
             alreadyBombed.Add(hit.gameObject);
             //explosion effect
-            enemyStats.cooldown = enemyStats.rechargeTime;
+            statsRuntime.cooldown = statsRuntime.rechargeTime;
         }
     }
 }

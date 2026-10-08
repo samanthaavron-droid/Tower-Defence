@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6053912797016877002}
-  - component: {fileID: -8507835967369740091}
   - component: {fileID: 3652302990574870655}
+  - component: {fileID: -8507835967369740091}
   - component: {fileID: -7305231757550103518}
   m_Layer: 7
   m_Name: Fighter
@@ -35,6 +35,28 @@ Transform:
   - {fileID: 8532615803443884484}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3652302990574870655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5511200396173975279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 083187958c1879a4b9088746702cd8c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyBase
+  statsTemplate: {fileID: 11400000, guid: 30baf97058914a045aac6f5821b9fe0e, type: 2}
+  weaponType: 0
+  enemyType: 1
+  debreePrefab: {fileID: 0}
+  projectilePrefab: {fileID: 3864649161113358923, guid: 5367b3713a356f54d8dc0143451c6115, type: 3}
+  spriteRenderer: {fileID: 0}
+  healthBar: {fileID: 0}
+  maxHealth: 0
+  alreadyPlaced: 0
+  direction: {x: 0, y: 0, z: 0}
 --- !u!61 &-8507835967369740091
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -81,21 +103,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.8588778, y: 0.99294376}
   m_EdgeRadius: 0
---- !u!114 &3652302990574870655
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5511200396173975279}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 083187958c1879a4b9088746702cd8c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyBase
-  enemyStatsTemplate: {fileID: 11400000, guid: 2d49288950927b74cad05da0de26d005, type: 2}
-  enemyType: 1
-  projectilePrefab: {fileID: 3864649161113358923, guid: 5367b3713a356f54d8dc0143451c6115, type: 3}
 --- !u!50 &-7305231757550103518
 Rigidbody2D:
   serializedVersion: 5

@@ -16,19 +16,27 @@ public class Builder : MonoBehaviour
     public float currentResource;
     [SerializeField] private BuildingBase city;
     [SerializeField] private Image resources;
+    private Vector3 lastMousePos;
+    private BuildingBase towerUp;
+    private Debree debree;
+    private Grabber graber;
+    private LayerMask buildingLayer;
     void Awake()
     {
         instance = this;
+        buildingLayer = LayerMask.GetMask("Building", "Debree", "Tiles");
     }
     void Start()
     {
         if (GlobalSettings.difficulty > 1)
         {
-            currentResource = city.buildingStatsTemplate.buildingCost * (1f/2f * GlobalSettings.difficulty);
+            currentResource = city.statsTemplate.worth * (1f/2f * GlobalSettings.difficulty);
         } else
         {
-            currentResource = city.buildingStatsTemplate.buildingCost;
+            currentResource = city.statsTemplate.worth;
         }
+
+        lastMousePos = Input.mousePosition;
     }
 
     void Update()
@@ -39,6 +47,12 @@ public class Builder : MonoBehaviour
             BuildingOnMouse();
 
         UpdateResources();
+
+        if (lastMousePos != Input.mousePosition)
+        {
+            CheckBuildingOnMouse();
+            lastMousePos = Input.mousePosition;
+        }
     }
     private void MouseControls()
     {
@@ -49,16 +63,22 @@ public class Builder : MonoBehaviour
             if (currentPrefab == null)
             {
                 Collider2D hit = Physics2D.OverlapPoint(tilemap.GetCellCenterWorld(_currentCellPosition));
-                Debug.Log(_currentCellPosition);
 
                 if (hit != null)
                 {
-                    if (hit.GetComponent<Grabber>() != null)
+                    Grabber grabber = hit.GetComponent<Grabber>();
+                    if (grabber != null)
                     {
-                        Grabber grabber = hit.GetComponent<Grabber>();
                         currentPrefab = Instantiate(grabber.prefabIU, hit.gameObject.transform.position, Quaternion.identity);
                         currentPrefab.layer = 0;
                         _buildingOnMouse = true;
+                        if (graber != null) graber.UI.SetActive(false);
+                    } else if (towerUp != null)
+                    {
+                        RunUpgrader(towerUp);
+                    } else if (debree != null)
+                    {
+                        RemoveDebree();
                     }
                 }
             }
@@ -68,6 +88,56 @@ public class Builder : MonoBehaviour
             }
         }
     }
+    private void CheckBuildingOnMouse()
+    {
+        Collider2D hit = Physics2D.OverlapPoint(tilemap.GetCellCenterWorld(_currentCellPosition), buildingLayer);
+
+        BuildingBase newTower = hit != null ? hit.GetComponent<BuildingBase>() : null;
+        Debree newDebree = hit != null ? hit.GetComponent<Debree>() : null;
+        Grabber newGraber = hit != null ? hit.GetComponent<Grabber>() : null;
+
+        if (towerUp != null && towerUp != newTower)
+        {
+            if (towerUp.upgradeText != null)
+                towerUp.upgradeText.gameObject.SetActive(false);
+            towerUp = null;
+        }
+        if (debree != null && debree != newDebree)
+        {
+            if (debree.priceText != null)
+                debree.priceText.gameObject.SetActive(false);
+        }
+        if (graber != null && graber != newGraber)
+        {
+            if (graber.UI != null)
+                graber.UI.SetActive(false);
+        }
+        if (newTower != null)
+        {
+            towerUp = newTower;
+            if (towerUp.weaponType != WeaponType.None)
+            {
+                if (towerUp.upgradeText == null || towerUp.weaponLogic == null) return;
+
+                towerUp.upgradeText.text = "Upgrade:\n" + towerUp.statsRuntime.worth * 0.5f + "$";
+                towerUp.upgradeText.gameObject.SetActive(true);
+            }
+        } else if (newDebree != null)
+        {
+            debree = newDebree;
+            if (debree.priceText == null) return;
+
+            debree.priceText.text = "Removal:\n" + debree.statsRuntime.debreeSize + "$";
+            debree.priceText.gameObject.SetActive(true);
+        } else if (newGraber != null)
+        {
+            graber = newGraber;
+            if (graber.UI == null || currentPrefab != null) return;
+
+            graber.UpdateInterface();
+            graber.UI.SetActive(true);
+        }
+    }
     private void MouseToGrid()  
     {
         Vector3 mouseWorldPosition = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
@@ -75,46 +145,42 @@ public class Builder : MonoBehaviour
 
         _currentCellPosition = tilemap.WorldToCell(mouseWorldPosition);
     }
+    private void RunUpgrader(BuildingBase tower)
+    {
+        if (towerUp.weaponType == WeaponType.None) return;
+        if (Transaction(tower.statsRuntime.worth * 0.5f))
+        {
+            tower.LevelUp();
+            towerUp.upgradeText.text = "Upgrade:\n" + towerUp.statsRuntime.worth * 0.5f + "$";
+        }
+    }
     private void PlaceNewBuilding()
     {
-        if (tilemap.HasTile(_currentCellPosition) == false)
+        if (tilemap.HasTile(_currentCellPosition) == false || IsCellOccupied(_currentCellPosition) == true)
         {
             BuilderReset(); 
             return;
         }
-            
-        if (IsCellOccupied(_currentCellPosition) == true)
+        if (Transaction(currentPrefab.GetComponent<BuildingBase>().statsTemplate.worth))
         {
-            //if the cell is occupied and you have remover, it runs remover
-            if (currentPrefab.GetComponent<Debree>() == null) return;
+            GameObject building = Instantiate(currentPrefab);
+            BuildingBase currentTower = building.GetComponent<BuildingBase>();
 
-            RemoveDebree();
-        } else if (currentPrefab.GetComponent<Debree>() != null) //if the cell is not occupied and you have remover, it does nothing
-        {
-            BuilderReset();
-        }
-        else
-        {
-            if (currentResource - currentPrefab.GetComponent<BuildingBase>().buildingStatsTemplate.buildingCost >= 0)
+            if (currentTower.attackRadius != null)
             {
-                GameObject building = Instantiate(currentPrefab);
-                BuildingBase currentTower = building.GetComponent<BuildingBase>();
-
-                currentTower.alreadyPlaced = false;
-                building.layer = 6; //Building layer
-                building.transform.position = tilemap.GetCellCenterWorld(_currentCellPosition);
-                occupiedCells.Add(_currentCellPosition);
-
-                currentTower.StartCoroutine(currentTower.StartBuilding());
-                currentResource -= currentTower.buildingStats.buildingCost;
+                currentTower.attackRadius.gameObject.SetActive(false); ;
             }
-            else
-            {
-                Debug.Log("Not enough resources, current: " + currentResource);
-            }
+            currentTower.alreadyPlaced = false;
+            building.layer = 6; //Building layer
+            building.transform.position = tilemap.GetCellCenterWorld(_currentCellPosition);
+            occupiedCells.Add(_currentCellPosition);
 
-            BuilderReset();
+            if (currentTower.attackRadius != null) currentTower.attackRadius.SetActive(false);
+
+            currentTower.StartCoroutine(currentTower.StartBuilding());
         }
+
+        BuilderReset();
     }
     public bool IsCellOccupied(Vector3Int cellPosition) //returns true if occupied
     {
@@ -136,15 +202,8 @@ public class Builder : MonoBehaviour
     }
     private void RemoveDebree() //starts the debree removal process and resets the builder
     {
-        BuilderReset();
-        Collider2D hit = Physics2D.OverlapPoint(tilemap.GetCellCenterWorld(_currentCellPosition));
-
-        Debree debree = hit.gameObject.GetComponent<Debree>();
-        if (debree != null)
-        {
+        if (Transaction(debree.statsRuntime.debreeSize))
             debree.StartRemoval(this);
-            currentResource -= debree.buildingStats.debreeSize;
-        }
     }
     public void AddResource(float amount)
     {
@@ -156,5 +215,14 @@ public class Builder : MonoBehaviour
         if (resources == null) return;
         
         resources.fillAmount = currentResource / 60;
+    }
+    public bool Transaction(float m)
+    {
+        if (currentResource - m >= 0)
+        {
+            currentResource -= m;
+            return true;
+        }
+        else return false;
     }
 }

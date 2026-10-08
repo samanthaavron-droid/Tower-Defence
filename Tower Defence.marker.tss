@@ -2,6 +2,84 @@
 <ArrayOfTabHighlightState xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <TabHighlightState>
     <extensions>
+      <string>Assets\Scripts\Buildings\Buildings\Debree.cs</string>
+    </extensions>
+    <highlightIndex>2</highlightIndex>
+  </TabHighlightState>
+  <TabHighlightState>
+    <extensions>
+      <string>Assets\Scripts\Universal\Unit.cs</string>
+    </extensions>
+    <highlightIndex>3</highlightIndex>
+  </TabHighlightState>
+  <TabHighlightState>
+    <extensions>
+      <string>Assets\Scripts\Enemies\Enemies\Fighter.cs</string>
+    </extensions>
+    <highlightIndex>1</highlightIndex>
+  </TabHighlightState>
+  <TabHighlightState>
+    <extensions>
+      <string>Assets\Scripts\Enemies\Enemies\Rocket.cs</string>
+    </extensions>
+    <highlightIndex>1</highlightIndex>
+  </TabHighlightState>
+  <TabHighlightState>
+    <extensions>
+      <string>Assets\Scripts\Enemies\Enemies\Helicopter.cs</string>
+    </extensions>
+    <highlightIndex>1</highlightIndex>
+  </TabHighlightState>
+  <TabHighlightState>
+    <extensions>
+      <string>Assets\Scripts\Enemies\Enemies\Bomber.cs</string>
+    </extensions>
+    <highlightIndex>1</highlightIndex>
+  </TabHighlightState>
+  <TabHighlightState>
+    <extensions>
+      <string>Assets\Scripts\Buildings\Buildings\Turret.cs</string>
+    </extensions>
+    <highlightIndex>2</highlightIndex>
+  </TabHighlightState>
+  <TabHighlightState>
+    <extensions>
+      <string>Assets\Scripts\Buildings\Buildings\Rocket Launcher.cs</string>
+    </extensions>
+    <highlightIndex>2</highlightIndex>
+  </TabHighlightState>
+  <TabHighlightState>
+    <extensions>
+      <string>Assets\Scripts\Buildings\Buildings\Cannon.cs</string>
+    </extensions>
+    <highlightIndex>2</highlightIndex>
+  </TabHighlightState>
+  <TabHighlightState>
+    <extensions>
+      <string>Assets\Scripts\Buildings\Buildings\Minigun.cs</string>
+    </extensions>
+    <highlightIndex>2</highlightIndex>
+  </TabHighlightState>
+  <TabHighlightState>
+    <extensions>
+      <string>Assets\Scripts\Enemies\All\EnemyBase.cs</string>
+    </extensions>
+    <highlightIndex>1</highlightIndex>
+  </TabHighlightState>
+  <TabHighlightState>
+    <extensions>
+      <string>Assets\Scripts\Universal\WeaponLogic.cs</string>
+    </extensions>
+    <highlightIndex>3</highlightIndex>
+  </TabHighlightState>
+  <TabHighlightState>
+    <extensions>
+      <string>Assets\Scripts\Universal\Projectile.cs</string>
+    </extensions>
+    <highlightIndex>3</highlightIndex>
+  </TabHighlightState>
+  <TabHighlightState>
+    <extensions>
       <string>Assets\Scripts\Menu\Menu.cs</string>
     </extensions>
     <highlightIndex>3</highlightIndex>
@@ -11,12 +89,6 @@
       <string>Assets\Scripts\Buildings\All\Building Base.cs</string>
     </extensions>
     <highlightIndex>2</highlightIndex>
-  </TabHighlightState>
-  <TabHighlightState>
-    <extensions>
-      <string>Assets\Scripts\Processors\PauseMenu.cs</string>
-    </extensions>
-    <highlightIndex>3</highlightIndex>
   </TabHighlightState>
   <TabHighlightState>
     <extensions>
@@ -38,74 +110,8 @@
   </TabHighlightState>
   <TabHighlightState>
     <extensions>
-      <string>Assets\Scripts\Buildings\Buildings\Debree.cs</string>
+      <string>Assets\Scripts\Buildings\Buildings\Laser.cs</string>
     </extensions>
     <highlightIndex>2</highlightIndex>
-  </TabHighlightState>
-  <TabHighlightState>
-    <extensions>
-      <string>Assets\Scripts\Universal\Projectile.cs</string>
-    </extensions>
-    <highlightIndex>3</highlightIndex>
-  </TabHighlightState>
-  <TabHighlightState>
-    <extensions>
-      <string>Assets\Scripts\Universal\WeaponLogic.cs</string>
-    </extensions>
-    <highlightIndex>3</highlightIndex>
-  </TabHighlightState>
-  <TabHighlightState>
-    <extensions>
-      <string>Assets\Scripts\Buildings\Buildings\Minigun.cs</string>
-    </extensions>
-    <highlightIndex>2</highlightIndex>
-  </TabHighlightState>
-  <TabHighlightState>
-    <extensions>
-      <string>Assets\Scripts\Buildings\Buildings\Cannon.cs</string>
-    </extensions>
-    <highlightIndex>2</highlightIndex>
-  </TabHighlightState>
-  <TabHighlightState>
-    <extensions>
-      <string>Assets\Scripts\Buildings\Buildings\Rocket Launcher.cs</string>
-    </extensions>
-    <highlightIndex>2</highlightIndex>
-  </TabHighlightState>
-  <TabHighlightState>
-    <extensions>
-      <string>Assets\Scripts\Buildings\Buildings\Turret.cs</string>
-    </extensions>
-    <highlightIndex>2</highlightIndex>
-  </TabHighlightState>
-  <TabHighlightState>
-    <extensions>
-      <string>Assets\Scripts\Enemies\Enemies\Bomber.cs</string>
-    </extensions>
-    <highlightIndex>1</highlightIndex>
-  </TabHighlightState>
-  <TabHighlightState>
-    <extensions>
-      <string>Assets\Scripts\Enemies\Enemies\Helicopter.cs</string>
-    </extensions>
-    <highlightIndex>1</highlightIndex>
-  </TabHighlightState>
-  <TabHighlightState>
-    <extensions>
-      <string>Assets\Scripts\Enemies\Enemies\Rocket.cs</string>
-    </extensions>
-    <highlightIndex>1</highlightIndex>
-  </TabHighlightState>
-  <TabHighlightState>
-    <extensions>
-      <string>Assets\Scripts\Enemies\Enemies\Fighter.cs</string>
-    </extensions>
-    <highlightIndex>1</highlightIndex>
-  </TabHighlightState>
-  <TabHighlightState>
-    <extensions>
-      <string>Assets\Scripts\Enemies\All\EnemyBase.cs</string>
-    </extensions>
-    <highlightIndex>1</highlightIndex>
   </TabHighlightState>
 </ArrayOfTabHighlightState>

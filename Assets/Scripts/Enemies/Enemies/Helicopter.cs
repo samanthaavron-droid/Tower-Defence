@@ -2,22 +2,22 @@ using UnityEngine;
 
 public class Helicopter : WeaponLogic
 {
-    public Helicopter(EnemyStatsTemplate stats)
+    public Helicopter(StatsTemplate stats)
     {
-        base.enemyStats= new(stats);
+        base.statsRuntime = new(stats);
     }
-    public override void Attack(EnemyBase user)
+    public override void Attack(Unit user)
     {
-        if (enemyStats.cooldown > 0 || user == null) return;
+        if (statsRuntime.cooldown > 0 || user == null) return;
 
-        Collider2D hit = OverlapCircleCheck(user, enemyStats, LayerMask.GetMask("Building"));
+        Collider2D hit = OverlapCircleCheck(user, statsRuntime, LayerMask.GetMask("Building"));
         if (hit != null)
         {
             GameObject projectile = GameObject.Instantiate(user.projectilePrefab, user.transform.position, Quaternion.identity);
 
-            ProjectileData(projectile, enemyStats, (hit.transform.position - user.transform.position).normalized);
+            ProjectileData(projectile, statsRuntime, (hit.transform.position - user.transform.position).normalized, TagHandle.GetExistingTag("Building"), user);
 
-            enemyStats.cooldown = enemyStats.rechargeTime;
+            statsRuntime.cooldown = statsRuntime.rechargeTime;
         }
     }
 }

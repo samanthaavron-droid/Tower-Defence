@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    public BuildingStatsRuntime buildingStats;
-    public EnemyStatsRuntinme enemyStats;
+    public StatsRuntime statsRuntime;
     public Vector3 futurePos;
     public GameObject target;
-    public EnemyBase user;
+    public Unit user;
+    public new TagHandle tag;
     void Start()
     {
         StartCoroutine(DelayDestroy());
@@ -19,70 +19,36 @@ public class Projectile : MonoBehaviour
     }
     private void MoveToFuturePoint()
     {
-        if (buildingStats != null)
+        if (statsRuntime != null)
         {
-            transform.position += futurePos * buildingStats.projectileSpeed * Time.deltaTime;
-        } else if (enemyStats != null)
-        {
-            transform.position += futurePos * enemyStats.projectileSpeed * Time.deltaTime;
+            transform.position += futurePos * statsRuntime.projectileSpeed * Time.deltaTime;
         }
     }
     public void TakeDamage(float damage)
     {
-        if (buildingStats != null)
+        statsRuntime.projectileHealth -= damage;
+        if (statsRuntime.projectileHealth <= 0)
         {
-            buildingStats.projectileHealth -= damage;
-            if (buildingStats.projectileHealth <= 0)
-            {
-                Destroy(gameObject);
-            }
-        } else if (enemyStats != null)
-        {
-            enemyStats.projectileHealth -= damage;
-            if (enemyStats.projectileHealth <= 0)
-            {
-                Destroy(gameObject);
-            }
+            Destroy(gameObject);
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (target == null)
         {
-            if (buildingStats != null)
+            if (collision.gameObject.CompareTag(tag))
             {
-                if (collision.gameObject.CompareTag("Enemy"))
+                Unit enemy = collision.gameObject.GetComponent<Unit>();
+                Projectile enemyPj = collision.gameObject.GetComponent<Projectile>();
+                if (enemy != null)
                 {
-                    EnemyBase enemy = collision.gameObject.GetComponent<EnemyBase>();
-                    Projectile enemyPj = collision.gameObject.GetComponent<Projectile>();
-                    if (enemy != null)
-                    {
-                        enemy.TakeDamage(buildingStats.damage);
-                        Destroy(gameObject);
-                    }
-                    else if (enemyPj != null)
-                    {
-                        enemyPj.TakeDamage(buildingStats.damage);
-                        Destroy(gameObject);
-                    }
+                    enemy.TakeDamage(statsRuntime.damage);
+                    Destroy(gameObject);
                 }
-            } 
-            else if (enemyStats != null)
-            {
-                if (collision.gameObject.CompareTag("Building"))
+                else if (enemyPj != null)
                 {
-                    BuildingBase tower = collision.gameObject.GetComponent<BuildingBase>();
-                    Projectile towerPj = collision.gameObject.GetComponent<Projectile>();
-                    if (tower != null)
-                    {
-                        tower.TakeDamage(enemyStats.damage);
-                        Destroy(gameObject);
-                    }
-                    else if (towerPj != null)
-                    {
-                        towerPj.TakeDamage(enemyStats.damage);
-                        Destroy(gameObject);
-                    }
+                    enemyPj.TakeDamage(statsRuntime.damage);
+                    Destroy(gameObject);
                 }
             }
         } else if (target != null)
@@ -95,21 +61,14 @@ public class Projectile : MonoBehaviour
 
                 if (enemy != null)
                 {
-                    enemy.TakeDamage(buildingStats.damage);
+                    enemy.TakeDamage(statsRuntime.damage);
                 } else if (building != null)
                 {
-                    building.TakeDamage(enemyStats.damage);
+                    building.TakeDamage(statsRuntime.damage);
                     user.TakeDamage(1000f);
                 } else if (projectile != null)
                 {
-                    if (user != null)
-                    {
-                        projectile.TakeDamage(enemyStats.damage);
-                    } 
-                    else if (user == null)
-                    {
-                        projectile.TakeDamage(buildingStats.damage);
-                    }
+                    projectile.TakeDamage(statsRuntime.damage);
                 }
                 Destroy(gameObject);
             }

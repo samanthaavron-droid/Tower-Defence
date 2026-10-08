@@ -2,26 +2,24 @@ using UnityEngine;
 
 public class RocketLauncher : WeaponLogic
 {
-    public RocketLauncher(BuildingStatsTemplate stats)
+    public RocketLauncher(StatsTemplate stats)
     {
-        base.buildingStats = new(stats);
+        base.statsRuntime = new(stats);
     }
-    public override void Attack(BuildingBase user)
+    public override void Attack(Unit user)
     {
-        if (buildingStats.cooldown > 0 || user == null) return;
+        if (statsRuntime.cooldown > 0) return;
 
-        Collider2D hit = OverlapCircleCheck(user, buildingStats, LayerMask.GetMask("Enemy"));
+        Collider2D hit = OverlapCircleCheck(user, statsRuntime, LayerMask.GetMask("Enemy"));
         if (hit != null)
         {
+            if (OnScreen(hit.transform.position) == false) return;
+
             GameObject projectile = GameObject.Instantiate(user.projectilePrefab, user.transform.position, Quaternion.identity);
 
-            ProjectileData(projectile, buildingStats, (Interception.GetInterceptionPoint(user.transform.position, hit.transform.position, hit.GetComponent<Rigidbody2D>().linearVelocity, buildingStats.projectileSpeed) - user.transform.position).normalized, hit.gameObject);
+            ProjectileData(projectile, statsRuntime, (Interception.GetInterceptionPoint(user.transform.position, hit.transform.position, hit.GetComponent<Rigidbody2D>().linearVelocity, statsRuntime.projectileSpeed) - user.transform.position).normalized, TagHandle.GetExistingTag("Enemy"), user, hit.gameObject);
 
-            buildingStats.cooldown = buildingStats.rechargeTime;
+            statsRuntime.cooldown = statsRuntime.rechargeTime;
         }
     }
-    //public override void LevelUp()
-    //{
-
-    //}
 }

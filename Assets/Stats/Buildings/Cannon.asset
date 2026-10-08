@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: Cannon
   m_EditorClassIdentifier: Assembly-CSharp::BuildingStatsTemplate
   health: 4
-  attackRange: 5
-  projectileSpeed: 12
+  attackRange: 14
+  projectileSpeed: 24
   damage: 5
+  projectileHealth: 0
   rechargeTime: 5
   debreeSize: 3
   buildingSpeed: 5
-  buildingCost: 4
   priority: 0
+  speed: 0
+  worth: 6

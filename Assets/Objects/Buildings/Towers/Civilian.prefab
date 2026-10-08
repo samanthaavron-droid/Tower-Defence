@@ -107,12 +107,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b568d8a7ad634da48b0523f99ff2c583, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuildingBase
-  buildingStatsTemplate: {fileID: 11400000, guid: 85acf61fa3459e34fbf26c2ebb05fb26, type: 2}
+  statsTemplate: {fileID: 11400000, guid: 85acf61fa3459e34fbf26c2ebb05fb26, type: 2}
   weaponType: 0
+  enemyType: 0
   debreePrefab: {fileID: 1760658000159505199, guid: e7421faad72d8c64ba6d6de16fd1256c, type: 3}
   projectilePrefab: {fileID: 5511200396173975279, guid: ec8b6c31751de954b997b8d24f9a1cdf, type: 3}
+  spriteRenderer: {fileID: 0}
   healthBar: {fileID: 1920274655112947137}
+  maxHealth: 0
   alreadyPlaced: 1
+  direction: {x: 0, y: 0, z: 0}
 --- !u!61 &7775184687515652697
 BoxCollider2D:
   m_ObjectHideFlags: 0

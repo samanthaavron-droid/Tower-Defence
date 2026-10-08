@@ -2,65 +2,38 @@ using UnityEngine;
 
 public class WeaponLogic //this is the class on which weapons are built
 {
-    public EnemyStatsTemplate enemyStatsTemplate;
-    public EnemyStatsRuntinme enemyStats;
-    public BuildingStatsTemplate buildingStatsTemplate;
-    public BuildingStatsRuntime buildingStats;
-
-    public virtual void Attack(EnemyBase user) { }
-    public virtual void Attack(BuildingBase user) { }
-    public void ProjectileData(GameObject projectile, EnemyStatsRuntinme enemyStats, Vector3 futurePos, EnemyBase user = null, GameObject target = null)
+    public StatsTemplate statsTemplate;
+    public StatsRuntime statsRuntime;
+    public virtual void Attack(Unit user) { }
+    public void ProjectileData(GameObject projectile, StatsRuntime statsRuntime, Vector3 futurePos, TagHandle tag, Unit user = null, GameObject target = null)
     {
         Projectile projectileInfo = projectile.GetComponent<Projectile>();
 
-        projectileInfo.enemyStats = enemyStats;
+        projectileInfo.statsRuntime = statsRuntime;
         projectileInfo.futurePos = futurePos;
         projectile.transform.up = futurePos;
         projectileInfo.user = user;
         projectileInfo.target = target;
+        projectileInfo.tag = tag;
     }
-    public void ProjectileData(GameObject projectile, BuildingStatsRuntime buildingStats, Vector3 futurePos, GameObject target = null)
+    public RaycastHit2D RaycastCheck(Unit user, Vector2 direction, StatsRuntime statsRuntime, LayerMask targetLayer)
     {
-        Projectile projectileInfo = projectile.GetComponent<Projectile>();
-
-        projectileInfo.buildingStats = buildingStats;
-        projectileInfo.futurePos = futurePos;
-        projectile.transform.up = futurePos;
-        projectileInfo.target = target;
-    }
-    public RaycastHit2D RaycastCheck(EnemyBase user, Vector2 direction, EnemyStatsRuntinme enemyStats, LayerMask targetLayer)
-    {
-        RaycastHit2D hit = Physics2D.Raycast(user.transform.position, direction, enemyStats.attackRange, targetLayer);
+        RaycastHit2D hit = Physics2D.Raycast(user.transform.position, direction, statsRuntime.attackRange, targetLayer);
         return hit;
     }
-    public RaycastHit2D RaycastCheck(BuildingBase user, Vector2 direction, BuildingStatsRuntime buildingStats, LayerMask targetLayer)
-    {
-        RaycastHit2D hit = Physics2D.Raycast(user.transform.position, direction, buildingStats.attackRange, targetLayer);
-        return hit;
-    }
-    public Collider2D OverlapPointCheck(EnemyBase user, LayerMask targetMask)
+    public Collider2D OverlapPointCheck(Unit user, LayerMask targetMask)
     {
         Collider2D hit = Physics2D.OverlapPoint(user.transform.position, targetMask);
         return hit;
     }
-    public Collider2D OverlapPointCheck(BuildingBase user, LayerMask targetMask)
+    public Collider2D OverlapCircleCheck(Unit user, StatsRuntime statsRuntime, LayerMask targetLayer)
     {
-        Collider2D hit = Physics2D.OverlapPoint(user.transform.position, targetMask);
+        Collider2D hit = Physics2D.OverlapCircle(user.transform.position, statsRuntime.attackRange, targetLayer);
         return hit;
     }
-    public Collider2D OverlapCircleCheck(EnemyBase user, EnemyStatsRuntinme enemyStats, LayerMask targetLayer)
+    public Collider2D OverlapCircleAllCheck(Unit user, StatsRuntime statsRuntime, LayerMask targetLayer)
     {
-        Collider2D hit = Physics2D.OverlapCircle(user.transform.position, enemyStats.attackRange, targetLayer);
-        return hit;
-    }
-    public Collider2D OverlapCircleCheck(BuildingBase user, BuildingStatsRuntime buildingStats, LayerMask targetLayer)
-    {
-        Collider2D hit = Physics2D.OverlapCircle(user.transform.position, buildingStats.attackRange, targetLayer);
-        return hit;
-    }
-    public Collider2D OverlapCircleAllCheck(EnemyBase user, EnemyStatsRuntinme enemyStats, LayerMask targetLayer)
-    {
-        Collider2D[] hits = Physics2D.OverlapCircleAll(user.transform.position, enemyStats.attackRange, targetLayer);
+        Collider2D[] hits = Physics2D.OverlapCircleAll(user.transform.position, statsRuntime.attackRange, targetLayer);
 
         if (hits.Length > 0)
         {
@@ -73,20 +46,22 @@ public class WeaponLogic //this is the class on which weapons are built
             return null;
         }
     }
-    public Collider2D OverlapCircleAllCheck(BuildingBase user, BuildingStatsRuntime buildingStats, LayerMask targetLayer)
+    public bool OnScreen(Vector2 pos)
     {
-        Collider2D[] hits = Physics2D.OverlapCircleAll(user.transform.position, buildingStats.attackRange, targetLayer);
-
-        if (hits.Length > 0)
+        Vector3 viewPos = Camera.main.WorldToViewportPoint(pos);
+        if (viewPos.x > 0 && viewPos.x < 1 && viewPos.y > 0 && viewPos.y < 1)
         {
-            int randomTarget = Random.Range(0, hits.Length);
-            Collider2D hit = hits[randomTarget];
-
-            return hit;
+            return true;
         }
-        else
-        {
-            return null;
-        }
+        else return false;
+    }
+    public virtual void LevelUpTower() //Unit user
+    {
+        statsRuntime.health = statsRuntime.health * 1.5f;
+        statsRuntime.attackRange = statsRuntime.attackRange * 1.25f;
+        statsRuntime.currentLevel += 1;
+        statsRuntime.debreeSize = statsRuntime.debreeSize * 1.25f;
+        statsRuntime.rechargeTime = statsRuntime.rechargeTime * 0.75f;
+        statsRuntime.worth = statsRuntime.worth * 1.5f;
     }
 }

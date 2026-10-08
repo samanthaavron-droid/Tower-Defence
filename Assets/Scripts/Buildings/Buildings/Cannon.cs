@@ -2,26 +2,24 @@ using UnityEngine;
 
 public class Cannon : WeaponLogic
 {
-    public Cannon(BuildingStatsTemplate stats)
+    public Cannon(StatsTemplate stats)
     {
-        base.buildingStats = new(stats);
+        base.statsRuntime = new(stats);
     }
-    public override void Attack(BuildingBase user)
+    public override void Attack(Unit user)
     {
-        if (buildingStats.cooldown > 0 || user == null) return;
+        if (statsRuntime.cooldown > 0) return;
 
-        RaycastHit2D hit = RaycastCheck(user, Vector2.right, buildingStats, LayerMask.GetMask("Enemy"));
-        if (hit == true)
+        RaycastHit2D hit = RaycastCheck(user, Vector2.right, statsRuntime, LayerMask.GetMask("Enemy"));
+        if (hit.collider == true)
         {
+            if (OnScreen(hit.transform.position) == false) return;
+
             GameObject projectile = GameObject.Instantiate(user.projectilePrefab, user.transform.position, Quaternion.identity);
 
-            ProjectileData(projectile, buildingStats, Vector2.right);
+            ProjectileData(projectile, statsRuntime, Vector2.right, TagHandle.GetExistingTag("Enemy"), user);
 
-            buildingStats.cooldown = buildingStats.rechargeTime;
+            statsRuntime.cooldown = statsRuntime.rechargeTime;
         }
     }
-    //public override void LevelUp()
-    //{
-
-    //}
 }

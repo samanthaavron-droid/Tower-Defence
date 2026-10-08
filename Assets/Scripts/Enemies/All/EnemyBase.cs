@@ -1,86 +1,55 @@
 using System;
 using UnityEngine;
-public class EnemyBase : MonoBehaviour //this code runs when the enemy is created
+public class EnemyBase : Unit //this code runs when the enemy is created
 {
-    EnemyBase user;
-    public EnemyStatsTemplate enemyStatsTemplate;
-    public EnemyStatsRuntinme enemyStats;
-    public WeaponLogic enemyLogic;
-    public EnemyType enemyType;
-    public GameObject projectilePrefab;
-    public Vector3 direction;
     public static event Action<EnemyBase> enemyDeath;
-    private void OnValidate()
-    {
-        
-    }
-    void Start()
+    public override void Start()
     {
         SetType();
-        enemyStats = new(enemyStatsTemplate);
-        user = this;
+        statsRuntime = new(statsTemplate);
         direction = Vector3.left;
     }
 
-    void Update()
+    public override void Update()
     {
-        if (enemyLogic != null)
+        if (weaponLogic != null)
         {
-            WeaponCooldownUpdate();
+            WeaponCoolDown();
             Attack();
         }
         Move();
-    }
-    private void WeaponCooldownUpdate()
-    {
-        if (enemyLogic.enemyStats.cooldown > 0)
-        {
-            enemyLogic.enemyStats.cooldown -= Time.deltaTime;
-        }
     }
     private void SetType()
     {
         switch (enemyType)
         {
             case EnemyType.None:
-                enemyLogic = null;
+                weaponLogic = null;
                 break;
             case EnemyType.Figher:
-                enemyLogic = new Fighter(enemyStatsTemplate);
+                weaponLogic = new Fighter(statsTemplate);
                 break;
             case EnemyType.Bomber:
-                enemyLogic = new Bomber(enemyStatsTemplate);
+                weaponLogic = new Bomber(statsTemplate);
                 break;
             case EnemyType.Helicopter:
-                enemyLogic = new Helicopter(enemyStatsTemplate);
+                weaponLogic = new Helicopter(statsTemplate);
                 break;
             case EnemyType.Rocket:
-                enemyLogic = new Rocket(enemyStatsTemplate);
+                weaponLogic = new Rocket(statsTemplate);
                 break;
         }
     }
     private void Move()
     {
-        transform.position += direction * enemyStats.speed * Time.deltaTime;
+        transform.position += direction * statsRuntime.speed * Time.deltaTime;
     }
-    public void Attack()
+    public override void TakeDamage(float damage)
     {
-        enemyLogic.Attack(user);
-    }
-    public void TakeDamage(float damage)
-    {
-        enemyStats.health -= damage;
-        if (enemyStats.health <= 0)
+        statsRuntime.health -= damage;
+        if (statsRuntime.health <= 0)
         {
             enemyDeath?.Invoke(this);
         }
     }
-}
-public enum EnemyType
-{
-    None,
-    Figher,
-    Bomber,
-    Helicopter,
-    Rocket,
 }

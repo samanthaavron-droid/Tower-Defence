@@ -1,8 +1,8 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "BuildingStatsTemplate", menuName = "Scriptable Objects/Building Stats Template")]
+[CreateAssetMenu(fileName = "StatsTemplate", menuName = "Scriptable Objects/Stats Template")]
 
-public class BuildingStatsTemplate : ScriptableObject
+public class StatsTemplate : ScriptableObject
 {
     public float health;
     public float attackRange;
@@ -12,6 +12,7 @@ public class BuildingStatsTemplate : ScriptableObject
     public float rechargeTime;
     public float debreeSize;
     public float buildingSpeed;
-    public float buildingCost;
     public bool priority;
+    public float speed;
+    public float worth;
 }

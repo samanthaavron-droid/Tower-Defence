@@ -4,117 +4,103 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class BuildingBase : MonoBehaviour //this code runs when the building is created
+public class BuildingBase : Unit //this code runs when the building is created
 {
-    BuildingBase user;
-    public BuildingStatsTemplate buildingStatsTemplate;
-    public BuildingStatsRuntime buildingStats;
-    public WeaponLogic weapon = null;
-    public WeaponType weaponType;
-    public GameObject debreePrefab;
-    public GameObject projectilePrefab;
-    private SpriteRenderer _spriteRenderer;
-    public Image healthBar;
-    private float maxHealth;
-    public bool alreadyPlaced = true;
-    void Start()
+    public float radius;
+    public GameObject attackRadius;
+    void Awake()
     {
-        if (alreadyPlaced == true)
-        {
-            Vector3Int currentCell = Builder.instance.tilemap.WorldToCell(transform.position);
-            Builder.instance.occupiedCells.Add(currentCell);
-            transform.position = Builder.instance.tilemap.GetCellCenterWorld(currentCell);
-        }
-
+        if (upgradeText != null)
+            upgradeText.gameObject.SetActive(false);
+        if (attackRadius != null)
+            DrawRadius();
+    }
+    public override void Start()
+    {
         if (healthBar != null)
             healthBar.fillAmount = 1f;
     }
-    void Update()
+    public override void Update()
     {
-        if (weapon != null)
+        if (weaponLogic != null)
         {
-            WeaponCooldownUpdate();
+            WeaponCoolDown();
             Attack();
         }
     }
+    public void LevelUp()
+    {
+        if (weaponLogic != null)
+            if (statsRuntime.currentLevel < 3)
+            {
+                weaponLogic.LevelUpTower();
+                upgradeEffect.Play();
+            }
+    }
+    private void DrawRadius()
+    {
+        radius = statsTemplate.attackRange / transform.localScale.x * 2;
+        attackRadius.transform.localScale = new Vector3(radius, radius, radius);
+        attackRadius.SetActive(true);
+    }
     public IEnumerator StartBuilding()
     {
-        if (buildingStats == null)
+        if (statsRuntime == null)
         {
-            buildingStats = new(buildingStatsTemplate);
-            user = this;
-            maxHealth = buildingStats.health;
+            statsRuntime = new(statsTemplate);
+            maxHealth = statsRuntime.health;
         }
 
-        _spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
 
-        Color color = _spriteRenderer.color;
+        Color color = spriteRenderer.color;
         color.a = 0f;
-        _spriteRenderer.color = color;
+        spriteRenderer.color = color;
 
         StartCoroutine(FadeIn());
-        yield return new WaitForSeconds(buildingStats.buildingSpeed);
+        yield return new WaitForSeconds(statsRuntime.buildingSpeed);
+        if (attackRadius != null) attackRadius.SetActive(false);
 
         SetWeapon();
-    }
-    private void WeaponCooldownUpdate()
-    {
-        if (weapon.buildingStats.cooldown > 0)
-        {
-            weapon.buildingStats.cooldown -= Time.deltaTime;
-        }
     }
     private void SetWeapon()
     {
         switch (weaponType)
         {
             case WeaponType.None:
-                weapon = null;
+                weaponLogic = null;
                 break;
             case WeaponType.Turret:
-                weapon = new Turret(buildingStatsTemplate);
+                weaponLogic = new Turret(statsTemplate);
                 break;
             case WeaponType.Rocket:
-                weapon = new RocketLauncher(buildingStatsTemplate);
+                weaponLogic = new RocketLauncher(statsTemplate);
                 break;
             case WeaponType.Minigun:
-                weapon = new Minigun(buildingStatsTemplate);
+                weaponLogic = new Minigun(statsTemplate);
                 break;
             case WeaponType.Cannon:
-                weapon = new Cannon(buildingStatsTemplate);
+                weaponLogic = new Cannon(statsTemplate);
+                break;
+            case WeaponType.Laser:
+                weaponLogic = new Laser(statsTemplate);
                 break;
         }
-    }
-    public void Attack()
-    {
-        weapon.Attack(user);
-    }
-    public void TakeDamage(float damage)
-    {
-        if (buildingStats == null)
+
+        if (weaponLogic != null)
         {
-            buildingStats = new(buildingStatsTemplate);
-            user = this;
-            maxHealth = buildingStats.health;
+            weaponLogic.statsRuntime = this.statsRuntime;
         }
-
-        buildingStats.health -= damage;
-        if (buildingStats.health <= 0)
-        {
-            Death();
-        }
-        Debug.Log(gameObject + " has " + buildingStats.health + " health left");
-
-
-        if (healthBar != null)
-            healthBar.fillAmount = buildingStats.health / maxHealth;
     }
-    private void Death()
+    public override void Death()
     {
-        if (buildingStats.priority == false)
+        if (statsRuntime.priority == false)
         {
             GameObject debree = Instantiate(debreePrefab, transform.position, Quaternion.identity);
-            debree.GetComponent<Debree>().buildingStats = buildingStats;
+            Debree debS = debree.GetComponent<Debree>();
+
+            debS.statsRuntime = statsRuntime;
+
             Destroy(gameObject);
         } else
         {
@@ -124,26 +110,18 @@ public class BuildingBase : MonoBehaviour //this code runs when the building is 
     private IEnumerator FadeIn()
     {
         float timeElapse = 0;
-        float timeToElapse = buildingStats.buildingSpeed;
-        Color c = _spriteRenderer.color;
+        float timeToElapse = statsRuntime.buildingSpeed;
+        Color c = spriteRenderer.color;
 
         while (timeElapse < timeToElapse)
         {
             timeElapse += Time.deltaTime;
             c.a = Mathf.Lerp(0, 1, timeElapse / timeToElapse);
-            _spriteRenderer.color = c;
+            spriteRenderer.color = c;
 
             yield return null;
         }
         c.a = 1f;
-        _spriteRenderer.color = c;
+        spriteRenderer.color = c;
     }
-}
-public enum WeaponType
-{
-    None,
-    Turret,
-    Rocket,
-    Minigun,
-    Cannon,
 }

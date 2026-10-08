@@ -16,12 +16,21 @@ public class EnemyManager : MonoBehaviour
     public float waveBudget;
     private float initialBudget;
     private float score;
+    private float cheapestUnit = float.MaxValue;
     void Start()
     {
+        EnemyBase.enemyDeath -= EnemyDied;
         score = 0;
         spawnDelay = spawnDelay / GlobalSettings.modifier;
         if (GlobalSettings.difficulty > 1)
             initialBudget = waveBudget + (waveBudget * (0.5f * GlobalSettings.difficulty));
+
+        foreach (GameObject enemy in enemyPrefabs)
+        {
+            float worth = enemy.GetComponent<Unit>().statsTemplate.worth;
+            if (worth < cheapestUnit) cheapestUnit = worth;
+        }
+
         StartCoroutine(SpawnWave());
         EnemyBase.enemyDeath += EnemyDied;
     }
@@ -47,7 +56,7 @@ public class EnemyManager : MonoBehaviour
         yield return new WaitForSeconds(spawnDelay);
         Debug.Log("New Wave! #" + enemyWaveIndex);
 
-        while (waveBudget > 0)
+        while (waveBudget >= cheapestUnit)
         {
             SpawnEnemy(CreateEnemy());
         }
@@ -57,7 +66,7 @@ public class EnemyManager : MonoBehaviour
     {
         EnemyData newEnemy = new();
 
-        while (waveBudget > 0)
+        while (waveBudget >= cheapestUnit)
         {
             newEnemy.spawnPos = spawnPoss[Random.Range(0, spawnPoss.Length)].position;
             newEnemy.enemyPrefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
@@ -66,7 +75,7 @@ public class EnemyManager : MonoBehaviour
 
             if (newEnemyBase != null)
             {
-                float worth = newEnemyBase.enemyStatsTemplate.worth;
+                float worth = newEnemyBase.statsTemplate.worth;
                 if (waveBudget - worth >= 0)
                 {
                     waveBudget -= worth;
@@ -94,7 +103,7 @@ public class EnemyManager : MonoBehaviour
     {
         activeEnemies.Remove(enemy.gameObject);
 
-        Builder.instance.AddResource(enemy.enemyStats.worth); //adding money to the builder
+        Builder.instance.AddResource(enemy.statsRuntime.worth); //adding money to the builder
         Destroy(enemy.gameObject);
 
         KeepScore();

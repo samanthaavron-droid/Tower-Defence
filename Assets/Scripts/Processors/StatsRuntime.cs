@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BuildingStatsRuntime
+public class StatsRuntime
 {
     //this is for runtime reference
     public float health { get; set; }
@@ -11,12 +11,13 @@ public class BuildingStatsRuntime
     public float rechargeTime { get; set; }
     public float debreeSize { get; set; }
     public float buildingSpeed { get; set; }
-    public float buildingCost { get; set; }
+    public float worth { get; set; }
     public bool priority { get; set; }
     public float cooldown { get; set; }
     public float currentLevel { get; set; } = 1;
+    public float speed { get; set; }
 
-    public BuildingStatsRuntime(BuildingStatsTemplate s)
+    public StatsRuntime(StatsTemplate s)
     {
         //this is for when the building is created
         health = s.health;
@@ -27,7 +28,8 @@ public class BuildingStatsRuntime
         rechargeTime = s.rechargeTime / GlobalSettings.modifier;
         debreeSize = s.debreeSize;
         buildingSpeed = s.buildingSpeed / GlobalSettings.modifier;
-        buildingCost = s.buildingCost;
+        worth = s.worth;
         priority = s.priority;
+        speed = s.speed * GlobalSettings.modifier;
     }
 }

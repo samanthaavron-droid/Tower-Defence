@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 2858930235663342504}
   - component: {fileID: -8000966115811634117}
   - component: {fileID: 4640759814285969105}
-  m_Layer: 6
+  m_Layer: 10
   m_Name: Cannon Tile
-  m_TagString: Building
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -152,5 +152,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Grabber
   prefabIU: {fileID: 575357962288876674, guid: eb11c2a12e73d584d9f5d76cd8a8a09e, type: 3}
-  buildingStatsTemplate: {fileID: 0}
-  buildingCost: 0
