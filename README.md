@@ -2,4 +2,4 @@
 
 [Game Design Document](Assets/Docs/GameDesign.md)
 
-[Technical Document](TechDetails.md)
+[Technical Document](Assets/Docs/TechDetails.md)
