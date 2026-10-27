@@ -23,8 +23,7 @@ public class BuildingBase : Unit //this code runs when the building is created
     {
         if (weaponLogic != null)
         {
-            WeaponCoolDown();
-            Attack();
+            weaponLogic.Update(this);
         }
     }
     public void LevelUp()

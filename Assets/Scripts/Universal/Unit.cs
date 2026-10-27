@@ -46,13 +46,6 @@ public class Unit : MonoBehaviour
     {
         
     }
-    public void WeaponCoolDown()
-    {
-        if (weaponLogic.SetGetStatsRuntime.cooldown > 0)
-        {
-            weaponLogic.SetGetStatsRuntime.cooldown -= Time.deltaTime;
-        }
-    }
     public void Attack()
     {
         weaponLogic.Attack(this);

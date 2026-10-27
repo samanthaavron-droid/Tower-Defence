@@ -14,8 +14,7 @@ public class EnemyBase : Unit //this code runs when the enemy is created
     {
         if (weaponLogic != null)
         {
-            WeaponCoolDown();
-            Attack();
+            weaponLogic.Update(this);
         }
         Move();
     }

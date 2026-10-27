@@ -6,6 +6,13 @@ public class WeaponLogic //this is the class on which weapons are built
     public StatsRuntime SetGetStatsRuntime { get { return statsRuntime; } set { statsRuntime = value; } }
     private Collider2D[] overlapCheck = new Collider2D[10];
     public virtual void Attack(Unit user) { }
+    public void Update(Unit user)
+    {
+        if (statsRuntime.cooldown > 0)
+        {
+            statsRuntime.cooldown -= Time.deltaTime;
+        }
+    }
     public void ProjectileData(GameObject projectile, StatsRuntime statsRuntime, Vector3 futurePos, TagHandle tag, ParticleSystem particleSystem, Unit user = null, GameObject target = null)
     {
         Projectile projectileInfo = projectile.GetComponent<Projectile>();
