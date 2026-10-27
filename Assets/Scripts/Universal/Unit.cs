@@ -4,21 +4,39 @@ using UnityEngine;
 using UnityEngine.UI;
 public class Unit : MonoBehaviour
 {
-    public StatsTemplate statsTemplate;
-    [HideInInspector] public StatsRuntime statsRuntime;
-    public WeaponLogic weaponLogic;
-    public WeaponType weaponType;
-    public EnemyType enemyType;
-    public GameObject debreePrefab;
-    public GameObject projectilePrefab;
+    [SerializeField] protected StatsTemplate statsTemplate;
+    public StatsTemplate GetStatsTemplate { get { return statsTemplate; } }
+    [HideInInspector] protected StatsRuntime statsRuntime;
+    public StatsRuntime GetStatsRuntime { get { return statsRuntime; } set { statsRuntime = value; } }
+    protected WeaponLogic weaponLogic;
+    public WeaponLogic GetWeaponLogic { get { return weaponLogic; } }
+    [SerializeField] protected WeaponType weaponType;
+    public WeaponType GetWeaponType {  get { return weaponType; } }
+    [SerializeField] protected EnemyType enemyType;
+    [SerializeField] protected GameObject debreePrefab;
+    [SerializeField] protected GameObject projectilePrefab;
+    public GameObject GetProjectilePrefab {  get { return projectilePrefab; } }
     [HideInInspector] public SpriteRenderer spriteRenderer;
-    public Image healthBar;
-    [HideInInspector] public float maxHealth;
-    public bool alreadyPlaced;
-    [HideInInspector] public Vector3 direction;
-    public TextMeshProUGUI upgradeText;
-    public ParticleSystem upgradeEffect;
-    public LineRenderer line;
+    [SerializeField] protected Image healthBar;
+    public Image GetHealthBar {  get { return healthBar; } }
+    [HideInInspector] protected float maxHealth;
+    public float GetMaxHealth { get { return maxHealth; } }
+    [SerializeField] protected bool alreadyPlaced;
+    public bool SetAlreadyPlaced {set { alreadyPlaced = value; } }
+    [HideInInspector] protected Vector3 direction;
+    public Vector3 GetDirection { get { return direction; } }
+    [SerializeField] protected TextMeshProUGUI upgradeText;
+    public TextMeshProUGUI GetUpgradeText { get { return upgradeText; } }
+    [SerializeField] protected ParticleSystem upgradeEffect;
+    [SerializeField] protected LineRenderer line;
+    public LineRenderer GetLine {  get { return line; } }
+    [SerializeField] protected ParticleSystem fireEffect;
+    public ParticleSystem GetFireEffect { get  { return fireEffect; } }
+    [SerializeField] protected ParticleSystem hitEffect;
+    public ParticleSystem GetHitEffect { get { return hitEffect; } }
+    [SerializeField] protected GameObject attackRadius;
+    public GameObject GetAttackRadius { get { return attackRadius; } set { attackRadius = value; } }
+
     public virtual void Start()
     {
         
@@ -30,9 +48,9 @@ public class Unit : MonoBehaviour
     }
     public void WeaponCoolDown()
     {
-        if (weaponLogic.statsRuntime.cooldown > 0)
+        if (weaponLogic.SetGetStatsRuntime.cooldown > 0)
         {
-            weaponLogic.statsRuntime.cooldown -= Time.deltaTime;
+            weaponLogic.SetGetStatsRuntime.cooldown -= Time.deltaTime;
         }
     }
     public void Attack()
@@ -72,6 +90,7 @@ public enum WeaponType
     Minigun,
     Cannon,
     Laser,
+    Shield,
 }
 public enum EnemyType
 {
@@ -80,4 +99,5 @@ public enum EnemyType
     Bomber,
     Helicopter,
     Rocket,
+    Jet,
 }

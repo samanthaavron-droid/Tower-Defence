@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -10,7 +11,14 @@ public class PauseMenu : MonoBehaviour
 
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Pause();
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            EndGame();
+        }
     }
     public void Pause()
     {
@@ -29,6 +37,6 @@ public class PauseMenu : MonoBehaviour
         UnityEditor.EditorApplication.isPlaying = false;
 #endif
         //interface
-        Time.timeScale = 0;
+        SceneManager.LoadScene(0);
     }
 }

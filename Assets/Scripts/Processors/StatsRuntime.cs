@@ -22,14 +22,14 @@ public class StatsRuntime
         //this is for when the building is created
         health = s.health;
         attackRange = s.attackRange;
-        projectileSpeed = s.projectileSpeed * GlobalSettings.modifier;
+        projectileSpeed = s.projectileSpeed * GlobalSettings.GetSetModifier;
         damage = s.damage;
         projectileHealth = s.projectileHealth;
-        rechargeTime = s.rechargeTime / GlobalSettings.modifier;
+        rechargeTime = s.rechargeTime / GlobalSettings.GetSetModifier;
         debreeSize = s.debreeSize;
-        buildingSpeed = s.buildingSpeed / GlobalSettings.modifier;
+        buildingSpeed = s.buildingSpeed / GlobalSettings.GetSetModifier;
         worth = s.worth;
         priority = s.priority;
-        speed = s.speed * GlobalSettings.modifier;
+        speed = s.speed * GlobalSettings.GetSetModifier;
     }
 }

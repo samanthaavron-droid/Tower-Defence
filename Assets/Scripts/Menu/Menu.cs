@@ -12,11 +12,11 @@ public class Menu : MonoBehaviour
     }
     public void OnSliderDifficulty(float newValue)
     {
-        GlobalSettings.difficulty = newValue;
+        GlobalSettings.GetSetDifficulty = newValue;
     }
     public void OnSliderSpeed(float newValue)
     {
-        GlobalSettings.modifier = newValue;
+        GlobalSettings.GetSetModifier = newValue;
     }
     public void OnButtonLoad()
     {

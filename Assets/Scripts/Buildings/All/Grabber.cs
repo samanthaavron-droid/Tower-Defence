@@ -3,21 +3,23 @@ using UnityEngine;
 
 public class Grabber : MonoBehaviour
 {
-    public GameObject prefabIU;
-    public GameObject UI;
+    [SerializeField] private GameObject prefabIU;
+    public GameObject GetPrefabUI { get { return prefabIU; } }
+    [SerializeField] private GameObject UI;
+    public GameObject GetUI { get { return UI; } }
     [SerializeField] private TextMeshProUGUI towerName;
     [SerializeField] private TextMeshProUGUI stats;
     [SerializeField] private Vector3 worldOffset;
     private StatsTemplate statsTemplate;
     private RectTransform rectTransform;
-    void Start()
+    void Awake()
     {
-        statsTemplate = prefabIU.GetComponent<Unit>().statsTemplate;
+        statsTemplate = prefabIU.GetComponent<Unit>().GetStatsTemplate;
         rectTransform = UI.GetComponent<RectTransform>();
     }
     public void UpdateInterface()
     {
-        if (UI == null || towerName == null || stats == null) return;
+        if (UI == null || towerName == null || stats == null || prefabIU == null) return;
 
         Vector3 targetWorldPos = transform.position + worldOffset;
         Vector3 screenPos = Camera.main.WorldToScreenPoint(targetWorldPos);

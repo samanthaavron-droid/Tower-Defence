@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c70a0e737b218b14c95f80702e2b3c5d, type: 3}
   m_Name: RocketLauncher
   m_EditorClassIdentifier: Assembly-CSharp::BuildingStatsTemplate
-  health: 3
+  health: 5
   attackRange: 12
   projectileSpeed: 12
   damage: 5

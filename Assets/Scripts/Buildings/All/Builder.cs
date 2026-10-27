@@ -14,7 +14,7 @@ public class Builder : MonoBehaviour
     public List<Vector3Int> occupiedCells = new();
     private bool _buildingOnMouse = false;
     public float currentResource;
-    [SerializeField] private BuildingBase city;
+    [SerializeField] private Unit city;
     [SerializeField] private Image resources;
     private Vector3 lastMousePos;
     private BuildingBase towerUp;
@@ -28,12 +28,12 @@ public class Builder : MonoBehaviour
     }
     void Start()
     {
-        if (GlobalSettings.difficulty > 1)
+        if (GlobalSettings.GetSetDifficulty > 1)
         {
-            currentResource = city.statsTemplate.worth * (1f/2f * GlobalSettings.difficulty);
+            currentResource = city.GetStatsTemplate.worth * (1f/2f * GlobalSettings.GetSetDifficulty);
         } else
         {
-            currentResource = city.statsTemplate.worth;
+            currentResource = city.GetStatsTemplate.worth;
         }
 
         lastMousePos = Input.mousePosition;
@@ -69,10 +69,10 @@ public class Builder : MonoBehaviour
                     Grabber grabber = hit.GetComponent<Grabber>();
                     if (grabber != null)
                     {
-                        currentPrefab = Instantiate(grabber.prefabIU, hit.gameObject.transform.position, Quaternion.identity);
+                        currentPrefab = Instantiate(grabber.GetPrefabUI, hit.gameObject.transform.position, Quaternion.identity);
                         currentPrefab.layer = 0;
                         _buildingOnMouse = true;
-                        if (graber != null) graber.UI.SetActive(false);
+                        if (graber != null) graber.GetUI.SetActive(false);
                     } else if (towerUp != null)
                     {
                         RunUpgrader(towerUp);
@@ -92,14 +92,14 @@ public class Builder : MonoBehaviour
     {
         Collider2D hit = Physics2D.OverlapPoint(tilemap.GetCellCenterWorld(_currentCellPosition), buildingLayer);
 
-        BuildingBase newTower = hit != null ? hit.GetComponent<BuildingBase>() : null;
+        BuildingBase newTower = hit != null ? hit.GetComponentInParent<BuildingBase>() : null;
         Debree newDebree = hit != null ? hit.GetComponent<Debree>() : null;
         Grabber newGraber = hit != null ? hit.GetComponent<Grabber>() : null;
 
         if (towerUp != null && towerUp != newTower)
         {
-            if (towerUp.upgradeText != null)
-                towerUp.upgradeText.gameObject.SetActive(false);
+            if (towerUp.GetUpgradeText != null)
+                towerUp.GetUpgradeText.gameObject.SetActive(false);
             towerUp = null;
         }
         if (debree != null && debree != newDebree)
@@ -109,18 +109,18 @@ public class Builder : MonoBehaviour
         }
         if (graber != null && graber != newGraber)
         {
-            if (graber.UI != null)
-                graber.UI.SetActive(false);
+            if (graber.GetUI != null)
+                graber.GetUI.SetActive(false);
         }
         if (newTower != null)
         {
             towerUp = newTower;
-            if (towerUp.weaponType != WeaponType.None)
+            if (towerUp.GetWeaponType != WeaponType.None)
             {
-                if (towerUp.upgradeText == null || towerUp.weaponLogic == null) return;
+                if (towerUp.GetUpgradeText == null || towerUp.GetWeaponLogic == null) return;
 
-                towerUp.upgradeText.text = "Upgrade:\n" + towerUp.statsRuntime.worth * 0.5f + "$";
-                towerUp.upgradeText.gameObject.SetActive(true);
+                towerUp.GetUpgradeText.text = "Upgrade:\n" + towerUp.GetStatsRuntime.worth * 0.5f + "$";
+                towerUp.GetUpgradeText.gameObject.SetActive(true);
             }
         } else if (newDebree != null)
         {
@@ -132,10 +132,10 @@ public class Builder : MonoBehaviour
         } else if (newGraber != null)
         {
             graber = newGraber;
-            if (graber.UI == null || currentPrefab != null) return;
+            if (graber.GetUI == null || currentPrefab != null) return;
 
             graber.UpdateInterface();
-            graber.UI.SetActive(true);
+            graber.GetUI.SetActive(true);
         }
     }
     private void MouseToGrid()  
@@ -147,11 +147,14 @@ public class Builder : MonoBehaviour
     }
     private void RunUpgrader(BuildingBase tower)
     {
-        if (towerUp.weaponType == WeaponType.None) return;
-        if (Transaction(tower.statsRuntime.worth * 0.5f))
+        if (towerUp.GetWeaponType == WeaponType.None) return;
+        if (tower.GetStatsRuntime.currentLevel == 3) return;
+        if (tower.GetWeaponLogic == null) return;
+        if (Transaction(tower.GetStatsRuntime.worth * 0.5f))
         {
             tower.LevelUp();
-            towerUp.upgradeText.text = "Upgrade:\n" + towerUp.statsRuntime.worth * 0.5f + "$";
+            if (towerUp.GetUpgradeText == null) return;
+            towerUp.GetUpgradeText.text = "Upgrade:\n" + towerUp.GetStatsRuntime.worth * 0.5f + "$";
         }
     }
     private void PlaceNewBuilding()
@@ -161,21 +164,21 @@ public class Builder : MonoBehaviour
             BuilderReset(); 
             return;
         }
-        if (Transaction(currentPrefab.GetComponent<BuildingBase>().statsTemplate.worth))
+        if (Transaction(currentPrefab.GetComponent<BuildingBase>().GetStatsTemplate.worth))
         {
             GameObject building = Instantiate(currentPrefab);
             BuildingBase currentTower = building.GetComponent<BuildingBase>();
 
-            if (currentTower.attackRadius != null)
+            if (currentTower.GetAttackRadius != null)
             {
-                currentTower.attackRadius.gameObject.SetActive(false); ;
+                currentTower.GetAttackRadius.gameObject.SetActive(false); ;
             }
-            currentTower.alreadyPlaced = false;
+            currentTower.SetAlreadyPlaced = false;
             building.layer = 6; //Building layer
             building.transform.position = tilemap.GetCellCenterWorld(_currentCellPosition);
             occupiedCells.Add(_currentCellPosition);
 
-            if (currentTower.attackRadius != null) currentTower.attackRadius.SetActive(false);
+            if (currentTower.GetAttackRadius != null) currentTower.GetAttackRadius.SetActive(false);
 
             currentTower.StartCoroutine(currentTower.StartBuilding());
         }
@@ -208,6 +211,7 @@ public class Builder : MonoBehaviour
     public void AddResource(float amount)
     {
         currentResource += amount;
+        currentResource = Mathf.Min(currentResource, 60f);
         Debug.Log("Enemy killed, current resource: " + currentResource);
     }
     private void UpdateResources()

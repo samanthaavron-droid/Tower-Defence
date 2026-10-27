@@ -15,9 +15,11 @@ public class RocketLauncher : WeaponLogic
         {
             if (OnScreen(hit.transform.position) == false) return;
 
-            GameObject projectile = GameObject.Instantiate(user.projectilePrefab, user.transform.position, Quaternion.identity);
+            FireEffectPlay(user);
 
-            ProjectileData(projectile, statsRuntime, (Interception.GetInterceptionPoint(user.transform.position, hit.transform.position, hit.GetComponent<Rigidbody2D>().linearVelocity, statsRuntime.projectileSpeed) - user.transform.position).normalized, TagHandle.GetExistingTag("Enemy"), user, hit.gameObject);
+            GameObject projectile = GameObject.Instantiate(user.GetProjectilePrefab, user.transform.position, Quaternion.identity);
+
+            ProjectileData(projectile, statsRuntime, (Interception.GetInterceptionPoint(user.transform.position, hit.transform.position, hit.GetComponent<Rigidbody2D>().linearVelocity, statsRuntime.projectileSpeed) - user.transform.position).normalized, TagHandle.GetExistingTag("Enemy"), user.GetHitEffect, null, hit.gameObject);
 
             statsRuntime.cooldown = statsRuntime.rechargeTime;
         }

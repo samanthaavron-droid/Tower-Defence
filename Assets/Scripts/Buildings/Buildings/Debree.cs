@@ -16,9 +16,11 @@ public class Debree : MonoBehaviour
     }
     public void StartRemoval(Builder builder)
     {
-        //add interface of the timer
-        priceText.gameObject.SetActive(false);
-        priceText = null;
+        if (priceText != null)
+        {
+            priceText.gameObject.SetActive(false);
+            priceText = null;
+        }
         StartCoroutine(FadeIn());
         StartCoroutine(Timer(builder));
     }

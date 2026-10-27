@@ -18,9 +18,11 @@ public class Bomber : WeaponLogic
         {
             if (alreadyBombed.Contains(hit.gameObject) == true) return; //making sure the building isn't bombed twice
 
-            GameObject projectile = GameObject.Instantiate(user.projectilePrefab, user.transform.position, Quaternion.identity);
+            FireEffectPlay(user);
 
-            ProjectileData(projectile, statsRuntime, user.transform.position, TagHandle.GetExistingTag("Building"), user);
+            GameObject projectile = GameObject.Instantiate(user.GetProjectilePrefab, user.transform.position, Quaternion.identity);
+
+            ProjectileData(projectile, statsRuntime, user.transform.position, TagHandle.GetExistingTag("Building"), user.GetHitEffect, null, null);
 
             alreadyBombed.Add(hit.gameObject);
             //explosion effect

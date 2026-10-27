@@ -38,6 +38,9 @@ public class EnemyBase : Unit //this code runs when the enemy is created
             case EnemyType.Rocket:
                 weaponLogic = new Rocket(statsTemplate);
                 break;
+            case EnemyType.Jet:
+                weaponLogic = new Jet(statsTemplate);
+                break;
         }
     }
     private void Move()

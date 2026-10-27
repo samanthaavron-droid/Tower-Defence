@@ -15,9 +15,9 @@ public class Rocket : WeaponLogic
 
         if (hit != null)
         {
-            GameObject projectile = GameObject.Instantiate(user.projectilePrefab, user.transform.position, Quaternion.identity);
+            GameObject projectile = GameObject.Instantiate(user.GetProjectilePrefab, user.transform.position, Quaternion.identity);
 
-            ProjectileData(projectile, statsRuntime, (hit.transform.position - user.transform.position).normalized, TagHandle.GetExistingTag("Building"), user, hit.gameObject);
+            ProjectileData(projectile, statsRuntime, (hit.transform.position - user.transform.position).normalized, TagHandle.GetExistingTag("Building"), user.GetHitEffect, user, hit.gameObject);
 
             statsRuntime.cooldown = statsRuntime.rechargeTime;
         }

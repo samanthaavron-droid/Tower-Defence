@@ -12,8 +12,8 @@ public class DifficultyLevel : MonoBehaviour
     {
         if (testing)
         {
-            GlobalSettings.modifier = gameSpeed;
-            GlobalSettings.difficulty = difficultyLevel;
+            GlobalSettings.GetSetModifier = gameSpeed;
+            GlobalSettings.GetSetDifficulty = difficultyLevel;
         }
     }
     void Start()
@@ -39,7 +39,7 @@ public class DifficultyLevel : MonoBehaviour
                 cells.Add(new Vector3Int(x, y, 0));
             }
         }
-        for (int i = 1; i < GlobalSettings.difficulty; i++)
+        for (int i = 1; i < GlobalSettings.GetSetDifficulty; i++)
         {
             if (cells.Count == 0) break;
 
@@ -68,7 +68,7 @@ public class DifficultyLevel : MonoBehaviour
                     cells.Add(currentCell);
             }
         }
-        for (int i = 2; i < GlobalSettings.difficulty; i++)
+        for (int i = 2; i < GlobalSettings.GetSetDifficulty; i++)
         {
             if (cells.Count == 0) break;
 

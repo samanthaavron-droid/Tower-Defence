@@ -62,6 +62,12 @@
   </TabHighlightState>
   <TabHighlightState>
     <extensions>
+      <string>Assets\Scripts\Buildings\Buildings\Laser.cs</string>
+    </extensions>
+    <highlightIndex>2</highlightIndex>
+  </TabHighlightState>
+  <TabHighlightState>
+    <extensions>
       <string>Assets\Scripts\Enemies\All\EnemyBase.cs</string>
     </extensions>
     <highlightIndex>1</highlightIndex>
@@ -105,12 +111,6 @@
   <TabHighlightState>
     <extensions>
       <string>Assets\Scripts\Buildings\Buildings\CityEdge (killzone).cs</string>
-    </extensions>
-    <highlightIndex>2</highlightIndex>
-  </TabHighlightState>
-  <TabHighlightState>
-    <extensions>
-      <string>Assets\Scripts\Buildings\Buildings\Laser.cs</string>
     </extensions>
     <highlightIndex>2</highlightIndex>
   </TabHighlightState>

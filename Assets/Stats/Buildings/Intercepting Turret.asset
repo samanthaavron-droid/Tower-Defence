@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Intercepting Turret
   m_EditorClassIdentifier: Assembly-CSharp::BuildingStatsTemplate
   health: 3
-  attackRange: 4.2
+  attackRange: 5.6
   projectileSpeed: 6
   damage: 1
   projectileHealth: 0

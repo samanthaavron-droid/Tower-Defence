@@ -13,21 +13,24 @@ public class EnemyManager : MonoBehaviour
     private List<GameObject> activeEnemies = new();
     private List<Vector3> activeSpawnPos = new();
     [SerializeField] private float spawnDelay;
-    public float waveBudget;
+    [SerializeField] private float waveBudget;
     private float initialBudget;
     private float score;
     private float cheapestUnit = float.MaxValue;
+    [SerializeField] private TextMeshProUGUI waveNumber;
     void Start()
     {
         EnemyBase.enemyDeath -= EnemyDied;
         score = 0;
-        spawnDelay = spawnDelay / GlobalSettings.modifier;
-        if (GlobalSettings.difficulty > 1)
-            initialBudget = waveBudget + (waveBudget * (0.5f * GlobalSettings.difficulty));
+        spawnDelay = spawnDelay / GlobalSettings.GetSetModifier;
+        if (GlobalSettings.GetSetDifficulty > 1)
+            initialBudget = waveBudget + (waveBudget * (0.5f * GlobalSettings.GetSetDifficulty));
+        else
+            initialBudget = waveBudget;
 
         foreach (GameObject enemy in enemyPrefabs)
         {
-            float worth = enemy.GetComponent<Unit>().statsTemplate.worth;
+            float worth = enemy.GetComponent<Unit>().GetStatsTemplate.worth;
             if (worth < cheapestUnit) cheapestUnit = worth;
         }
 
@@ -49,6 +52,12 @@ public class EnemyManager : MonoBehaviour
     }
     private IEnumerator SpawnWave()
     {
+        waveNumber.text = "Wave #" + enemyWaveIndex;
+        Color c = waveNumber.color;
+        c.a = 1f;
+        waveNumber.color = c;
+        waveNumber.gameObject.SetActive(true);
+
         activeSpawnPos.Clear();
         activeEnemies.Clear();
         waveBudget = initialBudget * enemyWaveIndex;
@@ -61,6 +70,8 @@ public class EnemyManager : MonoBehaviour
             SpawnEnemy(CreateEnemy());
         }
         enemyWaveIndex++;
+
+        StartCoroutine(FadeOut());
     }
     private EnemyData CreateEnemy()
     {
@@ -75,7 +86,7 @@ public class EnemyManager : MonoBehaviour
 
             if (newEnemyBase != null)
             {
-                float worth = newEnemyBase.statsTemplate.worth;
+                float worth = newEnemyBase.GetStatsTemplate.worth;
                 if (waveBudget - worth >= 0)
                 {
                     waveBudget -= worth;
@@ -103,7 +114,7 @@ public class EnemyManager : MonoBehaviour
     {
         activeEnemies.Remove(enemy.gameObject);
 
-        Builder.instance.AddResource(enemy.statsRuntime.worth); //adding money to the builder
+        Builder.instance.AddResource(enemy.GetStatsTemplate.worth); //adding money to the builder
         Destroy(enemy.gameObject);
 
         KeepScore();
@@ -112,6 +123,24 @@ public class EnemyManager : MonoBehaviour
         {
             StartCoroutine(SpawnWave());
         }
+    }
+    private IEnumerator FadeOut()
+    {
+        float timeElapse = 0;
+        float timeToElapse = 1;
+        Color c = waveNumber.color;
+
+        while (timeElapse < timeToElapse)
+        {
+            timeElapse += Time.deltaTime;
+            c.a = Mathf.Lerp(1, 0, timeElapse / timeToElapse);
+            waveNumber.color = c;
+
+            yield return null;
+        }
+        c.a = 0f;
+        waveNumber.color = c;
+        waveNumber.gameObject.SetActive(false);
     }
 }
 public class EnemyData

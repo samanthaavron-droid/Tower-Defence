@@ -2,6 +2,8 @@ using UnityEngine;
 
 public static class GlobalSettings
 {
-    public static float modifier = 1f;
-    public static float difficulty = 1f;
+    private static float modifier = 1f;
+    public static float GetSetModifier {  get { return modifier; } set { modifier = value; } }
+    private static float difficulty = 1f;
+    public static float GetSetDifficulty { get { return difficulty; } set { difficulty = value; } }
 }

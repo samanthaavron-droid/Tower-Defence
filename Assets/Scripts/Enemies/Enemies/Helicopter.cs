@@ -13,9 +13,9 @@ public class Helicopter : WeaponLogic
         Collider2D hit = OverlapCircleCheck(user, statsRuntime, LayerMask.GetMask("Building"));
         if (hit != null)
         {
-            GameObject projectile = GameObject.Instantiate(user.projectilePrefab, user.transform.position, Quaternion.identity);
+            GameObject projectile = GameObject.Instantiate(user.GetProjectilePrefab, user.transform.position, Quaternion.identity);
 
-            ProjectileData(projectile, statsRuntime, (hit.transform.position - user.transform.position).normalized, TagHandle.GetExistingTag("Building"), user);
+            ProjectileData(projectile, statsRuntime, (hit.transform.position - user.transform.position).normalized, TagHandle.GetExistingTag("Building"), user.GetHitEffect, null, null);
 
             statsRuntime.cooldown = statsRuntime.rechargeTime;
         }

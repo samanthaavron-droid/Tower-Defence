@@ -6,8 +6,7 @@ using UnityEngine.UI;
 
 public class BuildingBase : Unit //this code runs when the building is created
 {
-    public float radius;
-    public GameObject attackRadius;
+    [SerializeField] private bool x, y;
     void Awake()
     {
         if (upgradeText != null)
@@ -33,14 +32,32 @@ public class BuildingBase : Unit //this code runs when the building is created
         if (weaponLogic != null)
             if (statsRuntime.currentLevel < 3)
             {
-                weaponLogic.LevelUpTower();
+                weaponLogic.LevelUpTower(this);
                 upgradeEffect.Play();
+
+                if (statsRuntime.currentLevel == 3)
+                {
+                    upgradeText.gameObject.SetActive(false);
+                    upgradeText = null;
+                }
             }
     }
     private void DrawRadius()
     {
-        radius = statsTemplate.attackRange / transform.localScale.x * 2;
-        attackRadius.transform.localScale = new Vector3(radius, radius, radius);
+        float radius = statsTemplate.attackRange / transform.localScale.x * 2;
+        float radiusx, radiusy;
+
+        if (x == true)
+            radiusx = radius;
+        else
+            radiusx = transform.localScale.x;
+
+        if (y == true)
+            radiusy = radius;
+        else
+            radiusy = transform.localScale.y;
+
+        attackRadius.transform.localScale = new Vector3(radiusx, radiusy, 1);
         attackRadius.SetActive(true);
     }
     public IEnumerator StartBuilding()
@@ -51,7 +68,7 @@ public class BuildingBase : Unit //this code runs when the building is created
             maxHealth = statsRuntime.health;
         }
 
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 
         Color color = spriteRenderer.color;
         color.a = 0f;
@@ -77,7 +94,7 @@ public class BuildingBase : Unit //this code runs when the building is created
                 weaponLogic = new RocketLauncher(statsTemplate);
                 break;
             case WeaponType.Minigun:
-                weaponLogic = new Minigun(statsTemplate);
+                weaponLogic = new Minigun(statsTemplate, this);
                 break;
             case WeaponType.Cannon:
                 weaponLogic = new Cannon(statsTemplate);
@@ -85,11 +102,14 @@ public class BuildingBase : Unit //this code runs when the building is created
             case WeaponType.Laser:
                 weaponLogic = new Laser(statsTemplate);
                 break;
+            case WeaponType.Shield:
+                weaponLogic = new ShieldGenerator(statsTemplate, this);
+                break;
         }
 
         if (weaponLogic != null)
         {
-            weaponLogic.statsRuntime = this.statsRuntime;
+            weaponLogic.SetGetStatsRuntime = this.statsRuntime;
         }
     }
     public override void Death()

@@ -2,19 +2,21 @@ using UnityEngine;
 
 public class WeaponLogic //this is the class on which weapons are built
 {
-    public StatsTemplate statsTemplate;
-    public StatsRuntime statsRuntime;
+    protected StatsRuntime statsRuntime;
+    public StatsRuntime SetGetStatsRuntime { get { return statsRuntime; } set { statsRuntime = value; } }
+    private Collider2D[] overlapCheck = new Collider2D[10];
     public virtual void Attack(Unit user) { }
-    public void ProjectileData(GameObject projectile, StatsRuntime statsRuntime, Vector3 futurePos, TagHandle tag, Unit user = null, GameObject target = null)
+    public void ProjectileData(GameObject projectile, StatsRuntime statsRuntime, Vector3 futurePos, TagHandle tag, ParticleSystem particleSystem, Unit user = null, GameObject target = null)
     {
         Projectile projectileInfo = projectile.GetComponent<Projectile>();
 
-        projectileInfo.statsRuntime = statsRuntime;
-        projectileInfo.futurePos = futurePos;
+        projectileInfo.SetStatsRuntime = statsRuntime;
+        projectileInfo.GetSetFuturePos = futurePos;
         projectile.transform.up = futurePos;
-        projectileInfo.user = user;
-        projectileInfo.target = target;
-        projectileInfo.tag = tag;
+        projectileInfo.SetUser = user;
+        projectileInfo.SetTarget = target;
+        projectileInfo.SetTag = tag;
+        projectileInfo.SetHitEffect = particleSystem;
     }
     public RaycastHit2D RaycastCheck(Unit user, Vector2 direction, StatsRuntime statsRuntime, LayerMask targetLayer)
     {
@@ -26,10 +28,29 @@ public class WeaponLogic //this is the class on which weapons are built
         Collider2D hit = Physics2D.OverlapPoint(user.transform.position, targetMask);
         return hit;
     }
+    public Collider2D OverlapMouseCheck(Unit user, Vector3 pos, LayerMask targetMask)
+    {
+        Collider2D hit = Physics2D.OverlapPoint(pos, targetMask);
+        return hit;
+    }
     public Collider2D OverlapCircleCheck(Unit user, StatsRuntime statsRuntime, LayerMask targetLayer)
     {
-        Collider2D hit = Physics2D.OverlapCircle(user.transform.position, statsRuntime.attackRange, targetLayer);
-        return hit;
+        int hit = Physics2D.OverlapCircleNonAlloc(user.transform.position, statsRuntime.attackRange, overlapCheck, targetLayer);
+
+        Collider2D closestEnemy = null;
+        float closestDistance = Mathf.Infinity;
+
+        for (int i = 0; i < hit; i++)
+        {
+            float distance = Vector2.Distance(user.transform.position, overlapCheck[i].transform.position);
+
+            if (distance < closestDistance)
+            {
+                closestDistance = distance;
+                closestEnemy = overlapCheck[i];
+            }
+        }
+        return closestEnemy;
     }
     public Collider2D OverlapCircleAllCheck(Unit user, StatsRuntime statsRuntime, LayerMask targetLayer)
     {
@@ -55,13 +76,27 @@ public class WeaponLogic //this is the class on which weapons are built
         }
         else return false;
     }
-    public virtual void LevelUpTower() //Unit user
+    public virtual void LevelUpTower(Unit user) //Unit user
     {
-        statsRuntime.health = statsRuntime.health * 1.5f;
+        statsRuntime.health = statsRuntime.health * 2f;
         statsRuntime.attackRange = statsRuntime.attackRange * 1.25f;
         statsRuntime.currentLevel += 1;
         statsRuntime.debreeSize = statsRuntime.debreeSize * 1.25f;
         statsRuntime.rechargeTime = statsRuntime.rechargeTime * 0.75f;
         statsRuntime.worth = statsRuntime.worth * 1.5f;
+        statsRuntime.damage = statsRuntime.damage * 1.25f;
+    }
+    public virtual void FireEffectPlay(Unit user)
+    {
+        if (user.GetFireEffect == null) return;
+
+        if (user.GetFireEffect.isPlaying == false)
+            user.GetFireEffect.Play();
+    }
+    public virtual void FireEffectEmit(Unit user, int emit)
+    {
+        if (user.GetFireEffect == null) return;
+
+        user.GetFireEffect.Emit(emit);
     }
 }

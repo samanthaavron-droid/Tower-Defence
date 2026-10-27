@@ -29,8 +29,8 @@ Transform:
   m_GameObject: {fileID: 575357962288876674}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
+  m_LocalPosition: {x: 0.728, y: 0.785, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8834623263502575515}
@@ -85,8 +85,8 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 2747690628134850419, guid: a9716c16a44a94eed9b5c90fbf4d9bdd, type: 3}
-  m_Color: {r: 1, g: 0.94057596, b: 0, a: 1}
+  m_Sprite: {fileID: -6007857137893288414, guid: 1b125e55048563546874d329316ba87c, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -114,9 +114,15 @@ MonoBehaviour:
   projectilePrefab: {fileID: 5511200396173975279, guid: ec8b6c31751de954b997b8d24f9a1cdf, type: 3}
   spriteRenderer: {fileID: 0}
   healthBar: {fileID: 1920274655112947137}
-  maxHealth: 0
   alreadyPlaced: 1
-  direction: {x: 0, y: 0, z: 0}
+  upgradeText: {fileID: 0}
+  upgradeEffect: {fileID: 0}
+  line: {fileID: 0}
+  fireEffect: {fileID: 0}
+  hitEffect: {fileID: 0}
+  attackRadius: {fileID: 0}
+  x: 0
+  y: 0
 --- !u!61 &7775184687515652697
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -155,13 +161,13 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 0.890625}
+    oldSize: {x: 1.5625, y: 1.78125}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.5, y: 1.5}
   m_EdgeRadius: 0
 --- !u!50 &-3739793653386180568
 Rigidbody2D:
@@ -217,7 +223,7 @@ RectTransform:
   m_GameObject: {fileID: 2282973751649849342}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 90}
-  m_LocalScale: {x: 0.00513, y: 0.001, z: 0}
+  m_LocalScale: {x: 0.0068742, y: 0.00082, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1154674387682713007}
@@ -225,7 +231,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -0.275}
+  m_AnchoredPosition: {x: 0, y: -0.284}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &1867113079602885384
@@ -256,8 +262,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 1
+  m_Sprite: {fileID: -2953748328842224581, guid: b5f2073aed936294281513b05979ed1c, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
@@ -293,8 +299,8 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4614579236548151225}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -113.28}
+  m_LocalScale: {x: 3.5, y: 3.5, z: 3.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1072568026360604009}
@@ -302,7 +308,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0.00000035763, y: -0.00000035763}
   m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &8312418161574842587
@@ -403,7 +409,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 49.99994}
+  m_AnchoredPosition: {x: 0, y: 50}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &5752308898070537475
@@ -434,12 +440,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 7979771878632677689, guid: 1e9b525badac63b4f8c1f78dafce370c, type: 3}
+  m_Sprite: {fileID: 1882892866805754462, guid: bdecc9afbbbffbe4a98e6b5e0aa85636, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 1
+  m_FillAmount: 0.5
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0

@@ -15,9 +15,21 @@ public class Turret : WeaponLogic
         {
             if (OnScreen(hit.transform.position) == false) return;
 
-            GameObject projectile = GameObject.Instantiate(user.projectilePrefab, user.transform.position, Quaternion.identity);
+            FireEffectEmit(user, 30);
 
-            ProjectileData(projectile, statsRuntime, (Interception.GetInterceptionPoint(user.transform.position, hit.transform.position, hit.GetComponent<Rigidbody2D>().linearVelocity, statsRuntime.projectileSpeed) - user.transform.position).normalized, TagHandle.GetExistingTag("Enemy"), user);
+            GameObject projectile = GameObject.Instantiate(user.GetProjectilePrefab, user.transform.position, Quaternion.identity);
+
+            Unit enemy = hit.GetComponent<Unit>();
+            Projectile enemyPj = projectile.GetComponent<Projectile>();
+
+            if (enemy != null)
+            {
+                ProjectileData(projectile, statsRuntime, (Interception.GetInterceptionPoint(user.transform.position, hit.transform.position, enemy.GetStatsRuntime.speed * enemy.GetDirection, statsRuntime.projectileSpeed) - user.transform.position).normalized, TagHandle.GetExistingTag("Enemy"), user.GetHitEffect, null, null);
+            } else if (enemyPj != null)
+            {
+                ProjectileData(projectile, statsRuntime, (Interception.GetInterceptionPoint(user.transform.position, hit.transform.position, enemyPj.SetStatsRuntime.projectileSpeed * enemyPj.GetSetFuturePos, statsRuntime.projectileSpeed) - user.transform.position).normalized, TagHandle.GetExistingTag("Enemy"), user.GetHitEffect, null, null);
+            }
+
 
             statsRuntime.cooldown = statsRuntime.rechargeTime;
         }
