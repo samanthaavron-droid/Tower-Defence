@@ -24,6 +24,7 @@ public class BuildingBase : Unit //this code runs when the building is created
         if (weaponLogic != null)
         {
             weaponLogic.Update(this);
+            Attack();
         }
     }
     public void LevelUp()
