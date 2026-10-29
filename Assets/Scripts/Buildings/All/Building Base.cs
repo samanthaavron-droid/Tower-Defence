@@ -14,12 +14,12 @@ public class BuildingBase : Unit //this code runs when the building is created
         if (attackRadius != null)
             DrawRadius();
     }
-    public override void Start()
+    protected override void Start()
     {
         if (healthBar != null)
             healthBar.fillAmount = 1f;
     }
-    public override void Update()
+    protected override void Update()
     {
         if (weaponLogic != null)
         {
@@ -112,7 +112,7 @@ public class BuildingBase : Unit //this code runs when the building is created
             weaponLogic.SetGetStatsRuntime = this.statsRuntime;
         }
     }
-    public override void Death()
+    protected override void Death()
     {
         if (statsRuntime.priority == false)
         {

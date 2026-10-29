@@ -33,7 +33,7 @@ public class Jet : WeaponLogic
             GameObject projectile = GameObject.Instantiate(user.GetProjectilePrefab, user.transform.position, Quaternion.identity);
             ProjectileData(projectile, statsRuntime, direction, TagHandle.GetExistingTag("Building"), user.GetHitEffect, null, null);
 
-            yield return new WaitForSeconds(0.1f / GlobalSettings.GetSetModifier);
+            yield return new WaitForSeconds(0.1f);
         }
     }
     private IEnumerator SmoothMove(Unit user)

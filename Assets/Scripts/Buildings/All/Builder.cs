@@ -7,13 +7,15 @@ using System;
 public class Builder : MonoBehaviour
 {
     public static Builder instance;
-    public Tilemap tilemap;
+    [SerializeField] private Tilemap tilemap;
+    public Tilemap getTilemap {  get { return tilemap; } }
     [SerializeField] private Camera _mainCamera;
-    public GameObject currentPrefab = null;
+    private GameObject currentPrefab = null;
     private Vector3Int _currentCellPosition;
-    public List<Vector3Int> occupiedCells = new();
+    private List<Vector3Int> occupiedCells = new();
+    public List<Vector3Int> getOccupiedCells { get { return occupiedCells; } set { occupiedCells = value; } }
     private bool _buildingOnMouse = false;
-    public float currentResource;
+    private float currentResource;
     [SerializeField] private Unit city;
     [SerializeField] private Image resources;
     private Vector3 lastMousePos;
@@ -41,7 +43,12 @@ public class Builder : MonoBehaviour
 
     void Update()
     {
-        MouseControls();
+        if (PauseMenu.getGameActive == false) return;
+
+        MouseToGrid(); //grid coordinates
+
+        if (Input.GetMouseButtonDown(0))
+            MouseControls();
 
         if (_buildingOnMouse)
             BuildingOnMouse();
@@ -56,86 +63,86 @@ public class Builder : MonoBehaviour
     }
     private void MouseControls()
     {
-        MouseToGrid(); //grid coordinates
-
-        if (Input.GetMouseButtonDown(0))
-        {
             if (currentPrefab == null)
             {
-                Collider2D hit = Physics2D.OverlapPoint(tilemap.GetCellCenterWorld(_currentCellPosition));
-
-                if (hit != null)
-                {
-                    Grabber grabber = hit.GetComponent<Grabber>();
-                    if (grabber != null)
-                    {
-                        currentPrefab = Instantiate(grabber.GetPrefabUI, hit.gameObject.transform.position, Quaternion.identity);
-                        currentPrefab.layer = 0;
-                        _buildingOnMouse = true;
-                        if (graber != null) graber.GetUI.SetActive(false);
-                    } else if (towerUp != null)
-                    {
-                        RunUpgrader(towerUp);
-                    } else if (debree != null)
-                    {
-                        RemoveDebree();
-                    }
-                }
-            }
-            else if (currentPrefab != null) //if you have something selected, tries to use it
+                        if (graber != null)
+                        {
+                            currentPrefab = Instantiate(graber.GetPrefabUI, _currentCellPosition, Quaternion.identity);
+                            currentPrefab.layer = 0;
+                            _buildingOnMouse = true;
+                            if (graber != null) graber.GetUI.SetActive(false);
+                        }
+                        else if (towerUp != null && towerUp.GetStatsRuntime.currentLevel < 3)
+                        {
+                            RunUpgrader(towerUp);
+                        }
+                        else if (debree != null)
+                        {
+                            RemoveDebree();
+                        }
+            } else if (currentPrefab != null) //if you have something selected, tries to use it
             {
                 PlaceNewBuilding();
             }
-        }
     }
     private void CheckBuildingOnMouse()
     {
-        Collider2D hit = Physics2D.OverlapPoint(tilemap.GetCellCenterWorld(_currentCellPosition), buildingLayer);
+        Collider2D[] hits = Physics2D.OverlapPointAll(tilemap.GetCellCenterWorld(_currentCellPosition), buildingLayer);
 
-        BuildingBase newTower = hit != null ? hit.GetComponentInParent<BuildingBase>() : null;
-        Debree newDebree = hit != null ? hit.GetComponent<Debree>() : null;
-        Grabber newGraber = hit != null ? hit.GetComponent<Grabber>() : null;
+        BuildingBase newTower = null;
+        Debree newDebree = null;
+        Grabber newGraber = null;
 
-        if (towerUp != null && towerUp != newTower)
+        foreach (Collider2D hit in hits)
         {
-            if (towerUp.GetUpgradeText != null)
-                towerUp.GetUpgradeText.gameObject.SetActive(false);
-            towerUp = null;
+            if (newTower == null) newTower = hit.GetComponentInParent<BuildingBase>();
+            if (newDebree == null) newDebree = hit.GetComponent<Debree>();
+            if (newGraber == null) newGraber = hit.GetComponent<Grabber>();
+
+            //if (newTower != null || newDebree != null || newGraber != null) break;
         }
-        if (debree != null && debree != newDebree)
+        if (newGraber != null)
         {
-            if (debree.priceText != null)
-                debree.priceText.gameObject.SetActive(false);
+            newTower = null;
         }
-        if (graber != null && graber != newGraber)
+        if (graber != newGraber)
         {
-            if (graber.GetUI != null)
+            if (graber != null && graber.GetUI != null)
                 graber.GetUI.SetActive(false);
-        }
-        if (newTower != null)
-        {
-            towerUp = newTower;
-            if (towerUp.GetWeaponType != WeaponType.None)
-            {
-                if (towerUp.GetUpgradeText == null || towerUp.GetWeaponLogic == null) return;
 
+            graber = newGraber;
+
+            if (graber != null && graber.GetUI != null && currentPrefab == null)
+            {
+                graber.UpdateInterface();
+                graber.GetUI.SetActive(true);
+            }
+        }
+        if (debree != newDebree)
+        {
+            if (debree != null && debree.priceText != null)
+                debree.priceText.gameObject.SetActive(false);
+
+            debree = newDebree;
+
+            if (debree != null && debree.priceText != null)
+            {
+                debree.priceText.text = "Removal:\n" + debree.statsRuntime.debreeSize + "$";
+                debree.priceText.gameObject.SetActive(true);
+            }
+        }
+        if (towerUp != newTower)
+        {
+            if (towerUp != null && towerUp.GetUpgradeText != null)
+                towerUp.GetUpgradeText.gameObject.SetActive(false);
+
+            towerUp = newTower;
+
+            if (towerUp != null && towerUp.GetWeaponType != WeaponType.None && towerUp.GetUpgradeText != null && towerUp.GetWeaponLogic != null)
+            {
                 towerUp.GetUpgradeText.text = "Upgrade:\n" + towerUp.GetStatsRuntime.worth * 0.5f + "$";
                 towerUp.GetUpgradeText.gameObject.SetActive(true);
             }
-        } else if (newDebree != null)
-        {
-            debree = newDebree;
-            if (debree.priceText == null) return;
-
-            debree.priceText.text = "Removal:\n" + debree.statsRuntime.debreeSize + "$";
-            debree.priceText.gameObject.SetActive(true);
-        } else if (newGraber != null)
-        {
-            graber = newGraber;
-            if (graber.GetUI == null || currentPrefab != null) return;
-
-            graber.UpdateInterface();
-            graber.GetUI.SetActive(true);
         }
     }
     private void MouseToGrid()  

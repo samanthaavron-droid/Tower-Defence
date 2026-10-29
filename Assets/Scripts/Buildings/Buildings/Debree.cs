@@ -27,7 +27,7 @@ public class Debree : MonoBehaviour
     private IEnumerator Timer(Builder builder)
     {
         yield return new WaitForSeconds(statsRuntime.debreeSize);
-        builder.occupiedCells.Remove(builder.tilemap.WorldToCell(transform.position));
+        builder.getOccupiedCells.Remove(builder.getTilemap.WorldToCell(transform.position));
         Destroy(gameObject);
     }
     private IEnumerator FadeIn()

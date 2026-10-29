@@ -35,18 +35,18 @@ public class Unit : MonoBehaviour
     [SerializeField] protected ParticleSystem hitEffect;
     public ParticleSystem GetHitEffect { get { return hitEffect; } }
     [SerializeField] protected GameObject attackRadius;
-    public GameObject GetAttackRadius { get { return attackRadius; } set { attackRadius = value; } }
+    public GameObject GetAttackRadius { get { return attackRadius; } }
 
-    public virtual void Start()
+    protected virtual void Start()
     {
         
     }
 
-    public virtual void Update()
+    protected virtual void Update()
     {
         
     }
-    public void Attack()
+    protected void Attack()
     {
         weaponLogic.Attack(this);
     }
@@ -70,7 +70,7 @@ public class Unit : MonoBehaviour
             healthBar.fillAmount = statsRuntime.health / maxHealth;
         }
     }
-    public virtual void Death()
+    protected virtual void Death()
     {
 
     }

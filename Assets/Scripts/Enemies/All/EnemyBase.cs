@@ -3,14 +3,19 @@ using UnityEngine;
 public class EnemyBase : Unit //this code runs when the enemy is created
 {
     public static event Action<EnemyBase> enemyDeath;
-    public override void Start()
+    protected override void Start()
     {
         SetType();
         statsRuntime = new(statsTemplate);
         direction = Vector3.left;
+
+        maxHealth = statsRuntime.health;
+
+        if (healthBar != null)
+            healthBar.fillAmount = 1f;
     }
 
-    public override void Update()
+    protected override void Update()
     {
         if (weaponLogic != null)
         {
@@ -47,12 +52,8 @@ public class EnemyBase : Unit //this code runs when the enemy is created
     {
         transform.position += direction * statsRuntime.speed * Time.deltaTime;
     }
-    public override void TakeDamage(float damage)
+    protected override void Death()
     {
-        statsRuntime.health -= damage;
-        if (statsRuntime.health <= 0)
-        {
-            enemyDeath?.Invoke(this);
-        }
+        enemyDeath?.Invoke(this);
     }
 }

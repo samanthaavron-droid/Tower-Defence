@@ -98,7 +98,7 @@ public class Projectile : MonoBehaviour
     }
     private IEnumerator DelayDestroy()
     {
-        yield return new WaitForSeconds(10 * GlobalSettings.GetSetModifier);
+        yield return new WaitForSeconds(10);
         Destroy(gameObject);
     }
     private void HitEffect()

@@ -3,7 +3,7 @@ using UnityEngine;
 public class WeaponLogic //this is the class on which weapons are built
 {
     protected StatsRuntime statsRuntime;
-    public StatsRuntime SetGetStatsRuntime { get { return statsRuntime; } set { statsRuntime = value; } }
+    public StatsRuntime SetGetStatsRuntime {set { statsRuntime = value; } }
     private Collider2D[] overlapCheck = new Collider2D[10];
     public virtual void Attack(Unit user) { }
     public void Update(Unit user)
@@ -13,7 +13,7 @@ public class WeaponLogic //this is the class on which weapons are built
             statsRuntime.cooldown -= Time.deltaTime;
         }
     }
-    public void ProjectileData(GameObject projectile, StatsRuntime statsRuntime, Vector3 futurePos, TagHandle tag, ParticleSystem particleSystem, Unit user = null, GameObject target = null)
+    protected void ProjectileData(GameObject projectile, StatsRuntime statsRuntime, Vector3 futurePos, TagHandle tag, ParticleSystem particleSystem, Unit user = null, GameObject target = null)
     {
         Projectile projectileInfo = projectile.GetComponent<Projectile>();
 
@@ -25,22 +25,22 @@ public class WeaponLogic //this is the class on which weapons are built
         projectileInfo.SetTag = tag;
         projectileInfo.SetHitEffect = particleSystem;
     }
-    public RaycastHit2D RaycastCheck(Unit user, Vector2 direction, StatsRuntime statsRuntime, LayerMask targetLayer)
+    protected RaycastHit2D RaycastCheck(Unit user, Vector2 direction, StatsRuntime statsRuntime, LayerMask targetLayer)
     {
         RaycastHit2D hit = Physics2D.Raycast(user.transform.position, direction, statsRuntime.attackRange, targetLayer);
         return hit;
     }
-    public Collider2D OverlapPointCheck(Unit user, LayerMask targetMask)
+    protected Collider2D OverlapPointCheck(Unit user, LayerMask targetMask)
     {
         Collider2D hit = Physics2D.OverlapPoint(user.transform.position, targetMask);
         return hit;
     }
-    public Collider2D OverlapMouseCheck(Unit user, Vector3 pos, LayerMask targetMask)
+    protected Collider2D OverlapMouseCheck(Unit user, Vector3 pos, LayerMask targetMask)
     {
         Collider2D hit = Physics2D.OverlapPoint(pos, targetMask);
         return hit;
     }
-    public Collider2D OverlapCircleCheck(Unit user, StatsRuntime statsRuntime, LayerMask targetLayer)
+    protected Collider2D OverlapCircleCheck(Unit user, StatsRuntime statsRuntime, LayerMask targetLayer)
     {
         int hit = Physics2D.OverlapCircleNonAlloc(user.transform.position, statsRuntime.attackRange, overlapCheck, targetLayer);
 
@@ -59,7 +59,7 @@ public class WeaponLogic //this is the class on which weapons are built
         }
         return closestEnemy;
     }
-    public Collider2D OverlapCircleAllCheck(Unit user, StatsRuntime statsRuntime, LayerMask targetLayer)
+    protected Collider2D OverlapCircleAllCheck(Unit user, StatsRuntime statsRuntime, LayerMask targetLayer)
     {
         Collider2D[] hits = Physics2D.OverlapCircleAll(user.transform.position, statsRuntime.attackRange, targetLayer);
 
@@ -74,7 +74,7 @@ public class WeaponLogic //this is the class on which weapons are built
             return null;
         }
     }
-    public bool OnScreen(Vector2 pos)
+    protected bool OnScreen(Vector2 pos)
     {
         Vector3 viewPos = Camera.main.WorldToViewportPoint(pos);
         if (viewPos.x > 0 && viewPos.x < 1 && viewPos.y > 0 && viewPos.y < 1)
@@ -93,14 +93,14 @@ public class WeaponLogic //this is the class on which weapons are built
         statsRuntime.worth = statsRuntime.worth * 1.5f;
         statsRuntime.damage = statsRuntime.damage * 1.25f;
     }
-    public virtual void FireEffectPlay(Unit user)
+    protected virtual void FireEffectPlay(Unit user)
     {
         if (user.GetFireEffect == null) return;
 
         if (user.GetFireEffect.isPlaying == false)
             user.GetFireEffect.Play();
     }
-    public virtual void FireEffectEmit(Unit user, int emit)
+    protected virtual void FireEffectEmit(Unit user, int emit)
     {
         if (user.GetFireEffect == null) return;
 

@@ -7,14 +7,9 @@ public class DifficultyLevel : MonoBehaviour
     [SerializeField] private GameObject debreePrefab;
     [SerializeField] private float gameSpeed; //temp
     [SerializeField] private float difficultyLevel; //temp
-    [SerializeField] private bool testing;
     void Awake()
     {
-        if (testing)
-        {
-            GlobalSettings.GetSetModifier = gameSpeed;
-            GlobalSettings.GetSetDifficulty = difficultyLevel;
-        }
+
     }
     void Start()
     {
@@ -46,9 +41,9 @@ public class DifficultyLevel : MonoBehaviour
             int randomIndex = Random.Range(0, cells.Count);
             Vector3Int newPos = cells[randomIndex];
             cells.RemoveAt(randomIndex);
-            Builder.instance.occupiedCells.Add(newPos);
+            Builder.instance.getOccupiedCells.Add(newPos);
 
-            Instantiate(housePrefab, Builder.instance.tilemap.GetCellCenterWorld(newPos), Quaternion.identity);
+            Instantiate(housePrefab, Builder.instance.getTilemap.GetCellCenterWorld(newPos), Quaternion.identity);
         }
 
         BoundsInt areaDeb = new BoundsInt(
@@ -64,7 +59,7 @@ public class DifficultyLevel : MonoBehaviour
             for (int y = areaDeb.yMin; y < areaDeb.yMax; y++)
             {
                 Vector3Int currentCell = new Vector3Int(x, y, 0);
-                if (cells.Contains(currentCell) == false && Builder.instance.occupiedCells.Contains(currentCell) == false)
+                if (cells.Contains(currentCell) == false && Builder.instance.getOccupiedCells.Contains(currentCell) == false)
                     cells.Add(currentCell);
             }
         }
@@ -76,9 +71,9 @@ public class DifficultyLevel : MonoBehaviour
             Vector3Int newPos = cells[randomIndex];
             cells.RemoveAt(randomIndex);
 
-            Builder.instance.occupiedCells.Add(newPos);
+            Builder.instance.getOccupiedCells.Add(newPos);
 
-            GameObject newDebree = Instantiate(debreePrefab, Builder.instance.tilemap.GetCellCenterWorld(newPos), Quaternion.identity);
+            GameObject newDebree = Instantiate(debreePrefab, Builder.instance.getTilemap.GetCellCenterWorld(newPos), Quaternion.identity);
             Debree debreeStats = newDebree.GetComponent<Debree>();
 
             StatsTemplate newStats = ScriptableObject.CreateInstance<StatsTemplate>();

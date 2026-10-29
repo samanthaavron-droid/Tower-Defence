@@ -20,7 +20,7 @@ public class Turret : WeaponLogic
             GameObject projectile = GameObject.Instantiate(user.GetProjectilePrefab, user.transform.position, Quaternion.identity);
 
             Unit enemy = hit.GetComponent<Unit>();
-            Projectile enemyPj = projectile.GetComponent<Projectile>();
+            Projectile enemyPj = hit.GetComponent<Projectile>();
 
             if (enemy != null)
             {

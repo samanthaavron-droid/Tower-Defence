@@ -17,12 +17,12 @@ public class EnemyManager : MonoBehaviour
     private float initialBudget;
     private float score;
     private float cheapestUnit = float.MaxValue;
+    [SerializeField] private GameObject readyButton;
     [SerializeField] private TextMeshProUGUI waveNumber;
     void Start()
     {
         EnemyBase.enemyDeath -= EnemyDied;
         score = 0;
-        spawnDelay = spawnDelay / GlobalSettings.GetSetModifier;
         if (GlobalSettings.GetSetDifficulty > 1)
             initialBudget = waveBudget + (waveBudget * (0.5f * GlobalSettings.GetSetDifficulty));
         else
@@ -33,11 +33,14 @@ public class EnemyManager : MonoBehaviour
             float worth = enemy.GetComponent<Unit>().GetStatsTemplate.worth;
             if (worth < cheapestUnit) cheapestUnit = worth;
         }
-
-        StartCoroutine(SpawnWave());
         EnemyBase.enemyDeath += EnemyDied;
     }
-
+    public void StartWave()
+    {
+        if (Time.timeScale == 0) return;
+        readyButton.SetActive(false);
+        StartCoroutine(SpawnWave());
+    }
     void Update()
     {
     
@@ -52,18 +55,19 @@ public class EnemyManager : MonoBehaviour
     }
     private IEnumerator SpawnWave()
     {
-        waveNumber.text = "Wave #" + enemyWaveIndex;
-        Color c = waveNumber.color;
-        c.a = 1f;
-        waveNumber.color = c;
-        waveNumber.gameObject.SetActive(true);
-
         activeSpawnPos.Clear();
         activeEnemies.Clear();
         waveBudget = initialBudget * enemyWaveIndex;
 
         yield return new WaitForSeconds(spawnDelay);
-        Debug.Log("New Wave! #" + enemyWaveIndex);
+
+        yield return new WaitUntil(() => PauseMenu.getGameActive == true);
+
+        waveNumber.text = "Wave #" + enemyWaveIndex;
+        Color c = waveNumber.color;
+        c.a = 1f;
+        waveNumber.color = c;
+        waveNumber.gameObject.SetActive(true);
 
         while (waveBudget >= cheapestUnit)
         {
@@ -71,6 +75,7 @@ public class EnemyManager : MonoBehaviour
         }
         enemyWaveIndex++;
 
+        yield return new WaitForSeconds(1f);
         StartCoroutine(FadeOut());
     }
     private EnemyData CreateEnemy()

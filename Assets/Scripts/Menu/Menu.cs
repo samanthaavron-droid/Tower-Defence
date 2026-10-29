@@ -8,7 +8,8 @@ public class Menu : MonoBehaviour
     [SerializeField] private TextMeshProUGUI score;
     private void Start()
     {
-        score.text = "High Score: " + PlayerPrefs.GetFloat("score", 0);
+        if (score != null)
+            score.text = "High Score: " + PlayerPrefs.GetFloat("score", 0);
     }
     public void OnSliderDifficulty(float newValue)
     {
@@ -16,7 +17,7 @@ public class Menu : MonoBehaviour
     }
     public void OnSliderSpeed(float newValue)
     {
-        GlobalSettings.GetSetModifier = newValue;
+        GlobalSettings.SetTimeScale = newValue;
     }
     public void OnButtonLoad()
     {
