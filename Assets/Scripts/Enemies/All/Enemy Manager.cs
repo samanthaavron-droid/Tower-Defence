@@ -19,6 +19,7 @@ public class EnemyManager : MonoBehaviour
     private float cheapestUnit = float.MaxValue;
     [SerializeField] private GameObject readyButton;
     [SerializeField] private TextMeshProUGUI waveNumber;
+    private bool ready;
     void Start()
     {
         EnemyBase.enemyDeath -= EnemyDied;
@@ -43,7 +44,10 @@ public class EnemyManager : MonoBehaviour
     }
     void Update()
     {
-    
+        if (Input.GetMouseButton(0) && ready == false)
+        {
+            ready = true;
+        }
     }
     private void KeepScore()
     {
@@ -63,12 +67,24 @@ public class EnemyManager : MonoBehaviour
 
         yield return new WaitUntil(() => PauseMenu.getGameActive == true);
 
-        waveNumber.text = "Wave #" + enemyWaveIndex;
-        Color c = waveNumber.color;
-        c.a = 1f;
-        waveNumber.color = c;
-        waveNumber.gameObject.SetActive(true);
+        if (enemyWaveIndex != 1)
+        {
+            waveNumber.text = "Wave #" + enemyWaveIndex + "\nReady? Left Click";
+            Color c = waveNumber.color;
+            c.a = 1f;
+            waveNumber.color = c;
+            waveNumber.gameObject.SetActive(true);
+            ready = false;
 
+            yield return new WaitUntil(() => ready == true);
+        } else
+        {
+            waveNumber.text = "Wave #" + enemyWaveIndex;
+            Color c = waveNumber.color;
+            c.a = 1f;
+            waveNumber.color = c;
+            waveNumber.gameObject.SetActive(true);
+        }
         while (waveBudget >= cheapestUnit)
         {
             SpawnEnemy(CreateEnemy());
@@ -132,7 +148,7 @@ public class EnemyManager : MonoBehaviour
     private IEnumerator FadeOut()
     {
         float timeElapse = 0;
-        float timeToElapse = 1;
+        float timeToElapse = 0.5f;
         Color c = waveNumber.color;
 
         while (timeElapse < timeToElapse)

@@ -155,8 +155,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 260.6, y: 19.1}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 222.5, y: -37.6}
+  m_SizeDelta: {x: 250, y: 125}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &28941637
 MonoBehaviour:
@@ -178,7 +178,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Wave #555
+  m_text: 'Wave #5
+
+    Ready? Press Space'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
   m_sharedMaterial: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
@@ -5322,7 +5324,7 @@ MonoBehaviour:
   - {fileID: 2128588137}
   - {fileID: 1713486391}
   scoreBoard: {fileID: 223523922}
-  spawnDelay: 4
+  spawnDelay: 1
   waveBudget: 5
   readyButton: {fileID: 1947432420}
   waveNumber: {fileID: 28941637}
