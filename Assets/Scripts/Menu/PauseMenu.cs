@@ -21,17 +21,12 @@ public class PauseMenu : MonoBehaviour
     {
         if (gameActive == false) return;
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Escape) && Time.timeScale != 0)
         {
             Pause();
         }
-        if (Input.GetKeyDown(KeyCode.Escape) && Time.timeScale == 0)
-        {
-            if (pauseUi != null) pauseUi.SetActive(false);
-            EndGame();
-        }
     }
-    private void Pause()
+    public void Pause()
     {
         if (Time.timeScale != 0)
         {
@@ -45,6 +40,7 @@ public class PauseMenu : MonoBehaviour
     }
     public void EndGame()
     {
+        if (pauseUi != null) pauseUi.SetActive(false);
         gameActive = false;
         if (EndUi != null) EndUi.SetActive(true);
     }
