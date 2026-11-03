@@ -70,6 +70,7 @@ public class Builder : MonoBehaviour
                             currentPrefab = Instantiate(graber.GetPrefabUI, _currentCellPosition, Quaternion.identity);
                             currentPrefab.layer = 0;
                             _buildingOnMouse = true;
+                            currentPrefab.GetComponent<Collider2D>().enabled = false;
                             if (graber != null) graber.GetUI.SetActive(false);
                         }
                         else if (towerUp != null && towerUp.GetStatsRuntime.currentLevel < 3)
@@ -95,11 +96,9 @@ public class Builder : MonoBehaviour
 
         foreach (Collider2D hit in hits)
         {
-            if (newTower == null) newTower = hit.GetComponentInParent<BuildingBase>();
+            if (newTower == null) newTower = hit.GetComponent<BuildingBase>();
             if (newDebree == null) newDebree = hit.GetComponent<Debree>();
             if (newGraber == null) newGraber = hit.GetComponent<Grabber>();
-
-            //if (newTower != null || newDebree != null || newGraber != null) break;
         }
         if (newGraber != null)
         {
@@ -182,6 +181,7 @@ public class Builder : MonoBehaviour
             }
             currentTower.SetAlreadyPlaced = false;
             building.layer = 6; //Building layer
+            building.GetComponent<Collider2D>().enabled = true;
             building.transform.position = tilemap.GetCellCenterWorld(_currentCellPosition);
             occupiedCells.Add(_currentCellPosition);
 

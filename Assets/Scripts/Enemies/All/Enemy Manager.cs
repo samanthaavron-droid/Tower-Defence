@@ -44,7 +44,7 @@ public class EnemyManager : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetMouseButton(0) && ready == false)
+        if (Input.GetMouseButton(1) && ready == false)
         {
             ready = true;
         }
@@ -69,7 +69,7 @@ public class EnemyManager : MonoBehaviour
 
         if (enemyWaveIndex != 1)
         {
-            waveNumber.text = "Wave #" + enemyWaveIndex + "\nReady? Left Click";
+            waveNumber.text = "Wave #" + enemyWaveIndex + "\nReady? Right Click";
             Color c = waveNumber.color;
             c.a = 1f;
             waveNumber.color = c;
