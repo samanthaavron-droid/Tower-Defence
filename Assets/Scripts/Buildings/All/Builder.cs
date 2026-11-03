@@ -92,7 +92,7 @@ public class Builder : MonoBehaviour
     {
         if (towerUp == null) return;
 
-        towerUp.TakeDamage(1000f);
+        towerUp.TakeDamage(100f);
     }
     private void CheckBuildingOnMouse()
     {
@@ -134,7 +134,7 @@ public class Builder : MonoBehaviour
 
             if (debree != null && debree.GetPriceText != null && debree.GetStatsRuntime != null)
             {
-                debree.GetPriceText.text = "Removal:\n" + debree.GetStatsRuntime.debreeSize + "$";
+                debree.GetPriceText.text = "Removal:\n" + debree.GetStatsRuntime.debreeSize.ToString("F1") + "$";
                 debree.GetPriceText.gameObject.SetActive(true);
             }
         }
@@ -147,7 +147,7 @@ public class Builder : MonoBehaviour
 
             if (towerUp != null && towerUp.GetWeaponType != WeaponType.None && towerUp.GetUpgradeText != null && towerUp.GetWeaponLogic != null)
             {
-                towerUp.GetUpgradeText.text = "Upgrade:\n" + towerUp.GetStatsRuntime.worth * 0.5f + "$";
+                towerUp.GetUpgradeText.text = "Upgrade:\n" + (towerUp.GetStatsRuntime.worth * 0.5f).ToString("F1") + "$";
                 towerUp.GetUpgradeText.gameObject.SetActive(true);
             }
         }
