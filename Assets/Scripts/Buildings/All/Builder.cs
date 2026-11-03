@@ -60,6 +60,8 @@ public class Builder : MonoBehaviour
             CheckBuildingOnMouse();
             lastMousePos = Input.mousePosition;
         }
+        if (Input.GetKeyDown(KeyCode.R))
+            RemoveBuilding();
     }
     private void MouseControls()
     {
@@ -85,6 +87,12 @@ public class Builder : MonoBehaviour
             {
                 PlaceNewBuilding();
             }
+    }
+    private void RemoveBuilding()
+    {
+        if (towerUp == null) return;
+
+        towerUp.TakeDamage(1000f);
     }
     private void CheckBuildingOnMouse()
     {
@@ -119,15 +127,15 @@ public class Builder : MonoBehaviour
         }
         if (debree != newDebree)
         {
-            if (debree != null && debree.priceText != null)
-                debree.priceText.gameObject.SetActive(false);
+            if (debree != null && debree.GetPriceText != null)
+                debree.GetPriceText.gameObject.SetActive(false);
 
             debree = newDebree;
 
-            if (debree != null && debree.priceText != null)
+            if (debree != null && debree.GetPriceText != null && debree.GetStatsRuntime != null)
             {
-                debree.priceText.text = "Removal:\n" + debree.statsRuntime.debreeSize + "$";
-                debree.priceText.gameObject.SetActive(true);
+                debree.GetPriceText.text = "Removal:\n" + debree.GetStatsRuntime.debreeSize + "$";
+                debree.GetPriceText.gameObject.SetActive(true);
             }
         }
         if (towerUp != newTower)
@@ -212,7 +220,7 @@ public class Builder : MonoBehaviour
     }
     private void RemoveDebree() //starts the debree removal process and resets the builder
     {
-        if (Transaction(debree.statsRuntime.debreeSize))
+        if (Transaction(debree.GetStatsRuntime.debreeSize))
             debree.StartRemoval(this);
     }
     public void AddResource(float amount)

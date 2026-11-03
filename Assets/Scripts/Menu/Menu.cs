@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 public class Menu : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI score;
+    [SerializeField] private GameObject controls;
+    [SerializeField] private GameObject mainCanvas;
     private void Start()
     {
         if (score != null)
@@ -22,5 +24,24 @@ public class Menu : MonoBehaviour
     public void OnButtonLoad()
     {
         SceneManager.LoadScene(1);
+    }
+    public void ExitGame()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
+        Application.Quit();
+    }
+    public void LoadControls()
+    {
+        if (controls.activeSelf == false)
+        {
+            controls.SetActive(true);
+            mainCanvas.SetActive(false);
+        } else
+        {
+            controls.SetActive(false);
+            mainCanvas.SetActive(true);
+        }
     }
 }

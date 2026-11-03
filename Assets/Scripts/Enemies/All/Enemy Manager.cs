@@ -18,6 +18,7 @@ public class EnemyManager : MonoBehaviour
     private float score;
     private float cheapestUnit = float.MaxValue;
     [SerializeField] private GameObject readyButton;
+    [SerializeField] private GameObject readyButton2;
     [SerializeField] private TextMeshProUGUI waveNumber;
     private bool ready;
     void Start()
@@ -61,7 +62,7 @@ public class EnemyManager : MonoBehaviour
     {
         activeSpawnPos.Clear();
         activeEnemies.Clear();
-        waveBudget = initialBudget * enemyWaveIndex;
+        waveBudget = initialBudget * Mathf.Pow(enemyWaveIndex, 1.5f);
 
         yield return new WaitForSeconds(spawnDelay);
 
@@ -69,13 +70,14 @@ public class EnemyManager : MonoBehaviour
 
         if (enemyWaveIndex != 1)
         {
-            waveNumber.text = "Wave #" + enemyWaveIndex + "\nReady? Press Space";
+            waveNumber.text = "Wave #" + enemyWaveIndex + "\nReady? Press Space or Ready";
             Color c = waveNumber.color;
             c.a = 1f;
             waveNumber.color = c;
             waveNumber.gameObject.SetActive(true);
             ready = false;
-
+            readyButton2.SetActive(true);
+            StartCoroutine(FadeOut());
             yield return new WaitUntil(() => ready == true);
         } else
         {
@@ -84,15 +86,12 @@ public class EnemyManager : MonoBehaviour
             c.a = 1f;
             waveNumber.color = c;
             waveNumber.gameObject.SetActive(true);
+            StartCoroutine(FadeOut());
         }
         while (waveBudget >= cheapestUnit)
         {
             SpawnEnemy(CreateEnemy());
         }
-        enemyWaveIndex++;
-
-        yield return new WaitForSeconds(1f);
-        StartCoroutine(FadeOut());
     }
     private EnemyData CreateEnemy()
     {
@@ -142,13 +141,14 @@ public class EnemyManager : MonoBehaviour
 
         if (activeEnemies.Count == 0)
         {
+            enemyWaveIndex++;
             StartCoroutine(SpawnWave());
         }
     }
     private IEnumerator FadeOut()
     {
         float timeElapse = 0;
-        float timeToElapse = 0.5f;
+        float timeToElapse = 3f;
         Color c = waveNumber.color;
 
         while (timeElapse < timeToElapse)
@@ -162,6 +162,11 @@ public class EnemyManager : MonoBehaviour
         c.a = 0f;
         waveNumber.color = c;
         waveNumber.gameObject.SetActive(false);
+    }
+    public void ReadyButton()
+    {
+        ready = true;
+        readyButton2.SetActive(false);
     }
 }
 public class EnemyData

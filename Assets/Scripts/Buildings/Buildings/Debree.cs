@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Debree : MonoBehaviour
 {
-    public StatsRuntime statsRuntime;
-    public TextMeshProUGUI priceText;
+    private StatsRuntime statsRuntime;
+    public StatsRuntime GetStatsRuntime { get {  return statsRuntime; } set { statsRuntime = value; }  }
+    [SerializeField] private TextMeshProUGUI priceText;
+    public TextMeshProUGUI GetPriceText { get { return priceText; } set { priceText = value; }  }
     private SpriteRenderer spriteRenderer;
     private void Start()
     {

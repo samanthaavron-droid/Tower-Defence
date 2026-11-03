@@ -12,6 +12,8 @@ public class Grabber : MonoBehaviour
     [SerializeField] private Vector3 worldOffset;
     private StatsTemplate statsTemplate;
     private RectTransform rectTransform;
+    [SerializeField] private TextMeshProUGUI info;
+    [SerializeField] private string infoText;
     void Awake()
     {
         statsTemplate = prefabIU.GetComponent<Unit>().GetStatsTemplate;
@@ -30,5 +32,8 @@ public class Grabber : MonoBehaviour
 
         towerName.text = gameObject.name;
         stats.text = "Health: " + statsTemplate.health + "\nPrice: " + statsTemplate.worth + "\nAttack Range: " + (statsTemplate.attackRange / 1.4).ToString("F0") + "\nDamage: " + statsTemplate.damage + "\nRecharge: " + statsTemplate.rechargeTime + "s\nBullet Speed: " + statsTemplate.projectileSpeed + "\nBuilding Time: " + statsTemplate.buildingSpeed + "s";
+
+        if (info != null && infoText != null)
+            info.text = infoText;
     }
 }

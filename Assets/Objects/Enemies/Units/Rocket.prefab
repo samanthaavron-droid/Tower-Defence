@@ -52,14 +52,13 @@ MonoBehaviour:
   projectilePrefab: {fileID: 5511200396173975279, guid: cb752b36d83ba6947af3ce2e14c6b5da, type: 3}
   spriteRenderer: {fileID: 0}
   healthBar: {fileID: 0}
-  maxHealth: 0
   alreadyPlaced: 0
-  direction: {x: 0, y: 0, z: 0}
   upgradeText: {fileID: 0}
   upgradeEffect: {fileID: 0}
   line: {fileID: 0}
   fireEffect: {fileID: 0}
   hitEffect: {fileID: 7402364949123044447}
+  attackRadius: {fileID: 0}
 --- !u!1 &7022751652202769766
 GameObject:
   m_ObjectHideFlags: 0
@@ -103,7 +102,7 @@ ParticleSystem:
   serializedVersion: 8
   lengthInSec: 3
   simulationSpeed: 1
-  stopAction: 0
+  stopAction: 2
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}

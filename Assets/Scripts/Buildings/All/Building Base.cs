@@ -119,7 +119,7 @@ public class BuildingBase : Unit //this code runs when the building is created
             GameObject debree = Instantiate(debreePrefab, transform.position, Quaternion.identity);
             Debree debS = debree.GetComponent<Debree>();
 
-            debS.statsRuntime = statsRuntime;
+            debS.GetStatsRuntime = statsRuntime;
 
             Destroy(gameObject);
         } else

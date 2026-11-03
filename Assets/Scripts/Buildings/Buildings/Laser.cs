@@ -27,6 +27,8 @@ public class Laser : WeaponLogic
 
             if (hit == true)
             {
+                if (OnScreen(hit.transform.position) == false) return;
+
                 user.GetLine.SetPosition(1, hit.point);
 
                 LaserHitEffect(user, hit);

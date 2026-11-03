@@ -78,7 +78,7 @@ public class DifficultyLevel : MonoBehaviour
 
             StatsTemplate newStats = ScriptableObject.CreateInstance<StatsTemplate>();
             newStats.debreeSize = Random.Range(5, 15);
-            debreeStats.statsRuntime = new(newStats);
+            debreeStats.GetStatsRuntime = new(newStats);
         }
     }
 }

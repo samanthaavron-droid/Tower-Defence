@@ -18,7 +18,8 @@ public class Projectile : MonoBehaviour
     
     void Start()
     {
-        StartCoroutine(DelayDestroy());
+        if (target == null)
+            StartCoroutine(DelayDestroy());
     }
 
     void Update()
@@ -32,19 +33,20 @@ public class Projectile : MonoBehaviour
             transform.position += futurePos * statsRuntime.projectileSpeed * Time.deltaTime;
         }
     }
+    private void DestroyProjectile()
+    {
+        if (user != null)
+        {
+            user.TakeDamage(1000f);
+        }
+        Destroy(gameObject);
+    }
     public void TakeDamage(float damage)
     {
         statsRuntime.projectileHealth -= damage;
         if (statsRuntime.projectileHealth <= 0)
         {
-            if (user != null)
-            {
-                user.TakeDamage(1000);
-                Destroy(gameObject);
-            } else
-            {
-                Destroy(gameObject);
-            }
+            DestroyProjectile();
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -92,14 +94,14 @@ public class Projectile : MonoBehaviour
                     HitEffect();
                     projectile.TakeDamage(statsRuntime.damage);
                 }
-                Destroy(gameObject);
+                DestroyProjectile();
             }
         }
     }
     private IEnumerator DelayDestroy()
     {
         yield return new WaitForSeconds(10);
-        Destroy(gameObject);
+        DestroyProjectile();
     }
     private void HitEffect()
     {

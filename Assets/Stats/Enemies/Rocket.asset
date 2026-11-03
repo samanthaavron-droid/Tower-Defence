@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StatsTemplate
   health: 0
   attackRange: 50
-  projectileSpeed: 10
+  projectileSpeed: 12
   damage: 3
-  projectileHealth: 0.5
+  projectileHealth: 1
   rechargeTime: 100
   debreeSize: 0
   buildingSpeed: 0
