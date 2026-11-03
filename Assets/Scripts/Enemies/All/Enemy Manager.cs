@@ -47,7 +47,7 @@ public class EnemyManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && ready == false)
         {
-            ready = true;
+            ReadyButton();
         }
     }
     private void KeepScore()
