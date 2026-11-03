@@ -20,6 +20,7 @@ public class Menu : MonoBehaviour
     public void OnSliderSpeed(float newValue)
     {
         GlobalSettings.SetTimeScale = newValue;
+        Time.timeScale = newValue;
     }
     public void OnButtonLoad()
     {
