@@ -103,7 +103,8 @@ public class WeaponLogic //this is the class on which weapons are built
         user.UpdateHealthBar();
         statsRuntime.debreeSize = statsRuntime.debreeSize * 1.25f;
         statsRuntime.rechargeTime = statsRuntime.rechargeTime * 0.9f;
-        statsRuntime.worth = statsRuntime.worth * 2.1f;
+        statsRuntime.worth = statsRuntime.worth * 1.5f;
+        if (statsRuntime.worth > 60) statsRuntime.worth = 60;
         statsRuntime.damage = statsRuntime.damage * 1.25f;
         statsRuntime.currentLevel += 1;
     }

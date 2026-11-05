@@ -66,7 +66,7 @@ public class EnemyManager : MonoBehaviour
     {
         activeSpawnPos.Clear();
         activeEnemies.Clear();
-        waveBudget = initialBudget * Mathf.Pow(enemyWaveIndex, 1.5f);
+        waveBudget = initialBudget * Mathf.Pow(enemyWaveIndex, 1.3f);
 
         yield return new WaitForSeconds(spawnDelay);
 
@@ -145,7 +145,7 @@ public class EnemyManager : MonoBehaviour
     {
         activeEnemies.Remove(enemy.gameObject);
 
-        Builder.instance.AddResource(enemy.GetStatsTemplate.worth); //adding money to the builder
+        Builder.instance.AddResource(enemy.GetStatsRuntime.worth * 0.75f); //adding money to the builder
         Destroy(enemy.gameObject);
 
         KeepScore();

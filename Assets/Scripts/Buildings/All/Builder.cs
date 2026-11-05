@@ -176,14 +176,21 @@ public class Builder : MonoBehaviour
     }
     private void RunUpgrader(BuildingBase tower)
     {
-        if (towerUp.GetWeaponType == WeaponType.None) return;
+        if (tower.GetWeaponType == WeaponType.None) return;
         if (tower.GetWeaponLogic == null) return;
         if (tower.GetStatsRuntime.currentLevel + 1 > EnemyManager.instance.getEnemyWave) return;
         if (Transaction(tower.GetStatsRuntime.worth * 0.5f))
         {
             tower.LevelUp();
-            if (towerUp.GetUpgradeText == null) return;
-            towerUp.GetUpgradeText.text = "Upgrade:\n" + (towerUp.GetStatsRuntime.worth * 0.5f).ToString("F1") + "$";
+            if (tower.GetUpgradeText == null) return;
+
+            if (tower.GetStatsRuntime.currentLevel + 1 > EnemyManager.instance.getEnemyWave)
+            {
+                tower.GetUpgradeText.text = "more waves required";
+            } else
+            {
+                tower.GetUpgradeText.text = "Upgrade:\n" + (towerUp.GetStatsRuntime.worth * 0.5f).ToString("F1") + "$";
+            }
         }
     }
     private void PlaceNewBuilding()
