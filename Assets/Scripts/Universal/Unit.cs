@@ -20,7 +20,7 @@ public class Unit : MonoBehaviour
     [SerializeField] protected Image healthBar;
     public Image GetHealthBar {  get { return healthBar; } }
     [HideInInspector] protected float maxHealth;
-    public float GetMaxHealth { get { return maxHealth; } }
+    public float GetMaxHealth { get { return maxHealth; }  set { maxHealth = value; } }
     [SerializeField] protected bool alreadyPlaced;
     public bool SetAlreadyPlaced {set { alreadyPlaced = value; } }
     [HideInInspector] protected Vector3 direction;
@@ -65,15 +65,18 @@ public class Unit : MonoBehaviour
         {
             Death();
         }
-
-        if (healthBar != null)
-        {
-            healthBar.fillAmount = statsRuntime.health / maxHealth;
-        }
+        UpdateHealthBar();
     }
     protected virtual void Death()
     {
 
+    }
+    public void UpdateHealthBar()
+    {
+        if (healthBar != null)
+        {
+            healthBar.fillAmount = statsRuntime.health / maxHealth;
+        }
     }
 }
 public enum WeaponType

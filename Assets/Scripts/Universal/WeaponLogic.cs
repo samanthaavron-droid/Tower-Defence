@@ -86,6 +86,8 @@ public class WeaponLogic //this is the class on which weapons are built
     public virtual void LevelUpTower(Unit user)
     {
         statsRuntime.health = statsRuntime.health * 2f;
+        user.GetMaxHealth = user.GetMaxHealth * 2f;
+        user.UpdateHealthBar();
         statsRuntime.attackRange = statsRuntime.attackRange * 1.25f;
         statsRuntime.currentLevel += 1;
         statsRuntime.debreeSize = statsRuntime.debreeSize * 1.25f;
@@ -96,10 +98,12 @@ public class WeaponLogic //this is the class on which weapons are built
     public virtual void LevelUpPast3(Unit user)
     {
         statsRuntime.health = statsRuntime.health * 1.2f;
+        user.GetMaxHealth = user.GetMaxHealth * 1.2f;
         statsRuntime.health = user.GetMaxHealth;
+        user.UpdateHealthBar();
         statsRuntime.debreeSize = statsRuntime.debreeSize * 1.25f;
         statsRuntime.rechargeTime = statsRuntime.rechargeTime * 0.9f;
-        statsRuntime.worth = statsRuntime.worth * 1.8f;
+        statsRuntime.worth = statsRuntime.worth * 2.1f;
         statsRuntime.damage = statsRuntime.damage * 1.25f;
         statsRuntime.currentLevel += 1;
     }
