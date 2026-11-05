@@ -16,7 +16,7 @@ public class Unit : MonoBehaviour
     [SerializeField] protected GameObject debreePrefab;
     [SerializeField] protected GameObject projectilePrefab;
     public GameObject GetProjectilePrefab {  get { return projectilePrefab; } }
-    [HideInInspector] public SpriteRenderer spriteRenderer;
+    [HideInInspector] protected SpriteRenderer spriteRenderer;
     [SerializeField] protected Image healthBar;
     public Image GetHealthBar {  get { return healthBar; } }
     [HideInInspector] protected float maxHealth;
