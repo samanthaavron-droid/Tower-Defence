@@ -18,6 +18,10 @@ public class BuildingBase : Unit //this code runs when the building is created
     {
         if (healthBar != null)
             healthBar.fillAmount = 1f;
+        if (weaponType == WeaponType.None)
+        {
+            StartCoroutine(StartBuilding());
+        }
     }
     protected override void Update()
     {

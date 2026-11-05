@@ -67,22 +67,23 @@ public class Builder : MonoBehaviour
     {
             if (currentPrefab == null)
             {
-                        if (graber != null)
-                        {
-                            currentPrefab = Instantiate(graber.GetPrefabUI, _currentCellPosition, Quaternion.identity);
-                            currentPrefab.layer = 0;
-                            _buildingOnMouse = true;
-                            currentPrefab.GetComponent<Collider2D>().enabled = false;
-                            if (graber != null) graber.GetUI.SetActive(false);
-                        }
-                        else if (towerUp != null && towerUp.GetStatsRuntime.currentLevel < 3)
-                        {
-                            RunUpgrader(towerUp);
-                        }
-                        else if (debree != null)
-                        {
-                            RemoveDebree();
-                        }
+            if (graber != null)
+            {
+                currentPrefab = Instantiate(graber.GetPrefabUI, _currentCellPosition, Quaternion.identity);
+                currentPrefab.layer = 0;
+                _buildingOnMouse = true;
+                currentPrefab.GetComponent<Collider2D>().enabled = false;
+                if (graber != null) graber.GetUI.SetActive(false);
+            }
+            else if (towerUp != null && towerUp.GetStatsRuntime != null)
+            {
+                if (towerUp.GetStatsRuntime.currentLevel < 3 && towerUp.GetStatsRuntime.priority == false)
+                    RunUpgrader(towerUp);
+            }
+            else if (debree != null)
+            {
+                RemoveDebree();
+            }
             } else if (currentPrefab != null) //if you have something selected, tries to use it
             {
                 PlaceNewBuilding();
@@ -91,6 +92,8 @@ public class Builder : MonoBehaviour
     private void RemoveBuilding()
     {
         if (towerUp == null) return;
+        if (towerUp.GetStatsRuntime.priority == true) return;
+
 
         towerUp.TakeDamage(100f);
     }
