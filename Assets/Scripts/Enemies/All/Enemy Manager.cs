@@ -6,10 +6,12 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
+    public static EnemyManager instance;
     [SerializeField] private GameObject[] enemyPrefabs;
     [SerializeField] private Transform[] spawnPoss;
     [SerializeField] private TextMeshProUGUI scoreBoard;
     private int enemyWaveIndex = 1;
+    public int getEnemyWave { get { return enemyWaveIndex; } }
     private List<GameObject> activeEnemies = new();
     private List<Vector3> activeSpawnPos = new();
     [SerializeField] private float spawnDelay;
@@ -23,6 +25,8 @@ public class EnemyManager : MonoBehaviour
     private bool ready;
     void Start()
     {
+        instance = this;
+
         EnemyBase.enemyDeath -= EnemyDied;
         score = 0;
         if (GlobalSettings.GetSetDifficulty > 1)

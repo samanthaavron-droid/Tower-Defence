@@ -153,9 +153,17 @@ public class Builder : MonoBehaviour
 
             if (towerUp != null && towerUp.GetWeaponType != WeaponType.None && towerUp.GetUpgradeText != null && towerUp.GetWeaponLogic != null)
             {
-                towerUp.GetUpgradeText.text = "Upgrade:\n" + (towerUp.GetStatsRuntime.worth * 0.5f).ToString("F1") + "$";
-                towerUp.GetUpgradeText.gameObject.SetActive(true);
-                towerUp.getLevelUI.SetActive(true);
+                if (towerUp.GetStatsRuntime.currentLevel + 1 > EnemyManager.instance.getEnemyWave)
+                {
+                    towerUp.GetUpgradeText.text = "more waves required";
+                    towerUp.GetUpgradeText.gameObject.SetActive(true);
+                    towerUp.getLevelUI.SetActive(true);
+                } else
+                {
+                    towerUp.GetUpgradeText.text = "Upgrade:\n" + (towerUp.GetStatsRuntime.worth * 0.5f).ToString("F1") + "$";
+                    towerUp.GetUpgradeText.gameObject.SetActive(true);
+                    towerUp.getLevelUI.SetActive(true);
+                }
             }
         }
     }
@@ -170,6 +178,7 @@ public class Builder : MonoBehaviour
     {
         if (towerUp.GetWeaponType == WeaponType.None) return;
         if (tower.GetWeaponLogic == null) return;
+        if (tower.GetStatsRuntime.currentLevel + 1 > EnemyManager.instance.getEnemyWave) return;
         if (Transaction(tower.GetStatsRuntime.worth * 0.5f))
         {
             tower.LevelUp();

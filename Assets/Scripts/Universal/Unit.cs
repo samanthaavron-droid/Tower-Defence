@@ -47,10 +47,6 @@ public class Unit : MonoBehaviour
     {
         
     }
-    protected void Attack()
-    {
-        weaponLogic.Attack(this);
-    }
     public virtual void TakeDamage(float damage)
     {
         if (statsRuntime == null)
