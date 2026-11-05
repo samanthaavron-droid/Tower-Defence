@@ -36,7 +36,8 @@ public class Unit : MonoBehaviour
     public ParticleSystem GetHitEffect { get { return hitEffect; } }
     [SerializeField] protected GameObject attackRadius;
     public GameObject GetAttackRadius { get { return attackRadius; } }
-
+    [SerializeField] protected TextMeshProUGUI levelUI;
+    public GameObject getLevelUI { get { return levelUI.gameObject; } }
     protected virtual void Start()
     {
         

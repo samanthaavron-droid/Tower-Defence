@@ -3,10 +3,13 @@ using UnityEngine;
 public class EnemyBase : Unit //this code runs when the enemy is created
 {
     public static event Action<EnemyBase> enemyDeath;
-    protected override void Start()
+    private void Awake()
     {
         SetType();
         statsRuntime = new(statsTemplate);
+    }
+    protected override void Start()
+    {
         direction = Vector3.left;
 
         maxHealth = statsRuntime.health;
@@ -14,7 +17,6 @@ public class EnemyBase : Unit //this code runs when the enemy is created
         if (healthBar != null)
             healthBar.fillAmount = 1f;
     }
-
     protected override void Update()
     {
         if (weaponLogic != null)

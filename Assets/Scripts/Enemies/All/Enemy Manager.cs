@@ -128,6 +128,13 @@ public class EnemyManager : MonoBehaviour
 
             GameObject newEnemy = Instantiate(enemy.enemyPrefab, enemy.spawnPos, Quaternion.identity);
             activeEnemies.Add(newEnemy);
+
+            EnemyBase newBase = newEnemy.GetComponent<EnemyBase>();
+            int level = enemyWaveIndex / 4;
+            for (int i = 0; i < level; i++)
+            {
+                newBase.GetWeaponLogic.LevelUpEnemy(newBase);
+            }
         }
     }
     public void EnemyDied(EnemyBase enemy)

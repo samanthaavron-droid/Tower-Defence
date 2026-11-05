@@ -77,7 +77,7 @@ public class Builder : MonoBehaviour
             }
             else if (towerUp != null && towerUp.GetStatsRuntime != null)
             {
-                if (towerUp.GetStatsRuntime.currentLevel < 3 && towerUp.GetStatsRuntime.priority == false)
+                if (towerUp.GetStatsRuntime.priority == false)
                     RunUpgrader(towerUp);
             }
             else if (debree != null)
@@ -144,7 +144,10 @@ public class Builder : MonoBehaviour
         if (towerUp != newTower)
         {
             if (towerUp != null && towerUp.GetUpgradeText != null)
+            {
                 towerUp.GetUpgradeText.gameObject.SetActive(false);
+                towerUp.getLevelUI.SetActive(false);
+            }
 
             towerUp = newTower;
 
@@ -152,6 +155,7 @@ public class Builder : MonoBehaviour
             {
                 towerUp.GetUpgradeText.text = "Upgrade:\n" + (towerUp.GetStatsRuntime.worth * 0.5f).ToString("F1") + "$";
                 towerUp.GetUpgradeText.gameObject.SetActive(true);
+                towerUp.getLevelUI.SetActive(true);
             }
         }
     }
@@ -165,13 +169,12 @@ public class Builder : MonoBehaviour
     private void RunUpgrader(BuildingBase tower)
     {
         if (towerUp.GetWeaponType == WeaponType.None) return;
-        if (tower.GetStatsRuntime.currentLevel == 3) return;
         if (tower.GetWeaponLogic == null) return;
         if (Transaction(tower.GetStatsRuntime.worth * 0.5f))
         {
             tower.LevelUp();
             if (towerUp.GetUpgradeText == null) return;
-            towerUp.GetUpgradeText.text = "Upgrade:\n" + towerUp.GetStatsRuntime.worth * 0.5f + "$";
+            towerUp.GetUpgradeText.text = "Upgrade:\n" + (towerUp.GetStatsRuntime.worth * 0.5f).ToString("F1") + "$";
         }
     }
     private void PlaceNewBuilding()

@@ -83,7 +83,7 @@ public class WeaponLogic //this is the class on which weapons are built
         }
         else return false;
     }
-    public virtual void LevelUpTower(Unit user) //Unit user
+    public virtual void LevelUpTower(Unit user)
     {
         statsRuntime.health = statsRuntime.health * 2f;
         statsRuntime.attackRange = statsRuntime.attackRange * 1.25f;
@@ -92,6 +92,23 @@ public class WeaponLogic //this is the class on which weapons are built
         statsRuntime.rechargeTime = statsRuntime.rechargeTime * 0.75f;
         statsRuntime.worth = statsRuntime.worth * 1.5f;
         statsRuntime.damage = statsRuntime.damage * 1.25f;
+    }
+    public virtual void LevelUpPast3(Unit user)
+    {
+        statsRuntime.health = statsRuntime.health * 1.2f;
+        statsRuntime.health = user.GetMaxHealth;
+        statsRuntime.debreeSize = statsRuntime.debreeSize * 1.25f;
+        statsRuntime.rechargeTime = statsRuntime.rechargeTime * 0.9f;
+        statsRuntime.worth = statsRuntime.worth * 1.8f;
+        statsRuntime.damage = statsRuntime.damage * 1.25f;
+        statsRuntime.currentLevel += 1;
+    }
+    public virtual void LevelUpEnemy(Unit user)
+    {
+        statsRuntime.health = statsRuntime.health * 1.5f;
+        statsRuntime.attackRange = statsRuntime.attackRange * 1.25f;
+        statsRuntime.currentLevel += 1;
+        statsRuntime.damage = statsRuntime.damage * 1.5f;
     }
     protected virtual void FireEffectPlay(Unit user)
     {

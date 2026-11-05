@@ -34,17 +34,18 @@ public class BuildingBase : Unit //this code runs when the building is created
     public void LevelUp()
     {
         if (weaponLogic != null)
+        {
             if (statsRuntime.currentLevel < 3)
             {
                 weaponLogic.LevelUpTower(this);
                 upgradeEffect.Play();
-
-                if (statsRuntime.currentLevel == 3)
-                {
-                    upgradeText.gameObject.SetActive(false);
-                    upgradeText = null;
-                }
+            } else if (statsRuntime.currentLevel >= 3)
+            {
+                weaponLogic.LevelUpPast3(this);
+                upgradeEffect.Play();
             }
+        }
+        levelUI.text = statsRuntime.currentLevel.ToString();
     }
     private void DrawRadius()
     {
